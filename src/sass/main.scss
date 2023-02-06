@@ -1,0 +1,13 @@
+@import "abstracts/variables";
+@import "base/global";
+@import "base/reset";
+@import "base/typography";
+
+@import "components/header";
+@import "components/banner";
+@import "components/marquee";
+@import "components/loader";
+
+@import "pages/home";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200&display=swap');

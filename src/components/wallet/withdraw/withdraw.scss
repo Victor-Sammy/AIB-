@@ -1,0 +1,70 @@
+.withdrawal-page {
+  width: 948px;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .withdrawal-component {
+    width: 551px;
+
+    .withdrawal-pt {
+      font-weight: 700;
+      font-size: 20px;
+      color: #00000066;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .bank-bal {
+      height: 100px;
+      width: 100%;
+      background: #f7931a;
+      border-radius: 10px;
+      margin-top: 80px;
+      color: #fff;
+      padding: 15px 33px;
+      box-sizing: border-box;
+
+      .bal-comp {
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        & > :nth-child(2) {
+          cursor: pointer;
+        }
+      }
+
+      & > :nth-child(2) {
+        font-size: 22px;
+        font-weight: 700;
+      }
+    }
+    .withdrawal-ph {
+      margin-top: 70px;
+      margin-bottom: 20px;
+      padding-left: 10px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #000000;
+    }
+    .fields {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        width: 100%;
+      }
+    }
+    .w-btn {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+  }
+}

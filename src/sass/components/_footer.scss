@@ -1,0 +1,131 @@
+.footer {
+  width: 100%;
+  height: 608px;
+  background: #012348;
+  .foot-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 192px;
+    .f-logo {
+      width: 350px;
+    }
+    .f-logo img {
+      display: flex;
+      width: 106px;
+      margin-left: 0px;
+      padding-top: 40px;
+      margin-right: 210px;
+    }
+
+    .newsletter {
+      width: 502px;
+      height: 99px;
+      margin-right: 105px;
+      h1 {
+        font-size: 18px;
+        line-height: 27px;
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 0 !important;
+      }
+      p {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 300;
+        color: #ffffff;
+        margin-top: 0 !important;
+      }
+      .input {
+        position: relative;
+        input {
+          width: 502px;
+          height: 48px;
+          border-radius: 75px;
+          border: none;
+          outline: none;
+          background: #f6f6f6;
+          &::placeholder {
+            font-size: 12px;
+            font-weight: 400;
+            color: #949494;
+            line-height: 18px;
+            padding-left: 5.58%;
+            padding-top: 31.25%;
+          }
+        }
+        span {
+          position: absolute;
+          top: 9%;
+          right: 0.3%;
+          .send-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fe7702;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 2.5rem;
+          }
+        }
+      }
+    }
+
+    .download {
+      .down-top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 32px;
+        .logo-img {
+          width: 40.02px;
+          height: 40px;
+          margin-right: 12.32px;
+          img {
+            width: 40.02px;
+            height: 40px;
+          }
+        }
+        .download-text {
+          h1 {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 27px;
+            color: #ffffff;
+            margin-bottom: 0 !important;
+          }
+          p {
+            font-size: 12px;
+            font-weight: 300;
+            color: #ffffff;
+            margin-top: 0 !important;
+          }
+        }
+      }
+      .download-btns {
+        display: flex;
+        .btn-1 {
+          width: 137px;
+          height: 41px;
+          background: #012348;
+          border: none;
+          cursor: pointer;
+          img {
+            width: 137px;
+            height: 41px;
+          }
+        }
+        .btn-2 {
+          width: 137px;
+          height: 41px;
+          background: #012348;
+          border: none;
+          cursor: pointer;
+          img {
+            width: 137px;
+            height: 41px;
+          }
+        }
+      }
+    }
+  }
+}

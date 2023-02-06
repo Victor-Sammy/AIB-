@@ -1,0 +1,63 @@
+.dash-nav {
+  width: 292px;
+  height: calc(100vh - 108px);
+  position: absolute;
+  left: 0;
+
+  .nav-body {
+    padding: 20px;
+
+    .links {
+      display: flex;
+      justify-content: center;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        div {
+          padding: 0.6rem 1.5rem;
+          border-radius: 50px;
+          background: #fff;
+          color: #202020;
+          font-size: 12px;
+          font-weight: 300;
+          cursor: pointer;
+
+          &:hover {
+            background: #dbe9ff;
+
+            li {
+              color: #202020;
+            }
+          }
+
+          li {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+          }
+        }
+        .active {
+          background: #fe7702;
+          li {
+            color: #fff;
+          }
+
+          &:hover {
+            background: #fe7702;
+            li {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

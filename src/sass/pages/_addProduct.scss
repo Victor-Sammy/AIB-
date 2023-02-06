@@ -1,0 +1,41 @@
+.addProduct {
+    min-height: 100vh;
+    padding-left: 100px;
+    padding-right: 100px;
+    .ap-back {
+        margin-top: 158px;
+        font-size: 25px;
+        cursor: pointer;
+    }
+    .ap-title {
+        position: relative;
+        left: 45%;
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+        opacity: 80%;
+        margin-bottom: 55px;
+    }
+    .ap-category {
+        position: relative;
+        left: 35%;
+        width: 400px;
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .cat-select {
+            width: 400px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee9e4;
+            border-radius: 10px;
+            border: none;
+        }
+    }
+    
+}

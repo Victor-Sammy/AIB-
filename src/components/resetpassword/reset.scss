@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200&display=swap");
+
+.reset-page {
+  width: 1240px;
+  margin: auto;
+  margin-top: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+
+  .back-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 40px;
+    cursor: pointer;
+  }
+
+  .reset-container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding-bottom: 200px;
+    font-family: "Poppins", sans-serif;
+
+    .r-head {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      color: #00000066;
+    }
+    .r-email-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      .r-label {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #000000;
+      }
+      input {
+        height: 54px;
+        width: 500px;
+        padding: 0 20px;
+        border: 1px solid #012348;
+        border-radius: 39px;
+        background: #f6f6f6;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .r-btn {
+      button {
+        width: 165px;
+        border-radius: 74px;
+      }
+    }
+  }
+}
+
+.otp-page {
+  width: 1240px;
+  margin: auto;
+  margin-top: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+
+  .back-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 40px;
+    cursor: pointer;
+  }
+
+  .otp-container {
+    width: 678px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding-bottom: 200px;
+    font-family: "Poppins", sans-serif;
+
+    .otp-head {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .otp-input {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .otp-form-field {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+
+        .otp-field {
+          height: 70px;
+          width: 45px;
+          border-radius: 10px;
+          border: 1px solid #012348;
+          background: #f6f6f6;
+          text-align: center;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .resend-otp {
+        color: #fa0000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: right;
+
+        & > span {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .otp-btn {
+      margin-top: 40px;
+      button {
+        width: 137px;
+        border-radius: 74px;
+      }
+    }
+  }
+}
+
+.c-pass-page {
+  width: 1240px;
+  margin: auto;
+  margin-top: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+
+  .back-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 40px;
+    cursor: pointer;
+  }
+
+  .c-pass-container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding-bottom: 200px;
+    font-family: "Poppins", sans-serif;
+
+    .c-pass-box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+
+      .pass-head {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 30px;
+        color: #000000;
+      }
+      .pass-field {
+        width: 100%;
+        position: relative;
+
+        .pass-input {
+          width: 100%;
+          height: 54px;
+          border-radius: 39px;
+          background: #f6f6f6;
+          border: 1px solid #012348;
+          padding-left: 30px;
+          padding-right: 60px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+        .pass-visible {
+          position: absolute;
+          top: 8px;
+          right: 25px;
+          font-size: 25px;
+          cursor: pointer;
+          color: #012348;
+        }
+        .error {
+          font-size: 12px;
+          font-weight: 300;
+          color: rgb(195, 48, 48);
+          transform: translateX(32px);
+          height: fit-content;
+        }
+      }
+    }
+
+    .pass-btn {
+      margin-top: 40px;
+      button {
+        width: 144px;
+        border-radius: 74px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+.reset-success-page {
+  width: 1240px;
+  margin: auto;
+  margin-top: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+
+  .back-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 40px;
+    cursor: pointer;
+  }
+
+  .r-success-container {
+    width: 780px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 500px;
+    font-family: "Poppins", sans-serif;
+
+    .success-head {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 48px;
+      color: #74dc0c;
+    }
+  }
+}

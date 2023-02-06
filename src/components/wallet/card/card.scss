@@ -1,0 +1,90 @@
+.card-page {
+  width: 948px;
+  height: 120vh;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .card-component {
+    width: 551px;
+
+    & > a {
+      text-decoration: none;
+    }
+
+    .card-pt {
+      font-weight: 700;
+      font-size: 20px;
+      color: #00000066;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .card-ph {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      & > :nth-child(1) {
+        font-size: 15px;
+        font-weight: 500;
+        color: #000000;
+      }
+      & > :nth-child(2) {
+        font-size: 18px;
+        font-weight: 500;
+        color: #000000;
+      }
+    }
+    .fields {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        width: 551px;
+      }
+    }
+    .fields-2 {
+      display: flex;
+      justify-content: space-between;
+
+      input {
+        width: 213px;
+      }
+    }
+    .w-btn {
+      margin-top: 50px;
+    }
+    .w-or {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      & > div {
+        width: 150px;
+        background: #c4c4c4;
+        border: 1px solid #c4c4c4;
+      }
+      & > span {
+        color: #00000066;
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+    .w-btn-b {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+  }
+}

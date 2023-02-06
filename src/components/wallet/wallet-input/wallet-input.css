@@ -1,0 +1,49 @@
+.w-input {
+  position: relative;
+  margin-bottom: 20px;
+}
+.error-star {
+  position: absolute;
+  top: 0;
+  right: -20px;
+  color: rgb(195, 48, 48);
+  transform: scale(0.6);
+}
+.close {
+  display: none;
+}
+.wal-input {
+  background: none;
+  width: 100%;
+  border: none;
+  background-color: #f2f4f7;
+  color: #333;
+  font-size: 18px;
+  padding: 17px 40px 17px 20px;
+  border-radius: 10px;
+  border: 1px solid #0000004d;
+  box-sizing: border-box;
+}
+.wal-input:focus {
+  outline: none;
+}
+.wal-input::placeholder {
+  font-size: 15px;
+  font-weight: 400;
+  padding: 17px 0px;
+  color: #0000004a;
+}
+.w-icon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translate(0%, -50%);
+  color: #333;
+  cursor: pointer;
+}
+.cv {
+  text-align: center;
+}
+.cv::placeholder {
+  text-align: center;
+}

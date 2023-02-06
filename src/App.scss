@@ -1,11 +1,14 @@
+//@import "~bootstrap/scss/bootstrap";
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
+
 }
 
-body{
-  height: 100vh;
-  background-color: aqua;
+.App {
+    width: 100%;
+    height: auto;
+    background: #0f8018;
 }
