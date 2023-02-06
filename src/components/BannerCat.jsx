@@ -11,6 +11,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 import 'swiper/css/autoplay'
 import { useNavigate } from 'react-router-dom'
+import ICONS from '../assets/other-icons.png'
 
 const imageSlide = [
   {
@@ -52,7 +53,7 @@ const BannerCat = () => {
         <div className='cats'>
           <div className='cat' onClick={() => navigate('/product/fashion')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Fashion
@@ -60,7 +61,7 @@ const BannerCat = () => {
           </div>
           <div className='cat' onClick={() => navigate('/product/animals')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Animals & Pets
@@ -69,7 +70,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/electronics')}>
             <div className='cat-icon'>
-              <img src={require('../assets/elect-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Electronics
@@ -77,7 +78,7 @@ const BannerCat = () => {
           </div>
           <div className='cat' onClick={() => navigate('/product/automobile')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Cars & Automobiles
@@ -85,7 +86,7 @@ const BannerCat = () => {
           </div>
           <div className='cat' onClick={() => navigate('/product/furniture')}>
             <div className='cat-icon'>
-              <img src={require('../assets/furniture-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Furniture & Appliances
@@ -94,7 +95,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('#')}>
             <div className='cat-icon'>
-              <img src={require('../assets/comp-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Laptops & Computers
@@ -102,7 +103,7 @@ const BannerCat = () => {
           </div>
           <div className='cat' onClick={() => navigate('/product/phone')}>
             <div className='cat-icon'>
-              <img src={require('../assets/phone-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Phones & Tablets
@@ -113,7 +114,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('#')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Property, Housing & Hotels
@@ -122,7 +123,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/sporting')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Sporting Items
@@ -131,7 +132,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/musical')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Musical
@@ -140,7 +141,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/health')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Health & Beauty
@@ -149,7 +150,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/food')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Food, Restaurant & Agric
@@ -158,7 +159,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/kids')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Babies & Kids
@@ -167,7 +168,7 @@ const BannerCat = () => {
 
           <div className='cat' onClick={() => navigate('/product/commercial')}>
             <div className='cat-icon'>
-              <img src={require('../assets/other-icons.png')} alt='' />
+              <img src={ICONS} alt='' />
             </div>
             <div className='text' id='text'>
               Commercial Equipments

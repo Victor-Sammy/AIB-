@@ -4,6 +4,7 @@ import { BsChevronLeft } from 'react-icons/bs'
 import { FiSearch } from 'react-icons/fi'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import TrendBanner from '../../assets/AIIB FLYER 1 1.png'
 
 const SeeAllTrends = () => {
   const [trendData, setTrendData] = useState([])
@@ -95,7 +96,7 @@ const SeeAllTrends = () => {
         <div className='page-title'>Trending Now</div>
       </div>
       <div className='trend-banner'>
-        <img src={require('../../assets/AIIB FLYER 1 1.png')} alt='' />
+        <img src={TrendBanner} alt='' />
       </div>
       <div className='trend-products'>
         {loading ? <Loading /> : <ShowTrendingProducts />}

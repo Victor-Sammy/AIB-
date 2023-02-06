@@ -7,6 +7,12 @@ import 'react-credit-cards/es/styles.scss'
 import { Alert, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTotals } from '../../store/cartSlice'
+import LocationIcon from '../../assets/Vector.png'
+import Mastercard from '../../assets/Mastercard-logo.png'
+import Paga from '../../assets/Paga Logo 1.png'
+import Paystack from '../../assets/Paystack Logo 1.png'
+import Barter from '../../assets/Barter Logo 1.png'
+import Visa_Logo from '../../assets/Visa_Logo.png'
 
 const Payment = () => {
   const { handleChange, handleFocus, handleSubmit, values, errors } = useForm()
@@ -40,7 +46,7 @@ const Payment = () => {
         <div className='billing-del'>
           <div className='billing-add'>
             <span className='location-icon'>
-              <img src={require('../../assets/Vector.png')} alt='location' />
+              <img src={LocationIcon} alt='location' />
             </span>
             <span>Billing & Delivery Address</span>
           </div>
@@ -72,29 +78,20 @@ const Payment = () => {
           </div>
           <div className='card-types'>
             <div>
-              <img
-                src={require('../../assets/Mastercard-logo.png')}
-                alt='mastercard'
-              />
+              <img src={Mastercard} alt='mastercard' />
             </div>
             <div>
-              <img src={require('../../assets/Paga Logo 1.png')} alt='paga' />
+              <img src={Paga} alt='paga' />
             </div>
             <div className='paystack'>
-              <img
-                src={require('../../assets/Paystack Logo 1.png')}
-                alt='paystack'
-              />
+              <img src={Paystack} alt='paystack' />
               <p>Paystack</p>
             </div>
             <div>
-              <img
-                src={require('../../assets/Barter Logo 1.png')}
-                alt='barter'
-              />
+              <img src={Barter} alt='barter' />
             </div>
             <div>
-              <img src={require('../../assets/Visa_Logo.png')} alt='visa' />
+              <img src={Visa_Logo} alt='visa' />
             </div>
           </div>
           <form onSubmit={handleSubmit} className='card-detailss'>

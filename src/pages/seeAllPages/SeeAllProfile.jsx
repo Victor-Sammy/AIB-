@@ -7,6 +7,7 @@ import { FcSearch } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import { AiOutlineHeart } from 'react-icons/ai'
 import axios from 'axios'
+import StoreBanner from '../../assets/Frame 170.png'
 //import { NavLink } from 'react-router-dom'
 const SeeAllProfile = () => {
   const [data, setData] = useState([])
@@ -57,7 +58,7 @@ const SeeAllProfile = () => {
         <h1 className='store-name'>Isaac Stores</h1>
       </div>
       <div className='store-banner'>
-        <img src={require('../../assets/Frame 170.png')} alt='' />
+        <img src={StoreBanner} alt='' />
       </div>
       <div className='store-nav'>
         <input

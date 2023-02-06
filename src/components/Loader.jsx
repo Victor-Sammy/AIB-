@@ -5,6 +5,10 @@ import { BsArrowRightShort } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import AppStore from '../assets/appstore.png'
 import GooglePlay from '../assets/gplay.png'
+import AIBLogo from '../assets/AIB logo.png'
+import GROUP1 from '../assets/Group 1.png'
+import IMG1 from '../assets/img1.png'
+import IMG2 from '../assets/img2.png'
 
 const Loader = () => {
   return (
@@ -17,7 +21,7 @@ const Loader = () => {
             initial={{ opacity: 0, y: 0 }}
             transition={{ duration: 2, delay: 5 }}
           >
-            <img src={require('../assets/AIB logo.png')} alt='' />
+            <img src={AIBLogo} alt='' />
           </motion.div>
           <motion.div
             className='logo-title'
@@ -25,7 +29,7 @@ const Loader = () => {
             initial={{ opacity: 0, y: 100 }}
             transition={{ duration: 2, delay: 5 }}
           >
-            <img src={require('../assets/Group 1.png')} alt='' />
+            <img src={GROUP1} alt='' />
           </motion.div>
 
           <motion.div
@@ -61,7 +65,7 @@ const Loader = () => {
             animate={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: -100 }}
             transition={{ duration: 2, delay: 5 }}
-            src={require('../assets/img1.png')}
+            src={IMG1}
             alt=''
           />
           <motion.img
@@ -70,7 +74,7 @@ const Loader = () => {
             animate={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: 100 }}
             transition={{ duration: 2, delay: 5 }}
-            src={require('../assets/img2.png')}
+            src={IMG2}
             alt=''
           />
           <motion.div className='load-button' id='load-button'>
@@ -99,7 +103,7 @@ const Loader = () => {
               animate={{ opacity: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 3, delay: 4 }}
-              src={require('../assets/AIB logo.png')}
+              src={AIBLogo}
               alt=''
             />
           </motion.div>
@@ -110,7 +114,7 @@ const Loader = () => {
               initial={{ opacity: 1 }}
               animate={{ opacity: 0 }}
               transition={{ duration: 3, delay: 4 }}
-              src={require('../assets/Group 1.png')}
+              src={GROUP1}
               alt=''
             />
           </motion.div>
@@ -121,7 +125,7 @@ const Loader = () => {
               initial={{ opacity: 1 }}
               animate={{ opacity: 0 }}
               transition={{ duration: 2 }}
-              src={require('../assets/AIB logo.png')}
+              src={AIBLogo}
               alt=''
             />
           </motion.div>
