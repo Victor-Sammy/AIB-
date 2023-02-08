@@ -34,16 +34,17 @@ import Otp from "./components/resetpassword/otp";
 import ChangePassword from "./components/resetpassword/changepassword";
 import ResetSuccess from "./components/resetpassword/resetsuccess";
 import axios from "axios";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/landingPage";
 
 function App() {
   axios.defaults.withCredentials = true;
 
   return (
-      <Routes>
-        <Route exact path="/" element={<Loader />} />
-        <Route path="/*" element={<Wrapper />} />
-      </Routes>
+    <Routes>
+      <Route exact path="/" element={<LandingPage />} />
+      <Route path="/*" element={<Wrapper />} />
+    </Routes>
   );
 }
 
