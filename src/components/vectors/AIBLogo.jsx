@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export default function AIBLogo() {
+export default function AIBLogo(props) {
   return (
     <svg
       width="41"
@@ -8,6 +8,7 @@ export default function AIBLogo() {
       viewBox="0 0 41 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clip-path="url(#clip0_76_2873)">
         <path
