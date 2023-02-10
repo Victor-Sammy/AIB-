@@ -10,7 +10,7 @@ export default function AIBLogo(props) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_76_2873)">
+      <g clipPath="url(#clip0_76_2873)">
         <path
           d="M36.5352 0H3.48263C1.55923 0 0 1.55853 0 3.48108V36.5189C0 38.4415 1.55923 40 3.48263 40H36.5352C38.4586 40 40.0179 38.4415 40.0179 36.5189V3.48108C40.0179 1.55853 38.4586 0 36.5352 0Z"
           fill="#FE7702"
