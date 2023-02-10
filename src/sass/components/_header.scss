@@ -2,7 +2,7 @@
 @import "../variables";
 
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   display: flex;
@@ -12,6 +12,8 @@
   padding-top: 1.875rem;
   padding-bottom: 1.875rem;
   z-index: 2;
+  gap: 6rem;
+  margin: 0 auto;
 
   &__menu {
     &-logo {
@@ -22,9 +24,12 @@
   }
 
   &__content {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 2.375rem;
+    justify-content: flex-end;
+    gap: 2rem;
+
     &-search {
       max-width: 31.375rem;
       display: flex;
@@ -67,15 +72,14 @@
     &-nav {
       display: flex;
       align-items: center;
-      height: 48px;
-      width: 40%;
-      gap: 2rem;
+      justify-content: flex-end;
+      gap: 0.6rem;
 
       .navItem {
         display: flex;
         align-items: center;
         gap: 11px;
-        padding: 6px 1rem;
+        padding: 6px 0.6rem;
         border-radius: 30px;
         background-color: white;
         text-decoration: none;
@@ -91,6 +95,30 @@
           svg {
             fill: currentColor;
           }
+          svg.bell {
+            fill: white;
+            stroke: currentColor;
+          }
+        }
+      }
+
+      .indicator {
+        position: relative;
+
+        &-value {
+          position: absolute;
+          top: 0;
+          right: -6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          font-size: 8px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: #fa0000;
+          z-index: 1;
         }
       }
 

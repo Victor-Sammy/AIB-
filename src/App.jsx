@@ -59,7 +59,7 @@ const Wrapper = () => {
   }, [cartItems, dispatch]);
 
   return (
-    <div>
+    <div className="App">
       <Header cartTotalQuantity={cartTotalQuantity} />
       <Routes>
         <Route exact path="/" element={<Loader />} />
