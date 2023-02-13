@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://f1d3-154-120-88-110.ngrok.io/";
+axios.defaults.baseURL = "https://aib-shop.up.railway.app";
 
 axios.interceptors.response.use(
   (resp) => resp,
@@ -22,4 +22,13 @@ axios.interceptors.response.use(
     }
     return error;
   }
+);
+
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("USER_ACCESS_TOKEN");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
