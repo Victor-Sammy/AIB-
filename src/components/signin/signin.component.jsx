@@ -51,51 +51,51 @@ const SignIn = () => {
     if (isValid) {
       let passwordError = ''
 
-      dispatch(
-        login({
-          // username: "Ola",
-          email: email,
-          password: password,
-        })
-      )
-      setEmail('')
-      setPassword('')
-
-      // axios
-      //   .post(`${API_URL}/auth/login/`, {
+      // dispatch(
+      //   login({
+      //     username: "Ola",
       //     email: email,
       //     password: password,
       //   })
-      //   .then((response) => {
-      //     console.log("User profile", response.data.username);
-      //     const accessToken = response.data.tokens.access;
-      //     const refreshToken = response.data.tokens.refresh;
-      //     console.log(accessToken, "<<<<>>>>>", refreshToken);
-      //     localStorage.setItem("accessToken", JSON.stringify(accessToken));
-      //     localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+      // )
+      // setEmail('')
+      // setPassword('')
 
-      //     dispatch(
-      //       login({
-      //         username: response.data.username,
-      //         owner: response.data.id,
-      //         email: email,
-      //         password: password,
-      //       })
-      //     );
-      //     setEmail("");
-      //     setPassword("");
-      //     toast.success("Successful Login");
-      //     navigate(redirectPath, { replace: true });
-      //   })
-      //   .catch((error) => {
-      //     console.log("An error occurred:", error.response);
-      //     passwordError = "Invalid email or password";
-      //     toast.error("Invalid email or password");
+      axios
+        .post(`${API_URL}/auth/login/`, {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          console.log('User profile', response.data.username)
+          const accessToken = response.data.tokens.access
+          const refreshToken = response.data.tokens.refresh
+          console.log(accessToken, '<<<<>>>>>', refreshToken)
+          localStorage.setItem('accessToken', JSON.stringify(accessToken))
+          localStorage.setItem('refreshToken', JSON.stringify(refreshToken))
 
-      //     setPasswordError(passwordError);
+          dispatch(
+            login({
+              username: response.data.username,
+              owner: response.data.id,
+              email: email,
+              password: password,
+            })
+          )
+          setEmail('')
+          setPassword('')
+          toast.success('Successful Login')
+          navigate(redirectPath, { replace: true })
+        })
+        .catch((error) => {
+          console.log('An error occurred:', error.response)
+          passwordError = 'Invalid email or password'
+          toast.error('Invalid email or password')
 
-      //     return passwordError === "";
-      //   });
+          setPasswordError(passwordError)
+
+          return passwordError === ''
+        })
     }
   }
 

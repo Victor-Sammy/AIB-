@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './App.scss'
 import Loader from './components/Loader'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -35,16 +35,42 @@ import Otp from './components/resetpassword/otp'
 import ChangePassword from './components/resetpassword/changepassword'
 import ResetSuccess from './components/resetpassword/resetsuccess'
 import axios from 'axios'
+import env from './Api'
 
 function App() {
   const { cartItems, cartTotalQuantity } = useSelector((store) => store.cart)
   const dispatch = useDispatch()
+  const cartId = useRef()
 
   axios.defaults.withCredentials = true
 
+  const { API_URL } = env
+
+  const token = localStorage.getItem('accessToken')
+
   useEffect(() => {
-    dispatch(getTotals())
-  }, [cartItems, dispatch])
+    cartId.current = localStorage.getItem('cartID')
+    if (!cartId.current) getCartId()
+  }, [])
+
+  function getCartId() {
+    axios
+      .post(`${API_URL}/ad/carts/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.status, res.data, res.data.id)
+        if (res.status === 400) {
+          console.log(res.data)
+        }
+        localStorage.setItem('cartID', res.data.id)
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+  }
 
   return (
     <div className='App'>
