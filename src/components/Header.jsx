@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import Logo from "../assets/AIB logo.png";
-import Title from "../assets/title.png";
 import "../sass/components/_header.scss";
-import { FiSearch } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../store/userSlice";
-import { logout } from "../store/userSlice";
-import { AiOutlineCaretDown } from "react-icons/ai";
 import AIBLogo from "./vectors/AIBLogo";
 import AIBTextLogo from "./vectors/AIBTextLogo";
 import UserIcon from "./vectors/UserIcon";
@@ -15,24 +8,27 @@ import ArrowDown from "./vectors/ArrowDown";
 import WarnIcon from "./vectors/WarnIcon";
 import Cart from "./vectors/Cart";
 import Bell from "./vectors/Bell";
+import Search from "./vectors/Search";
+import { useAuth } from "../context/AuthContext";
+import { getCart, getNotifications } from "../Api";
+import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { logout, user } = useAuth();
 
   const handleLogout = (e) => {
     e.preventDefault();
 
-    dispatch(logout());
+    logout();
   };
 
-  // const user = useSelector(selectUser);
-  const user = {
-    username: "BlessTheBoy",
-    email: "user@example.com",
-  };
-
-  const { cartTotalQuantity } = useSelector((store) => store.cart);
+  // Queries
+  const cartQuery = useQuery({ queryKey: ["cart"], queryFn: getCart });
+  const notificationQuery = useQuery({
+    queryKey: ["notification"],
+    queryFn: getNotifications,
+  });
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -65,7 +61,7 @@ const Header = () => {
             placeholder="Search products"
           />
           <button type="submit">
-            <FiSearch className="s-icon" />
+            <Search />
           </button>
         </form>
 
@@ -108,7 +104,11 @@ const Header = () => {
 
           <Link to="/cart" className="navItem">
             <div className="indicator">
-              <span className="indicator-value">3</span>
+              {cartQuery.data && (
+                <span className="indicator-value">
+                  {cartQuery.data.data.count}
+                </span>
+              )}
               <Cart />
             </div>
             <span>Cart</span>
@@ -116,7 +116,11 @@ const Header = () => {
 
           <Link to="/notifications" className="navItem">
             <div className="indicator">
-              <span className="indicator-value">3</span>
+              {notificationQuery.data && (
+                <span className="indicator-value">
+                  {notificationQuery.data.data.count}
+                </span>
+              )}
               <Bell className="bell" />
             </div>
           </Link>
