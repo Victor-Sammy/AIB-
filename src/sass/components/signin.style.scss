@@ -1,69 +1,82 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200&display=swap");
 
-@media (min-width: 950px) {
-.page {
+.sign-in {
+  // width: 398px;
+  // height: 468px;
   width: 100%;
   height: 100vh;
   position: relative;
-  margin-top: 108px;
-  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  margin-top: 5rem;
 
-  .sign-in {
-    width: 398px;
-    height: 468px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: "Poppins", sans-serif;
+  form {
+    min-width: 398px;
+  }
 
-    .signIn-head {
-      text-align: center;
-      margin-bottom: 65px;
+  .signIn-head {
+    text-align: center;
+    margin-bottom: 65px;
 
-      h2 {
-        font-size: 24px;
-        font-weight: 500;
-        line-height: 36px;
-        margin: 0 auto;
-        color: #012348;
-      }
-      span {
-        font-size: 12px;
-        font-weight: 300;
-        line-height: 18px;
-        color: #949494;
-      }
-    }
-
-    .forgot-pass {
-      font-weight: 300;
-      font-size: 12px;
-      line-height: 18px;
+    h2 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 36px;
+      margin: 0 auto;
       color: #012348;
-      margin-top: 34px;
-      margin-bottom: 34px;
-      cursor: pointer;
     }
-    .sub-footer {
+    span {
       font-size: 12px;
+      font-weight: 300;
       line-height: 18px;
-      margin-top: 64px;
-      text-align: center;
+      color: #949494;
+    }
+  }
 
-      & > :nth-child(1) {
-        font-weight: 300;
-        color: #2d2d2d;
-      }
-      & > :nth-child(2) {
-        font-weight: 500;
-        color: #012348;
-        cursor: pointer;
-        text-decoration: none;
-      }
+  .forgot-pass {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 18px;
+    color: #012348;
+    margin-top: 34px;
+    margin-bottom: 34px;
+    cursor: pointer;
+  }
+  .formError {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgb(195, 48, 48);
+    padding-left: 0.5rem;
+  }
+
+  .sub-footer {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 64px;
+    text-align: center;
+
+    & > :nth-child(1) {
+      font-weight: 300;
+      color: #2d2d2d;
+    }
+    & > :nth-child(2) {
+      font-weight: 500;
+      color: #012348;
+      cursor: pointer;
+      text-decoration: none;
     }
   }
 }
+// @media (min-width: 950px) {
+// .page {
+
+//   margin-top: 108px;
+//   margin-right: auto;
+
+// }
 
 .logged-page {
   width: 100%;
@@ -103,5 +116,4 @@
       margin-top: 30px;
     }
   }
-}
 }

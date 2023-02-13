@@ -10,10 +10,12 @@ import Cart from "./vectors/Cart";
 import Bell from "./vectors/Bell";
 import Search from "./vectors/Search";
 import { useAuth } from "../context/AuthContext";
+import { getCart, getNotifications } from "../Api";
+import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -21,13 +23,12 @@ const Header = () => {
     logout();
   };
 
-  // const user = useSelector(selectUser);
-  const user = {
-    username: "BlessTheBoy",
-    email: "user@example.com",
-  };
-
-  // const { cartTotalQuantity } = useSelector((store) => store.cart);
+  // Queries
+  const cartQuery = useQuery({ queryKey: ["cart"], queryFn: getCart });
+  const notificationQuery = useQuery({
+    queryKey: ["notification"],
+    queryFn: getNotifications,
+  });
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -103,7 +104,11 @@ const Header = () => {
 
           <Link to="/cart" className="navItem">
             <div className="indicator">
-              <span className="indicator-value">3</span>
+              {cartQuery.data && (
+                <span className="indicator-value">
+                  {cartQuery.data.data.count}
+                </span>
+              )}
               <Cart />
             </div>
             <span>Cart</span>
@@ -111,7 +116,11 @@ const Header = () => {
 
           <Link to="/notifications" className="navItem">
             <div className="indicator">
-              <span className="indicator-value">3</span>
+              {notificationQuery.data && (
+                <span className="indicator-value">
+                  {notificationQuery.data.data.count}
+                </span>
+              )}
               <Bell className="bell" />
             </div>
           </Link>

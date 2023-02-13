@@ -3,6 +3,7 @@ import axios from "axios";
 // import { ErrorContent, FullPageSpinner } from "components";
 import { useState } from "react";
 import { useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 // const { useAsync } = require("utils/hooks");
 
@@ -10,7 +11,8 @@ const AuthContext = createContext();
 AuthContext.displayName = "AuthContext";
 
 export default function AuthProvider(props) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+  const queryClient = useQueryClient();
 
   const [token] = useState(localStorage.getItem("USER_ACCESS_TOKEN"));
 
@@ -37,17 +39,17 @@ export default function AuthProvider(props) {
 
   const login = useCallback(
     async (details) => {
-      const result = await axios.post("/auth/login/", {
-        method: "post",
-        data: details,
-      });
+      const result = await axios.post("/auth/login/", details);
 
-      console.log("result", result);
+      console.log("result", result.data);
 
-      setUser(result);
-      localStorage.setItem("USER_ACCESS_TOKEN", result.tokens.access);
-      localStorage.setItem("USER_REFRESH_TOKEN", result.tokens.refresh);
-      return details;
+      setUser(result.data);
+      localStorage.setItem("USER_ACCESS_TOKEN", result.data.tokens.access);
+      localStorage.setItem("USER_REFRESH_TOKEN", result.data.tokens.refresh);
+
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      queryClient.invalidateQueries({ queryKey: ["notification"] });
+      return result.data;
     },
     [setUser]
   );
@@ -57,8 +59,15 @@ export default function AuthProvider(props) {
       setUser(null),
       localStorage.removeItem("USER_ACCESS_TOKEN"),
       localStorage.removeItem("USER_REFRESH_TOKEN"),
-    ]);
+    ]).then(() => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      queryClient.invalidateQueries({ queryKey: ["notification"] });
+    });
   }, [setUser]);
+
+  const register = useCallback((details) => {
+    return axios.post("/auth/register/", details);
+  }, []);
 
   // const updateUser = useCallback(
   //   (data) => {
@@ -67,7 +76,10 @@ export default function AuthProvider(props) {
   //   [setUser]
   // );
 
-  const value = useMemo(() => ({ user, login, logout }), [login, logout, user]);
+  const value = useMemo(
+    () => ({ user, login, logout, register }),
+    [login, logout, user, register]
+  );
 
   return <AuthContext.Provider value={value} {...props} />;
 }

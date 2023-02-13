@@ -3,13 +3,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router } from "react-router-dom";
 import AuthProvider from "./AuthContext";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-    },
-  },
-});
+const queryClient = new QueryClient();
+// {
+//   defaultOptions: {
+//     queries: {
+//       retry: 2,
+//     },
+//   },
+// }
 
 export default function AppProviders({ children }) {
   return (

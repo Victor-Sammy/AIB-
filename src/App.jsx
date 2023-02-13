@@ -32,6 +32,7 @@ import ResetSuccess from "./components/resetpassword/resetsuccess";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage";
+import SuccessfullSignUp from "./components/signup/successfullSignUp";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -39,6 +40,9 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
+      <Route exact path="/signin" element={<SignInPage />} />
+      <Route exact path="/signup" element={<SignUpPage />} />
+      <Route exact path="/successfullsignup" element={<SuccessfullSignUp />} />
       <Route path="/*" element={<Wrapper />} />
     </Routes>
   );
@@ -53,8 +57,6 @@ const Wrapper = () => {
       <Routes>
         <Route exact path="/" element={<Loader />} />
         <Route exact path="/home" element={<Home />} />
-        <Route exact path="/signin" element={<SignInPage />} />
-        <Route exact path="/signup" element={<SignUpPage />} />
         <Route path="/product/:category" element={<CategoryPage />} />
         <Route exact path="/products/:id" element={<Product />}>
           <Route path="details" element={<Details />} />
