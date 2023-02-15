@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200&display=swap");
+@import "../variables";
+
 .cat-banner {
   width: 100%;
   display: flex;
@@ -158,6 +160,17 @@
       height: 316px;
       .swiper .slide img {
         height: 316px;
+      }
+    }
+  }
+  @media (max-width: $mobile-break-point) {
+    .categories {
+      display: none;
+    }
+    .banner {
+      height: fit-content;
+      .swiper .slide img {
+        height: fit-content;
       }
     }
   }
