@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import './App.scss'
 import Loader from './components/Loader'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Home from './pages/home/Home'
 import Footer from './components/Footer'
@@ -22,12 +20,9 @@ import SeeAllTrends from './pages/seeAllPages/SeeAllTrends'
 import Wallet from './components/wallet/wallet'
 import AddProduct from './pages/addProducts/AddProduct'
 import StoreProfile from './components/store-profile/store-profile'
-import { useDispatch, useSelector } from 'react-redux'
-import { getTotals } from './store/cartSlice'
 import AddImages from './pages/addProducts/AddImages'
 import Demo from './pages/addProducts/Demo'
 import AddCategory from './pages/addProducts/addSubCategories/AddCategory'
-
 import EditProfile from './components/store-profile/edit-profile'
 import { RequireAuth } from './components/RequireAuth'
 import Reset from './components/resetpassword/reset'
@@ -35,51 +30,33 @@ import Otp from './components/resetpassword/otp'
 import ChangePassword from './components/resetpassword/changepassword'
 import ResetSuccess from './components/resetpassword/resetsuccess'
 import axios from 'axios'
-import env from './Api'
+import { Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/landingPage'
+import SuccessfullSignUp from './components/signup/successfullSignUp'
 
 function App() {
-  const { cartItems, cartTotalQuantity } = useSelector((store) => store.cart)
-  const dispatch = useDispatch()
-  const cartId = useRef()
-
   axios.defaults.withCredentials = true
 
-  const { API_URL } = env
+  return (
+    <Routes>
+      <Route exact path='/' element={<LandingPage />} />
+      <Route exact path='/signin' element={<SignInPage />} />
+      <Route exact path='/signup' element={<SignUpPage />} />
+      <Route exact path='/successfullsignup' element={<SuccessfullSignUp />} />
+      <Route path='/*' element={<Wrapper />} />
+    </Routes>
+  )
+}
 
-  const token = localStorage.getItem('accessToken')
+export default App
 
-  useEffect(() => {
-    cartId.current = localStorage.getItem('cartID')
-    if (!cartId.current) getCartId()
-  }, [])
-
-  function getCartId() {
-    axios
-      .post(`${API_URL}/ad/carts/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.status, res.data, res.data.id)
-        if (res.status === 400) {
-          console.log(res.data)
-        }
-        localStorage.setItem('cartID', res.data.id)
-      })
-      .catch((error) => {
-        console.log(error.response)
-      })
-  }
-
+const Wrapper = () => {
   return (
     <div className='App'>
-      <Header cartTotalQuantity={cartTotalQuantity} />
+      <Header />
       <Routes>
         <Route exact path='/' element={<Loader />} />
         <Route exact path='/home' element={<Home />} />
-        <Route exact path='/signin' element={<SignInPage />} />
-        <Route exact path='/signup' element={<SignUpPage />} />
         <Route path='/product/:category' element={<CategoryPage />} />
         <Route exact path='/products/:id' element={<Product />}>
           <Route path='details' element={<Details />} />
@@ -156,5 +133,3 @@ function App() {
     </div>
   )
 }
-
-export default App
