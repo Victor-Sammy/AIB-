@@ -14,7 +14,6 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import { AiOutlineUser } from "react-icons/ai";
-import env from "../../Api";
 
 const StoreProfile = () => {
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ const StoreProfile = () => {
   const [store, setStore] = useState([]);
   const [addToWishlist, setAddToWishlist] = useState(false);
 
-  const { API_URL } = env;
   const url_key = user.owner;
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const StoreProfile = () => {
 
   const getStoreData = () => {
     axios
-      .get(`${API_URL}/stores`)
+      .get("/stores")
       .then((response) => {
         const storeData = response.data;
 

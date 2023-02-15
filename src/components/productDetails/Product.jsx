@@ -9,7 +9,6 @@ import Similar from "../Similar";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import ProductGallery from "../productGallery/ProductGallery";
-import env from "../../Api";
 import Details from "./Details";
 import Specs from "./Specs";
 
@@ -31,8 +30,6 @@ const buttons = [
   },
 ];
 
-const { API_URL } = env;
-
 const Product = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState([]);
@@ -46,7 +43,7 @@ const Product = () => {
   const toggleOpt = () => optRef.current.classList.toggle("active__btnClass");
   useEffect(() => {
     const getProduct = async () => {
-      const response = await fetch(`${API_URL}/ad/products/${id}`);
+      const response = await fetch(`/ad/products/${id}`);
       const data = await response.json();
       setProductDetails(data);
       setLoading(false);

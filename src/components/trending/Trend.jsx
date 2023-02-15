@@ -5,20 +5,17 @@ import { AiOutlineHeart } from "react-icons/ai";
 import "../../sass/components/_sliders.scss";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import env from "../../Api";
 
 const Trend = () => {
   const [products, setProducts] = useState({});
   const [addToWishlist, setAddToWishlist] = useState(false);
-
-  const { API_URL } = env;
 
   useEffect(() => {
     fetchTrending();
   }, []);
 
   const fetchTrending = async () => {
-    axios.get(`${API_URL}/ad/products`).then((response) => {
+    axios.get("/ad/products").then((response) => {
       console.log(response);
       const data = response.data;
       setProducts(data);

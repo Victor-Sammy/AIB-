@@ -15,7 +15,6 @@ import { selectUser } from "../../store/userSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { AiOutlineUser } from "react-icons/ai";
-import env from "../../Api";
 import { toast } from "react-toastify";
 
 const EditProfile = () => {
@@ -32,8 +31,6 @@ const EditProfile = () => {
   const [dob, setDOB] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
-
-  const { API_URL } = env;
 
   const [data, setData] = useState({
     storeName: "",
@@ -109,7 +106,7 @@ const EditProfile = () => {
     event.preventDefault();
 
     axios
-      .post(`${API_URL}/stores/`, form_data, {
+      .post("/stores/", form_data, {
         headers: {
           "content-Type": "multipart/form-data",
         },
