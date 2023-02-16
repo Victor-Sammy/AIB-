@@ -10,7 +10,7 @@ import Cart from "./vectors/Cart";
 import Bell from "./vectors/Bell";
 import Search from "./vectors/Search";
 import { useAuth } from "../context/AuthContext";
-import { getCart, getNotifications } from "../../Api/Api";
+import { getCart, getNotifications } from "../Api/Api";
 import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {

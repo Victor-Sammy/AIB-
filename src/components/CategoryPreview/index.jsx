@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useRef } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { getPreviewProducts } from "../../../Api/products";
+import { getPreviewProducts } from "../../Api/products";
 import Button from "../Button";
+import ItemCard from "../itemCard.jsx";
 import "./style.scss";
 
 export default function CategoryPreview({
@@ -13,13 +15,12 @@ export default function CategoryPreview({
   fullListPath,
 }) {
   const navigate = useNavigate();
+  const count = useRef(0);
 
-  const productList = useQuery({
+  const { data: productList, isLoading } = useQuery({
     queryKey: [`${slug} preview`],
-    queryFn: () => getPreviewProducts(todoId),
+    queryFn: () => getPreviewProducts(requestPath),
   });
-
-  console.log("productList", productList.data.results);
 
   return (
     <div className="preview">
@@ -31,6 +32,20 @@ export default function CategoryPreview({
           onClick={(e) => navigate(fullListPath)}
         />
       </div>
+
+      {isLoading ? (
+        <div className="preview-itemsLoader">{}</div>
+      ) : (
+        <div className="preview-items">
+          {productList.data.results
+            .filter((item) => item.images.length > 0)
+            .slice(0, 5)
+            .map((item) => (
+              <ItemCard item={item} />
+            ))}
+          {}
+        </div>
+      )}
     </div>
   );
 }
