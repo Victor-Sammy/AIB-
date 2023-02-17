@@ -2,8 +2,6 @@
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  padding-left: 10%;
-  padding-right: 10%;
   background: #fdfdfd;
   .first-ads {
     width: 100%;
@@ -14,6 +12,10 @@
       height: 320px;
       object-fit: fill;
     }
+  }
+
+  .trendingPreview {
+    margin-bottom: 4.6rem;
   }
 
   .second-ads {
@@ -235,12 +237,5 @@
       height: 320px;
       object-fit: fill;
     }
-  }
-}
-
-@media (min-width: 900px) {
-  .home {
-    padding-left: 5%;
-    padding-right: 5%;
   }
 }

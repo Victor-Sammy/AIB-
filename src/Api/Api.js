@@ -1,13 +1,3 @@
-import axios from 'axios'
-
-const env = {
-  //   API_URL: 'http://f918-154-118-9-82.ngrok.io',
-  // }
-  API_URL: 'https://aib-shop.up.railway.app',
-}
-
-export default env
-
 export const getCart = () => {
   const cartID = localStorage.getItem('cartID')
   const accessToken = localStorage.getItem('USER_ACCESS_TOKEN')
