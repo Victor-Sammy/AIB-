@@ -62,15 +62,7 @@ const Wrapper = () => {
           <Route path='details' element={<Details />} />
           <Route path='specs' element={<Specs />} />
         </Route>
-        <Route
-          exact
-          path='/cart'
-          element={
-            <RequireAuth>
-              <Cart />
-            </RequireAuth>
-          }
-        />
+        <Route exact path='/cart' element={<Cart />} />
         <Route
           exact
           path='/shipping'

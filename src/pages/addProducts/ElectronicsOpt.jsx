@@ -27,7 +27,7 @@ const ElectronicsOpt = () => {
     electronics === 'audioEquipments'
       ? setAudioEquipments(true)
       : setAudioEquipments(false)
-    electronics === 'computerAccessories'
+    electronics === 'Computer Accessories'
       ? setComputerAccessories(true)
       : setComputerAccessories(false)
     electronics === 'electronicsAccessories'
@@ -54,7 +54,7 @@ const ElectronicsOpt = () => {
           <option value='laptopsComputer'>Laptops & Computers</option>
           <option value='HeadPhones'>Headphones</option>
           <option value='audioEquipments'>Audion & Music Equipment</option>
-          <option value='computerAccessories'>Computer Accessories</option>
+          <option value='Computer Accessories'>Computer Accessories</option>
           <option value='electronicsAccessories'>Electronic Accessories</option>
           <option value='cameras'>Photo & Video Cameras</option>
           <option value='pspMachines'>

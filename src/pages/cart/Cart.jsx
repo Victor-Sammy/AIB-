@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import CartItem from './CartItem'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { getTotals } from '../../store/cartSlice'
@@ -7,24 +7,32 @@ import Recent from '../../components/Recent'
 import { useEffect } from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import env from '../../Api'
-import getCart from './CartSt'
+//import axios from 'axios'
+//import { getCart } from './CartSt'
 
 const Cart = () => {
-  const [cartItm, setCartItms] = useState([])
+  //const [cartItm, setCartItms] = useState([])
   // const navigate = useNavigate()
-  const { API_URL } = env
 
-  const total = localStorage.getItem('total')
+  const total = useRef()
+  const cartId = localStorage.getItem('cartID')
 
   useEffect(() => {
-    response()
+    //response()
+    // total.current = getCart()
+    // console.log(total.current)
   }, [])
 
-  const response = () => {
-    getCart()
-  }
+  // const response = () => {
+  //   axios.get(`/ad/carts/${cartId}/`).then((response) => {
+  //     console.log(response.data)
+  //     const data = response.data
+  //     console.log(data)
+  //     setCartItms(data)
+  //     const total = response.data.total
+  //     console.log(total)
+  //   })
+  // }
 
   // if (cartItems.length < 1) {
   //   return (
@@ -43,27 +51,6 @@ const Cart = () => {
       <div className='cart-container'>
         <div>
           <CartItem />
-        </div>
-        <div className='complete-order'>
-          <h1>Cart Summary</h1>
-          <hr className='cart-line' />
-          <div className='total'>
-            <div className='subtotal'>
-              <h2>Subtotal</h2>
-            </div>
-            <div className='total-amount'>NGN ${total}</div>
-          </div>
-          <p>Deliveries fees not included</p>
-          <hr className='cart-line2' />
-
-          <div className='checkout-btn' onClick={() => navigate('/shipping')}>
-            <div className='ck-btn-text'>
-              <span>Proceed to checkout</span>
-            </div>
-            <div className='ck-arrw-icon'>
-              <BsArrowRightShort />
-            </div>
-          </div>
         </div>
       </div>
       <Recent />

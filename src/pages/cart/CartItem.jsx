@@ -1,26 +1,38 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import '../../sass/pages/_cart.scss'
 import env from '../../Api'
-import getCart from './CartSt'
 
 const CartItem = () => {
+  const { API_URL } = env
   //const dispatch = useDispatch()
   const cartId = localStorage.getItem('cartID')
 
-  const [cartItem, setCartItem] = useState({})
-
-  const { API_URL } = env
+  const [cartItem, setCartItem] = useState([])
+  const [total, setTotal] = useState()
 
   useEffect(() => {
     cartResponse()
+    response()
   }, [])
 
+  const response = () => {
+    axios.get(`/ad/carts/${cartId}/`).then((response) => {
+      console.log(response.data)
+      const data = response.data
+      console.log(data)
+      setTotal(data)
+      const total = response.data.total
+      console.log(total)
+    })
+  }
+
   const cartResponse = async () => {
-    axios.get(`${API_URL}/ad/carts/${cartId}/items/`).then((response) => {
+    axios.get(`/ad/carts/${cartId}/items/`).then((response) => {
       console.log(response)
       const data = response.data
       setCartItem(data)
@@ -69,7 +81,8 @@ const CartItem = () => {
                           console.log(res.status, res.data)
                           setTimeout(() => {
                             cartResponse()
-                          }, 500)
+                            response()
+                          }, 200)
                           if (res.status === 415) {
                             console.log(res.data, res.message)
                           }
@@ -99,8 +112,8 @@ const CartItem = () => {
                           console.log(res.status, res.data)
                           setTimeout(() => {
                             cartResponse()
-                            getCart()
-                          }, 500)
+                            response()
+                          }, 200)
                           if (res.status === 415) {
                             console.log(res.data, res.message)
                           }
@@ -122,8 +135,8 @@ const CartItem = () => {
                           console.log(res.status)
                           setTimeout(() => {
                             cartResponse()
-                            getCart()
-                          }, 500)
+                            response()
+                          }, 200)
                         })
                     }}
                   >
@@ -133,6 +146,27 @@ const CartItem = () => {
               </div>
             )
           })}
+        </div>
+        <div className='complete-order'>
+          <h1>Cart Summary</h1>
+          <hr className='cart-line' />
+          <div className='total'>
+            <div className='subtotal'>
+              <h2>Subtotal</h2>
+            </div>
+            <div className='total-amount'>NGN {total?.total}</div>
+          </div>
+          <p>Deliveries fees not included</p>
+          <hr className='cart-line2' />
+
+          <div className='checkout-btn' onClick={() => navigate('/shipping')}>
+            <div className='ck-btn-text'>
+              <span>Proceed to checkout</span>
+            </div>
+            <div className='ck-arrw-icon'>
+              <BsArrowRightShort />
+            </div>
+          </div>
         </div>
       </div>
     </div>
