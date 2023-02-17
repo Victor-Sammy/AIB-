@@ -23,7 +23,7 @@ const AddElectronicSub = () => {
     electronics === 'audioEquipments'
       ? setAudioEquipments(true)
       : setAudioEquipments(false)
-    electronics === 'computerAccessories'
+    electronics === 'Computer Accessories'
       ? setComputerAccessories(true)
       : setComputerAccessories(false)
     electronics === 'Electronics Accessories'
@@ -60,7 +60,7 @@ const AddElectronicSub = () => {
           <option value='laptopsComputer'>Laptops & Computers</option>
           <option value='HeadPhones'>Headphones</option>
           <option value='audioEquipments'>Audion & Music Equipment</option>
-          <option value='computerAccessories'>Computer Accessories</option>
+          <option value='Computer Accessories'>Computer Accessories</option>
           <option value='Electronics Accessories'>
             Electronic Accessories
           </option>
