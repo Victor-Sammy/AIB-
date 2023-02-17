@@ -12,19 +12,24 @@ import Pic from "../../assets/d-img.png";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/userSlice";
+//import { selectUser } from "../../store/userSlice";
 import { AiOutlineUser } from "react-icons/ai";
+import env from "../../Api";
+import { useAuth } from "../../context/AuthContext";
 
 const StoreProfile = () => {
   const navigate = useNavigate();
 
-  const user = useSelector(selectUser);
+  const { user } = useAuth();
+
+  //const user = useSelector(selectUser)
   const [profile, setProfile] = useState();
   const [value, setValue] = useState(1);
   const [store, setStore] = useState([]);
   const [addToWishlist, setAddToWishlist] = useState(false);
 
-  const url_key = user.owner;
+  const { API_URL } = env;
+  const url_key = user;
 
   useEffect(() => {
     getStoreData();
@@ -39,7 +44,7 @@ const StoreProfile = () => {
 
   const getStoreData = () => {
     axios
-      .get("/stores")
+      .get(`${API_URL}/stores`)
       .then((response) => {
         const storeData = response.data;
 
