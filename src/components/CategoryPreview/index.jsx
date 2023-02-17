@@ -5,7 +5,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { getPreviewProducts } from "../../Api/products";
 import Button from "../Button";
-import ItemCard from "../itemCard";
+import ItemCard from "../itemCard/index.jsx";
 import "./style.scss";
 
 export default function CategoryPreview({
