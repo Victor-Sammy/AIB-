@@ -17,6 +17,15 @@ $color-dark-grey: #012348;
   animation: loading 4s linear infinite;
 }
 
+@keyframes loading {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
