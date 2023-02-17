@@ -55,7 +55,7 @@ export default function CategoryPreview({
           <div className="preview-items">
             {productList.data.results
               .filter((item) => item.images.length > 0)
-              .slice(0, 5)
+              // .slice(0, 5)
               .map((item) => (
                 <ItemCard item={item} />
               ))}

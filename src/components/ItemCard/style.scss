@@ -10,6 +10,13 @@
   display: flex;
   flex-direction: column;
   width: fit-content;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background: #fff;
+    box-shadow: 3px 3px 18px #c7c6c6;
+  }
 
   &-heart {
     position: absolute;

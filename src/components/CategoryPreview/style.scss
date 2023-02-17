@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2.4rem;
+    margin-bottom: 1.4rem;
 
     h2 {
       font-weight: 500;
@@ -37,6 +37,7 @@
     display: flex;
     gap: 4.625rem;
     overflow-x: scroll;
+    padding: 1rem;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
