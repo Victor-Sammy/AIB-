@@ -18,8 +18,8 @@ const Home = () => {
         title="Trending Now"
         requestPath="/ad/trending"
         fullListPath="/"
+        className="trendingPreview"
       />
-      <Trend />
       <Popular />
       <Ads />
       <TopStores />

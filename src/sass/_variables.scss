@@ -3,6 +3,20 @@ $mobile-break-point: 900px;
 $color-orange: #fe7702;
 $color-dark-grey: #012348;
 
+@mixin loader {
+  background: linear-gradient(
+    -45deg,
+    #4a4a4a,
+    #dbdbdb,
+    #4a4a4a,
+    #dbdbdb,
+    #4a4a4a
+  );
+  background-size: 220px 400%;
+  background-repeat: repeat;
+  animation: loading 4s linear infinite;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

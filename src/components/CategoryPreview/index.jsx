@@ -13,6 +13,7 @@ export default function CategoryPreview({
   slug,
   requestPath,
   fullListPath,
+  className = "",
 }) {
   const navigate = useNavigate();
   const count = useRef(0);
@@ -23,28 +24,44 @@ export default function CategoryPreview({
   });
 
   return (
-    <div className="preview">
-      <div className="preview-header">
-        <h2>{title}</h2>
-        <Button
-          text="See All"
-          iconRight={<BsArrowRightShort />}
-          onClick={(e) => navigate(fullListPath)}
-        />
-      </div>
-
+    <div className={`preview ${className}`}>
       {isLoading ? (
-        <div className="preview-itemsLoader">{}</div>
+        <>
+          <div className="preview-loading-header">
+            <div className="h2"></div>
+            <div className="button"></div>
+          </div>
+
+          <div className="preview-loading-items">
+            {Array(5)
+              .fill(0)
+              .map((item) => (
+                <div className="item"></div>
+              ))}
+            {}
+          </div>
+        </>
       ) : (
-        <div className="preview-items">
-          {productList.data.results
-            .filter((item) => item.images.length > 0)
-            .slice(0, 5)
-            .map((item) => (
-              <ItemCard item={item} />
-            ))}
-          {}
-        </div>
+        <>
+          <div className="preview-header">
+            <h2>{title}</h2>
+            <Button
+              text="See All"
+              iconRight={<BsArrowRightShort />}
+              onClick={(e) => navigate(fullListPath)}
+            />
+          </div>
+
+          <div className="preview-items">
+            {productList.data.results
+              .filter((item) => item.images.length > 0)
+              .slice(0, 5)
+              .map((item) => (
+                <ItemCard item={item} />
+              ))}
+            {}
+          </div>
+        </>
       )}
     </div>
   );
