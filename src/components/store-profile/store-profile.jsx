@@ -11,10 +11,7 @@ import axios from "axios";
 import Pic from "../../assets/d-img.png";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
-import { useSelector } from "react-redux";
-//import { selectUser } from "../../store/userSlice";
 import { AiOutlineUser } from "react-icons/ai";
-import env from "../../Api";
 import { useAuth } from "../../context/AuthContext";
 
 const StoreProfile = () => {
@@ -28,7 +25,7 @@ const StoreProfile = () => {
   const [store, setStore] = useState([]);
   const [addToWishlist, setAddToWishlist] = useState(false);
 
-  const { API_URL } = env;
+  const API_URL = process.env.REACT_APP_API_URL;
   const url_key = user;
 
   useEffect(() => {

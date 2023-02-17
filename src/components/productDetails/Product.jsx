@@ -6,8 +6,6 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import Review from '../Review'
 //import axios from 'axios'
 import Similar from "../Similar";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/cartSlice";
 import ProductGallery from "../productGallery/ProductGallery";
 import Details from "./Details";
 import Specs from "./Specs";
