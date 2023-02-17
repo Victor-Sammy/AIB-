@@ -44,11 +44,15 @@ const ElectronicsInput = () => {
     formData.append('condition', data.condition)
     formData.append('subCategory', data.subCategory)
 
-    fetch(`${API_URL}/api`, {
+    const requestOptions = {
       method: 'POST',
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      //   Authentication: token,
+      // },
       body: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
+    }
+    fetch(`${API_URL}/ad/products/`, requestOptions)
       .then((res) => {
         console.log(res.status, res.data)
         if (res.status === 400) {
@@ -173,7 +177,7 @@ const ElectronicsInput = () => {
                 id='condition'
                 value={data.condition}
                 onChange={handle}
-                required
+                disabled
               />
             </div>
           </div>

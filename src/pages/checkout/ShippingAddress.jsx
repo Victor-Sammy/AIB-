@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BsArrowRightShort, BsCheck } from 'react-icons/bs'
 import '../../sass/pages/_shipping.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTotals } from '../../store/cartSlice'
+//import { getTotals } from '../../store/cartSlice'
 import { Link } from 'react-router-dom'
 
 const ShippingAddress = () => {
