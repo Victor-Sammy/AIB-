@@ -46,6 +46,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+    pointer-events: none;
 
     .left-arrw {
       display: flex;
@@ -58,6 +59,7 @@
       z-index: 1;
       color: #fff;
       transition: all 0.2ms ease-in-out;
+      pointer-events: all;
 
       &:hover {
         background: rgb(99, 98, 98);
@@ -73,6 +75,7 @@
       cursor: pointer;
       color: #fff;
       transition: all 0.2ms ease-in-out;
+      pointer-events: all;
 
       &:hover {
         background: rgb(99, 98, 98);
@@ -85,12 +88,49 @@
     gap: 4.625rem;
     overflow-x: scroll;
     scroll-behavior: smooth;
-    padding: 1rem 0;
+    padding: 1rem;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
+    }
+  }
+  &-storeItems {
+    display: flex;
+    gap: 2rem;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    padding: 1rem;
+    margin-top: -2rem;
+    margin-bottom: 4rem;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .storeItem {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 16rem;
+      flex: 1 0 16rem;
+      height: 14rem;
+      border-radius: 10px;
+      transition: all ease-in-out 0.2s;
+
+      &:hover {
+        background: #f9f8f8;
+        box-shadow: 3px 3px 18px #c7c6c6;
+      }
+
+      img {
+        max-width: 16rem;
+        max-height: 12rem;
+        object-fit: contain;
+      }
     }
   }
   &-loading-items {
