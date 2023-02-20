@@ -1,66 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import '../../sass/pages/_home.scss'
-import { BsArrowRightShort } from 'react-icons/bs'
-import { AiOutlineHeart } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import React, { useRef } from "react";
+import "../../sass/pages/_home.scss";
+import { BsArrowRightShort } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import Button from "../Button";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import ItemCard from "../ItemCard/itemCard";
+import { getPreviewProducts } from "../../Api/products";
+import "./style.scss";
 
 const Arrivals = () => {
-  const [newItems, setNewItems] = useState([])
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchArrivals()
-  }, [])
+  const { data: productList, isLoading } = useQuery({
+    queryKey: [`new arrivals preview`],
+    queryFn: () => getPreviewProducts("/ad/trending/"),
+  });
 
-  const fetchArrivals = async () => {
-    const response = await fetch('https://fakestoreapi.com/products?limit=10')
-    const data = await response.json()
-    setNewItems(data)
-  }
   return (
-    <section className='new-arrival'>
-      <div className='arrival-top'>
-        <div className='new-title'>New Arrivals</div>
-        <div className='new-btn'>
-          <div className='n-btn-text'>See All</div>
-          <div className='n-arrw-icon'>
-            <BsArrowRightShort />
+    <div className={`arivalsPreview`}>
+      {isLoading ? (
+        <>
+          <div className="arivalsPreview-loading-header">
+            <div className="h2"></div>
+            <div className="button"></div>
           </div>
-        </div>
-      </div>
 
-      <div className='new-display' id='new-display'>
-        {newItems.map((value) => {
-          return (
-            <div key={value.id} className='n-itm'>
-              <Link className='arrival-link' to=''>
-                <div className='n-imge'>
-                  <img src={value.image} alt='' />
-                </div>
-                <div className='n-info'>
-                  <div className='n-cate-name'>
-                    <h4>{value.category}</h4>
-                  </div>
-                  <div className='n-item-make'>
-                    <h3>{value.title}</h3>
-                  </div>
-                  <div className='n-item-price'>
-                    <h2>NGN {value.price}</h2>
-                  </div>
-                  <div className='n-item-rating'>
-                    <span className='n-starss'>⭐⭐⭐⭐⭐</span>
-                    <span className='n-numb-stars'>5.0 (34k)</span>
-                  </div>
-                  <div className='n-wishlist-icn'>
-                    <AiOutlineHeart />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          )
-        })}
-      </div>
-    </section>
-  )
-}
+          <div className="arivalsPreview-loading-items">
+            {Array(5)
+              .fill(0)
+              .map((item) => (
+                <div className="item"></div>
+              ))}
+            {}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="arivalsPreview-header">
+            <h2>New Arrivals</h2>
+            <Button
+              text="See All"
+              iconRight={<BsArrowRightShort />}
+              onClick={(e) => navigate(fullListPath)}
+            />
+          </div>
 
-export default Arrivals
+          <div className="arivalsPreview-items">
+            {productList.data.results
+              .filter((item) => item.images.length > 0)
+              // .slice(0, 5)
+              .map((item) => (
+                <ItemCard item={item} />
+              ))}
+            {}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Arrivals;
