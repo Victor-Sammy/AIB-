@@ -3,6 +3,7 @@ import React from "react";
 import Heart from "../vectors/Heart";
 import { getUserLikedItems } from "../../Api/user.js";
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 export default function ItemCard({ item }) {
   const { data: likedItems } = useQuery({
@@ -22,7 +23,7 @@ export default function ItemCard({ item }) {
       <div className="productItem-image">
         <img src={item.images[0].image} alt={`${item.name}`} />
       </div>
-      <div className="productItem-content">
+      <Link to="/" className="productItem-content">
         <div className="productItem-content-category">
           {item.category ?? "Bliss Fashion"}
         </div>
@@ -35,7 +36,7 @@ export default function ItemCard({ item }) {
           <span className="rating">5.0</span>
           <span className="ratingCount">(34k)</span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

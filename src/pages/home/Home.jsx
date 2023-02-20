@@ -20,7 +20,14 @@ const Home = () => {
         fullListPath="/"
         className="trendingPreview"
       />
-      <Popular />
+      <CategoryPreview
+        slug="popular"
+        title="Most Popular"
+        requestPath="/ad/trending"
+        fullListPath="/"
+        className="trendingPreview"
+      />
+      {/* <Popular /> */}
       <Ads />
       <TopStores />
       <TrendMen />

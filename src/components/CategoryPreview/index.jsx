@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useRef } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getPreviewProducts } from "../../Api/products";
 import Button from "../Button";
@@ -16,12 +17,21 @@ export default function CategoryPreview({
   className = "",
 }) {
   const navigate = useNavigate();
-  const count = useRef(0);
+  const scrollRef = useRef();
 
   const { data: productList, isLoading } = useQuery({
     queryKey: [`${slug} preview`],
     queryFn: () => getPreviewProducts(requestPath),
   });
+
+  const slideLt = () => {
+    var slider = scrollRef.current;
+    slider.scrollLeft = slider.scrollLeft - 250;
+  };
+  const slideRt = () => {
+    var slider = scrollRef.current;
+    slider.scrollLeft = slider.scrollLeft + 250;
+  };
 
   return (
     <div className={`preview ${className}`}>
@@ -52,14 +62,24 @@ export default function CategoryPreview({
             />
           </div>
 
-          <div className="preview-items">
-            {productList.data.results
-              .filter((item) => item.images.length > 0)
-              // .slice(0, 5)
-              .map((item) => (
-                <ItemCard item={item} />
-              ))}
-            {}
+          <div className="preview-wrap">
+            <div className="preview-scroll">
+              <div className="left-arrw" onClick={slideLt}>
+                <MdChevronLeft />
+              </div>
+              <div className="right-arrw" onClick={slideRt}>
+                <MdChevronRight />
+              </div>
+            </div>
+            <div className="preview-items" ref={scrollRef}>
+              {productList.data.results
+                .filter((item) => item.images.length > 0)
+                // .slice(0, 5)
+                .map((item) => (
+                  <ItemCard item={item} />
+                ))}
+              {}
+            </div>
           </div>
         </>
       )}
