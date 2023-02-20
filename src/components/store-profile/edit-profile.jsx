@@ -111,14 +111,17 @@ const EditProfile = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    axios.defaults.withCredentials = true
+
     axios
       .post(`${API_URL}/stores/`, form_data, {
-        headers: {
-          'content-Type': 'application/json',
-        },
+        // headers: {
+        //   'content-Type': 'multipart/form-data',
+        // },
       })
       .then((response) => {
         if (response.status !== 200) {
+          response.data
           //   setError(response);
           // }
           // console.log("Store Success");

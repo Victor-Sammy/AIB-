@@ -47,7 +47,7 @@ const Cart = () => {
   // }
 
   return (
-    <section className='shopping-cart'>
+    <section className='shopping-cart' id='shopping-cart'>
       <div className='cart-container'>
         <div>
           <CartItem />
