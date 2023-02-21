@@ -17,6 +17,8 @@ const Arrivals = () => {
     queryFn: () => getPreviewProducts("/ad/trending/"),
   });
 
+  console.log("productList", productList);
+
   return (
     <div className={`arivalsPreview`}>
       {isLoading ? (

@@ -48,3 +48,20 @@ a {
     padding: 0 1.6rem;
   }
 }
+
+.desktop {
+  @media (max-width: 900px) {
+    display: none !important;
+  }
+  @media (min-width: 900px) {
+    display: block;
+  }
+}
+.mobile {
+  @media (max-width: 900px) {
+    display: block;
+  }
+  @media (min-width: 900px) {
+    display: none !important;
+  }
+}
