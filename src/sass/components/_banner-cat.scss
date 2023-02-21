@@ -7,6 +7,9 @@
   gap: 5%;
   margin-top: 2rem;
   margin-bottom: 4.8rem;
+  @media (max-width: 900px) {
+    margin-bottom: 4rem;
+  }
 
   .categories {
     width: 25%;

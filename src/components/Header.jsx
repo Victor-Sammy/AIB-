@@ -61,7 +61,7 @@ const Header = () => {
       <div className="wrapper header">
         <div className="header__menu">
           <div
-            className="header__menu-button"
+            className="header__menu-button mobile"
             onClick={() => {
               setNavOpen(true);
             }}

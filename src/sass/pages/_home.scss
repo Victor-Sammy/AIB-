@@ -6,7 +6,11 @@
   .ads {
     width: 100%;
     display: block;
-    margin-bottom: 73px;
+    margin-bottom: 7.3rem;
+
+    @media (max-width: 900px) {
+      margin-bottom: 4rem;
+    }
 
     img {
       width: 100%;
@@ -21,9 +25,12 @@
   .second-ads {
     display: flex;
     width: 100%;
-    margin-bottom: 65px;
+    margin-bottom: 6.5rem;
     // gap: 5%;
     justify-content: space-between;
+    @media (max-width: 900px) {
+      margin-bottom: 4rem;
+    }
 
     .ad1 {
       width: 65.8%;

@@ -67,4 +67,41 @@
       }
     }
   }
+
+  @media (max-width: 900px) {
+    width: 16rem;
+    flex: 1 0 16rem;
+    height: 22rem;
+    &-heart {
+      top: 0.5rem;
+      right: 0.5rem;
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+    &-image {
+      img {
+        width: 14rem;
+        max-height: 10rem;
+        object-fit: contain;
+      }
+    }
+    &-content {
+      padding: 1rem;
+      &-category {
+        font-size: 10px;
+      }
+      &-name {
+        font-size: 12px;
+      }
+      &-price {
+        font-size: 14px;
+      }
+      &-rating {
+        font-size: 1rem;
+        gap: 4px;
+      }
+    }
+  }
 }

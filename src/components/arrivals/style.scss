@@ -8,6 +8,10 @@
     align-items: center;
     margin-bottom: 1.4rem;
 
+    @media (max-width: 900px) {
+      align-items: flex-end;
+    }
+
     h2 {
       font-weight: 500;
       font-size: 1.4rem;
@@ -20,6 +24,10 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.4rem;
+
+    @media (max-width: 900px) {
+      align-items: flex-end;
+    }
 
     div.h2 {
       width: 10rem;
@@ -45,6 +53,10 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
+    @media (max-width: 900px) {
+      gap: 1rem;
+    }
   }
   &-loading-items {
     display: flex;
@@ -63,6 +75,16 @@
       height: 28.8rem;
       flex: 1 0 21.1rem;
       @include loader;
+    }
+
+    @media (max-width: 900px) {
+      gap: 1rem;
+
+      .item {
+        width: 16rem;
+        height: 22rem;
+        flex: 1 0 16rem;
+      }
     }
   }
 }
