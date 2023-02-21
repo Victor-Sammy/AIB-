@@ -14,7 +14,6 @@ import { getCart, getNotifications } from "../Api/Api";
 import { useQuery } from "@tanstack/react-query";
 import Hamburger from "./vectors/Hamburger";
 import Close from "./vectors/Close";
-import ICONS from "../assets/other-icons.png";
 import manGreen from "../assets/manGreen.png";
 import ladyBlue from "../assets/ladyBlue.png";
 import plugOrange from "../assets/plugOrange.png";
@@ -28,7 +27,7 @@ import stackPurple from "../assets/stackPurple.png";
 const Header = () => {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
-  const [navOpen, setNavOpen] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
 
   const handleLogout = (e) => {
     e.preventDefault();
