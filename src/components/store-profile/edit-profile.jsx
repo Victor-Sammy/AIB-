@@ -105,6 +105,8 @@ const EditProfile = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    axios.defaults.withCredentials = true
+
     axios
       .post("/stores/", form_data, {
         headers: {
@@ -113,6 +115,7 @@ const EditProfile = () => {
       })
       .then((response) => {
         if (response.status !== 200) {
+          response.data
           //   setError(response);
           // }
           // console.log("Store Success");

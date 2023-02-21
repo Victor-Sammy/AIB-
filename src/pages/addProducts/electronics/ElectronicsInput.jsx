@@ -55,6 +55,9 @@ const ElectronicsInput = () => {
           setErrors(res.data);
         }
         //navigate('/addProducts')
+        if (res.status === 201) {
+          console.log(res.data)
+        }
       })
       .catch((error) => {
         console.log(error.response);
