@@ -1,23 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
-import './edit-profile.scss'
-import { BsFillImageFill } from 'react-icons/bs'
-import { BsPlus } from 'react-icons/bs'
-import { IoIosArrowRoundBack } from 'react-icons/io'
-import { useNavigate } from 'react-router-dom'
-import 'primereact/resources/themes/lara-light-indigo/theme.css' //theme
-import 'primereact/resources/primereact.min.css' //core css
-import 'primeicons/primeicons.css'
-import { InputText } from 'primereact/inputtext'
-import { Dropdown } from 'primereact/dropdown'
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
-//import { selectUser } from "../../store/userSlice";
-import { useSelector } from 'react-redux'
-import axios from 'axios'
-import { AiOutlineUser } from 'react-icons/ai'
-import env from '../../Api'
-import { toast } from 'react-toastify'
-import { useAuth } from '../../context/AuthContext'
+import React, { useEffect, useRef, useState } from "react";
+import "./edit-profile.scss";
+import { BsFillImageFill } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
+import "primereact/resources/primereact.min.css"; //core css
+import "primeicons/primeicons.css";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import { selectUser } from "../../store/userSlice";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { AiOutlineUser } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
   //const user = useSelector(selectUser)
@@ -34,10 +32,6 @@ const EditProfile = () => {
   const [dob, setDOB] = useState('')
   const [address, setAddress] = useState('')
   const [gender, setGender] = useState('')
-
-  const { API_URL } = env
-
-  const { user } = useAuth()
 
   const [data, setData] = useState({
     storeName: '',
@@ -114,10 +108,10 @@ const EditProfile = () => {
     axios.defaults.withCredentials = true
 
     axios
-      .post(`${API_URL}/stores/`, form_data, {
-        // headers: {
-        //   'content-Type': 'multipart/form-data',
-        // },
+      .post("/stores/", form_data, {
+        headers: {
+          'content-Type': 'application/json',
+        },
       })
       .then((response) => {
         if (response.status !== 200) {

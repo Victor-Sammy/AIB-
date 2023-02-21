@@ -5,7 +5,7 @@ import Arrow from "../../assets/arrow-right.png";
 import LoadingSpinner from "../vectors/LoadingSpinner";
 
 const CustomButton = ({ children, loading, ...otherProps }) => (
-  <button className="button"  {...otherProps}>
+  <button className="arrowButton"  {...otherProps}>
     {children}
 
     <div className="arrow">
