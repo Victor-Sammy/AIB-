@@ -3,14 +3,18 @@
   min-height: 100vh;
   margin: 0 auto;
   background: #fdfdfd;
-  .first-ads {
+  .ads {
     width: 100%;
-    height: 320px;
-    margin-bottom: 73px;
+    display: block;
+    margin-bottom: 7.3rem;
+
+    @media (max-width: 900px) {
+      margin-bottom: 4rem;
+    }
+
     img {
       width: 100%;
-      height: 320px;
-      object-fit: fill;
+      object-fit: contain;
     }
   }
 
@@ -21,26 +25,26 @@
   .second-ads {
     display: flex;
     width: 100%;
-    height: 332px;
-    margin-bottom: 65px;
-    .ad1 {
-      width: 819px;
-      height: 332px;
-      margin-right: 23px;
-      img {
-        width: 100%;
-        height: 320px;
-        object-fit: fill;
-      }
+    margin-bottom: 6.5rem;
+    // gap: 5%;
+    justify-content: space-between;
+    @media (max-width: 900px) {
+      margin-bottom: 4rem;
     }
 
-    .ad2 {
-      width: 398px;
-      height: 332px;
+    .ad1 {
+      width: 65.8%;
       img {
         width: 100%;
-        height: 320px;
-        object-fit: fill;
+        object-fit: contain;
+      }
+    }
+    .ad2 {
+      width: 32.1%;
+
+      img {
+        width: 100%;
+        object-fit: contain;
       }
     }
   }
@@ -209,33 +213,5 @@
     width: 100%;
     height: 320px;
     object-fit: fill;
-  }
-}
-
-.second-ads {
-  display: flex;
-  width: 1240px;
-  height: 332px;
-  margin: 0 auto;
-  margin-bottom: 65px;
-  .ad1 {
-    width: 67%;
-    height: 332px;
-    margin-right: 23px;
-    img {
-      width: 100%;
-      height: 320px;
-      object-fit: fill;
-    }
-  }
-
-  .ad2 {
-    width: 32%;
-    height: 332px;
-    img {
-      width: 100%;
-      height: 320px;
-      object-fit: fill;
-    }
   }
 }

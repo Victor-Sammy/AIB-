@@ -21,6 +21,11 @@ html {
   }
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
 .App {
   width: 100%;
   height: auto;
@@ -32,4 +37,31 @@ html {
   max-width: 1536px;
   margin: 0 auto;
   padding: 0 6.25rem;
+
+  @media (max-width: 900px) {
+    padding: 0 4rem;
+  }
+  @media (max-width: 700px) {
+    padding: 0 3.2rem;
+  }
+  @media (max-width: 700px) {
+    padding: 0 1.6rem;
+  }
+}
+
+.desktop {
+  @media (max-width: 900px) {
+    display: none !important;
+  }
+  @media (min-width: 900px) {
+    display: block;
+  }
+}
+.mobile {
+  @media (max-width: 900px) {
+    display: block;
+  }
+  @media (min-width: 900px) {
+    display: none !important;
+  }
 }
