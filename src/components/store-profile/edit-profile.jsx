@@ -23,10 +23,10 @@ const EditProfile = () => {
   //const user = useSelector(selectUser)
   const [pic, setPic] = useState('')
   const [selectedImage, setSelectedImage] = useState('')
-  // const [storeName, setStoreName] = useState('')
-  // const [location, setLocation] = useState('')
-  // const [description, setDescription] = useState('')
-  // const [delivery, setDelivery] = useState('')
+  const [storeName, setStoreName] = useState('')
+  const [location, setLocation] = useState('')
+  const [description, setDescription] = useState('')
+  const [delivery, setDelivery] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -34,30 +34,24 @@ const EditProfile = () => {
   const [dob, setDOB] = useState('')
   const [address, setAddress] = useState('')
   const [gender, setGender] = useState('')
+  // const [data, setData] = useState({
+  //   storeName: '',
+  //   location: '',
+  //   delivery: '',
+  //   description: '',
+  // })
 
   const { API_URL } = env
 
   const { user } = useAuth()
 
-  const [data, setData] = useState({
-    storeName: '',
-    location: '',
-    delivery: '',
-    description: '',
-  })
-  const [error, setError] = useState('')
+  const userID = localStorage.getItem('USER_ID')
+
+  const token = localStorage.getItem('accessToken')
+  //const [error, setError] = useState('')
 
   // const dispatch = useDispatch();
   const navigate = useNavigate()
-
-  let form_data = new FormData()
-
-  // if (pic) form_data.append('owner', user)
-  form_data.append('profile_image', selectedImage)
-  form_data.append('name', data.storeName)
-  form_data.append('description', data.description)
-  form_data.append('adress', data.location)
-  form_data.append('delivery', JSON.stringify(data.delivery))
 
   const handle = (e) => {
     const newData = { ...data }
@@ -68,7 +62,6 @@ const EditProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-
     switch (name) {
       case 'storeName':
         setStoreName(value)
@@ -111,15 +104,35 @@ const EditProfile = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    const formData = new FormData()
+
+    // if (pic)
+    for (let img of selectedImage) {
+      formData.append('profile_image', img)
+    }
+    formData.append('owner', userID)
+    formData.append('name', storeName)
+    formData.append('description', description)
+    formData.append('adress', location)
+    formData.append('delivery', delivery)
+
     axios.defaults.withCredentials = true
 
+    console.log(JSON.stringify(userID))
+
     axios
-      .post(`${API_URL}/stores/`, form_data, {
+      .post(
+        '/stores/',
+        formData
+        //{
         // headers: {
         //   'content-Type': 'multipart/form-data',
+        //   Authorization: `Bearer ${token}`,
         // },
-      })
+        //}
+      )
       .then((response) => {
+        response.data
         if (response.status !== 200) {
           response.data
           //   setError(response);
@@ -188,7 +201,7 @@ const EditProfile = () => {
         </div>
         <div className='e-img'>
           <div className='img'>
-            {data.image_url ? (
+            {selectedImage ? (
               <div className='header-icon'>
                 <img src={pic} alt='Store img' />
               </div>
@@ -225,8 +238,8 @@ const EditProfile = () => {
               <InputText
                 id='storeName'
                 name='storeName'
-                value={data.storeName}
-                onChange={handle}
+                value={storeName}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -236,8 +249,8 @@ const EditProfile = () => {
                 type='text'
                 name='location'
                 id='location'
-                value={data.location}
-                onChange={handle}
+                value={location}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -249,8 +262,8 @@ const EditProfile = () => {
                 type='text'
                 name='description'
                 id='description'
-                value={data.description}
-                onChange={handle}
+                value={description}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -261,9 +274,9 @@ const EditProfile = () => {
                 className='d-input'
                 name='delivery'
                 id='delivery'
-                value={data.delivery}
+                value={delivery}
                 options={option}
-                onChange={handle}
+                onChange={handleChange}
                 placeholder='Delivery'
               />
               {/* <select
