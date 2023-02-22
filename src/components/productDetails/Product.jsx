@@ -5,15 +5,10 @@ import { RiArrowLeftSLine } from 'react-icons/ri'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Review from '../Review'
 //import axios from 'axios'
-import Similar from '../Similar'
-//import { useDispatch } from 'react-redux'
-//import { addToCart } from '../../store/cartSlice'
-import ProductGallery from '../productGallery/ProductGallery'
-import env from '../../Api'
-import Details from './Details'
-import Specs from './Specs'
-import axios from 'axios'
-//import { getId } from '../context/cartProps'
+import Similar from "../Similar";
+import ProductGallery from "../productGallery/ProductGallery";
+import Details from "./Details";
+import Specs from "./Specs";
 
 const buttons = [
   {
@@ -32,10 +27,6 @@ const buttons = [
     display: '1TB',
   },
 ]
-
-const { API_URL } = env
-
-const token = localStorage.getItem('accessToken')
 
 const Product = () => {
   const { id } = useParams()
@@ -84,14 +75,14 @@ const Product = () => {
   const toggleOpt = () => optRef.current.classList.toggle('active__btnClass')
   useEffect(() => {
     const getProduct = async () => {
-      const response = await fetch(`${API_URL}/ad/products/${id}`)
-      const data = await response.json()
-      setProductDetails(data)
-      setLoading(false)
-      console.log(data)
-    }
-    getProduct()
-  }, [id])
+      const response = await fetch(`/ad/products/${id}`);
+      const data = await response.json();
+      setProductDetails(data);
+      setLoading(false);
+      console.log(data);
+    };
+    getProduct();
+  }, [id]);
 
   const Loading = () => {
     return <>Loading...</>

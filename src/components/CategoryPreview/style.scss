@@ -1,0 +1,66 @@
+@import "../../sass/variables";
+
+.preview {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+
+    h2 {
+      font-weight: 500;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: $color-dark-grey;
+    }
+  }
+  &-loading-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+
+    div.h2 {
+      width: 10rem;
+      height: 2.1rem;
+      @include loader;
+    }
+    div.button {
+      width: 10.6rem;
+      height: 4.2rem;
+      border-radius: 3rem;
+      @include loader;
+    }
+  }
+
+  &-items {
+    display: flex;
+    gap: 4.625rem;
+    overflow-x: scroll;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &-loading-items {
+    display: flex;
+    gap: 4.625rem;
+    overflow-x: scroll;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .item {
+      border-radius: 10px;
+      width: 21.1rem;
+      height: 28.8rem;
+      flex: 1 0 21.1rem;
+      @include loader;
+    }
+  }
+}

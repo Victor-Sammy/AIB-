@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
-import { useDispatch } from 'react-redux'
 import '../../sass/pages/_cart.scss'
-import env from '../../Api'
 
 const CartItem = () => {
-  const { API_URL } = env
+  const API_URL = process.env.REACT_APP_API_URL;
   //const dispatch = useDispatch()
   const cartId = localStorage.getItem('cartID')
 

@@ -11,13 +11,11 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-//import { selectUser } from "../../store/userSlice";
+import { selectUser } from '../../store/userSlice'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { AiOutlineUser } from 'react-icons/ai'
-import env from '../../Api'
 import { toast } from 'react-toastify'
-import { useAuth } from '../../context/AuthContext'
 
 const EditProfile = () => {
   //const user = useSelector(selectUser)

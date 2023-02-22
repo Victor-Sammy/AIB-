@@ -1,4 +1,4 @@
-.button {
+.arrowButton {
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
@@ -42,5 +42,44 @@
 
   .arrow {
     background-color: #db6805;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all ease-in-out 0.8ms;
+  outline: none;
+  border: none;
+  color: #ffffff;
+  background-color: #fe7702;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+
+  &-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background-color: #db6805;
+    color: white;
+    font-size: 1.6rem;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &:hover {
+    gap: 10px;
+
+    .button-icon{
+      background-color: #fe7702;
+    }
   }
 }

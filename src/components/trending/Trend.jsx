@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { BsArrowRightShort } from 'react-icons/bs'
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import { AiOutlineHeart } from 'react-icons/ai'
-import '../../sass/components/_sliders.scss'
-import { NavLink } from 'react-router-dom'
-import axios from 'axios'
-import env from '../../Api'
+import React, { useEffect, useState } from "react";
+import { BsArrowRightShort } from "react-icons/bs";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { AiOutlineHeart } from "react-icons/ai";
+import "../../sass/components/_sliders.scss";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const Trend = () => {
   const [products, setProducts] = useState({})
   const [addToWishlist, setAddToWishlist] = useState(false)
-
-  //const { API_URL } = env;
 
   useEffect(() => {
     fetchTrending()
   }, [])
 
   const fetchTrending = async () => {
-    axios.get('/ad/products').then((response) => {
-      console.log(response)
-      const data = response.data
-      setProducts(data)
-      console.log(data)
-    })
-  }
+    axios.get("/ad/products").then((response) => {
+      console.log(response);
+      const data = response.data;
+      setProducts(data);
+      console.log(data);
+    });
+  };
 
   const slideLeft = () => {
     var slider = document.getElementById('slider')
