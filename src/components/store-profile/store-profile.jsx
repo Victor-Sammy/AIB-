@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { HiLocationMarker } from 'react-icons/hi'
 import { BsPlus } from 'react-icons/bs'
-import { MdOutlineManageAccounts } from 'react-icons/md'
+import {
+  MdChevronLeft,
+  MdChevronRight,
+  MdOutlineManageAccounts,
+} from 'react-icons/md'
 import './store-profile.scss'
 import ThumbUp from '../../assets/thumbup.png'
 import ThumbDown from '../../assets/thumbdown.png'
@@ -25,7 +29,6 @@ const StoreProfile = () => {
   const [store, setStore] = useState([])
   const [addToWishlist, setAddToWishlist] = useState(false)
 
-  const API_URL = process.env.REACT_APP_API_URL
   const url_key = user
 
   useEffect(() => {
@@ -34,15 +37,16 @@ const StoreProfile = () => {
   }, [])
 
   const fetchData = async () => {
-    const response = await fetch('https://fakestoreapi.com/products?limit=5')
+    const response = await fetch('https://fakestoreapi.com/products?limit=8')
     const data = await response.json()
     setStore(data)
   }
 
   const getStoreData = () => {
     axios
-      .get(`${API_URL}/stores`)
+      .get('/stores/')
       .then((response) => {
+        console.log(response.data)
         const storeData = response.data
 
         const mainStore = storeData?.results?.find(
@@ -54,11 +58,20 @@ const StoreProfile = () => {
       .catch((error) => console.error(`Error: ${error}`))
   }
 
+  const slideLeft = () => {
+    var slider = document.getElementById('slide')
+    slider.scrollLeft = slider.scrollLeft - 500
+  }
+  const slideRight = () => {
+    var slider = document.getElementById('slide')
+    slider.scrollLeft = slider.scrollLeft + 500
+  }
+
   return (
     <div className='store-profile' onload={() => navigate('items')}>
-      <div className='sp-top'>
+      <div className='sp-top' id='sp-top'>
         {profile ? (
-          <div className='sp-img'>
+          <div className='sp-img' id='sp-img'>
             <img src={profile ? profile.profile_image : Pic} alt='' />
           </div>
         ) : (
@@ -70,7 +83,7 @@ const StoreProfile = () => {
         <div className='sp-name'>
           <span>{profile ? profile.name : 'Store Name'}</span>
         </div>
-        <div className='sp-option'>
+        <div className='sp-option' id='sp-option'>
           <div
             className='sp-add'
             id='sp-add'
@@ -151,8 +164,12 @@ const StoreProfile = () => {
               </div>
             </div>
           </div>
+
           <div className='st-items-display' id='st-items-display'>
-            <div className='slider' id='slider'>
+            <div className='left-arrow' id='left-arrow' onClick={slideLeft}>
+              <MdChevronLeft />
+            </div>
+            <div className='slide' id='slide'>
               {store.map((value) => {
                 return (
                   <div key={value.id} className='item' id='item'>
@@ -191,6 +208,9 @@ const StoreProfile = () => {
                 )
               })}
             </div>
+            <div className='right-arrow' id='right-arrow' onClick={slideRight}>
+              <MdChevronRight />
+            </div>
           </div>
         </div>
       ) : (
@@ -222,7 +242,9 @@ const StoreProfile = () => {
                 </div>
               </div>
               <div className='r-rating'>
-                <span className='stars'>⭐⭐⭐⭐⭐</span>
+                <span className='stars' id='stars'>
+                  ⭐⭐⭐⭐⭐
+                </span>
               </div>
               <div className='r-subject' id='r-subject'>
                 <span>

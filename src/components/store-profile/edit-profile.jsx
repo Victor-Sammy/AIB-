@@ -11,11 +11,12 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import { selectUser } from '../../store/userSlice'
-import { useSelector } from 'react-redux'
+// import { selectUser } from '../../store/userSlice'
+// import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { AiOutlineUser } from 'react-icons/ai'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../context/AuthContext'
 
 const EditProfile = () => {
   //const user = useSelector(selectUser)
@@ -39,13 +40,9 @@ const EditProfile = () => {
   //   description: '',
   // })
 
-  const { API_URL } = env
-
   const { user } = useAuth()
 
   const userID = localStorage.getItem('USER_ID')
-
-  const token = localStorage.getItem('accessToken')
   //const [error, setError] = useState('')
 
   // const dispatch = useDispatch();
@@ -121,7 +118,7 @@ const EditProfile = () => {
     axios
       .post(
         '/stores/',
-        formData
+        JSON.stringify(formData)
         //{
         // headers: {
         //   'content-Type': 'multipart/form-data',

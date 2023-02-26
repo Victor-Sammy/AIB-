@@ -14,9 +14,37 @@
 .sub-opt2 {
     margin-top: 20px;
     .subCat-opt2 {
-        padding-left: 0;
+        //padding-left: 18%;
         .subcat-select2 {
-            width: 400px;
+            //width: 35%;
+            height: 50px;
+            background: #F2F4F7;
+            border-radius: 10px;
+            border: none;
+        }
+    }
+    .next-btn {
+        width: 30px;
+        height: 20px;
+        margin-left: 30%;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fe7702;
+        font-size: 16px;
+        transition: .3s all ease-in-out;
+        &:hover {
+            transform:scaleX(1.5);
+        }
+    }
+}
+
+@media (min-width: 300px) {
+    .subCat-opt2 {
+        padding-left: 27%;
+        .subcat-select2 {
+            width: 68%;
             height: 50px;
             background: #F2F4F7;
             border-radius: 10px;
@@ -34,26 +62,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 25px;
+        //font-size: 25px;
         font-weight: 600;
         background: #F2F4F7;
     }
     .product-attributes {
         .div-cover {
-            width: 70%;
-            height: 400px;
+            width: 60%;
+            height: 300px;
             border-radius: 50px;
             background: #7e420e;
             box-shadow: 2px 4px 4px #000;
             margin-top: 50px;
-            margin-left: 15%;
+            margin-left: 20%;
             margin-bottom: 50px;
             display: flex;
             align-items: start;
             .add-image-display {
                 display: flex;
                 align-items: center;
-                margin-top: 100px;
+                margin-top: 50px;
                 .file-cc {
                     .file-card {
                         margin-top: 50px; 
@@ -151,60 +179,52 @@
             }
         }
         .form1 {
+            width: 1200px;
+            margin-right: 10px !important;
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 240px;
-            .input {
-                p {
-                    margin-bottom: 0;
-                }
-                input {
-                    width: 500px;
-                    height: 70px;
-                    border: 1px solid #000;
-                    border-radius: 10px;
-                    padding-left: 10px;
-                }
-            }
+            //display: flex;
+            //align-items: center;
+            //gap: 200px;
             .description {
                 position: absolute;
-                top: 150px;
-                right: 30%;
+                top: 220px;
+                //right: 30%;
                 width: 40%;
+                margin-bottom: 0;
                 textarea {
-                    width: 100%;
+                    width: 800px;
                     height: 120px;
                     border-radius: 10px;
                     padding-left: 10px;
                     padding-top: 10px;
+                    margin-bottom: 5px;
                 }
             }
         }
         h1 {
-            margin-top: 250px;
-            margin-bottom: 50px;
+            margin-top: 170px;
+            //margin-left: 30%;
+            margin-bottom: 20px;
             font-size: 18px;
             font-weight: 700;
             color: #000;
             opacity: 60%;
-            text-align: center;
         }
         .formDescription {
             .div-flex {
-                display: flex;
-                align-items: center;
-                gap: 240px;
+                // display: flex;
+                // align-items: center;
+                // gap: 240px;
                 p {
                     margin-bottom: 0;
                 }
                 input {
-                    width: 500px;
+                    width: 800px;
                     height: 70px;
                     border: 1px solid #000;
                     border-radius: 10px;
                     padding-left: 10px;
-                    margin-bottom: 50px;
+                    margin-bottom: 10px;
                 }
             }
             .outstanding {
@@ -219,6 +239,104 @@
                     padding-left: 10px;
                 }
             }
+            .add-btn {
+              width: 20%;
+              height: 50px;
+              border: none;
+              border-radius: 10px;
+              background-color: #fe7702;
+              color: #fff;
+              font-size: 16px;
+              margin-left: 25%;
+              margin-top: 50px;
+              margin-bottom: 50px;
+              transition: .2s all ease-in-out;
+              &:hover {
+                transform: scaleX(1.1);
+              }
+            }
         }
     }
 }    
+
+@media (min-width: 1800px) {
+    .input-div {
+        .aboutPrdt {
+            font-size: 19px;
+        }
+    }
+    #form1 {
+        left: 25% !important;
+        .input {
+            margin-bottom: 25px;
+            p {
+                margin-bottom: 2px;
+            }
+            input {
+                width: 800px !important;
+                height: 70px;
+                border: 1px solid #000;
+                border-radius: 10px;
+                padding-left: 10px;
+            }
+        }
+        .description {
+            left: 0;
+            textarea {
+                width: 800px !important;
+            }
+        }
+    }
+    h1 {
+        margin-left: 45%;;
+    }
+    #formDescription {
+        margin-left: 25%;
+        .div-flex {
+            input {
+                width: 800px !important;
+            }
+        } 
+    }
+}
+
+@media (min-width: 1400px) {
+    .input-div {
+        .aboutPrdt {
+            font-size: 16px;
+        }
+    }
+    #form1 {
+        left: 25%;
+        .input {
+            margin-bottom: 25px;
+            p {
+                margin-bottom: 2px;
+            }
+            input {
+                width: 600px;
+                height: 70px;
+                border: 1px solid #000;
+                border-radius: 10px;
+                padding-left: 10px;
+            }
+        }
+        .description {
+            left: 0;
+            textarea {
+                width: 600px;
+            }
+        }
+    }
+    h1 {
+        margin-left: 45%;;
+    }
+    #formDescription {
+        margin-left: 25%;
+        .div-flex {
+            input {
+                width: 600px;
+            }
+        } 
+    }   
+}
