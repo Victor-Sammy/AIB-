@@ -39,7 +39,7 @@ const CartItem = () => {
 
   if (cartItem.length < 1) {
     return (
-      <section className='cart'>
+      <section className='cart' id='cart'>
         <header>
           <h2>Your bag</h2>
           <h4 className='empty-cart'>is currently empty</h4>
