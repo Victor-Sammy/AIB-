@@ -37,19 +37,25 @@ const CartItem = () => {
     })
   }
 
-  if (cartItem.length < 1) {
-    return (
-      <section className='cart'>
+  // if (cartItem.length < 1) {
+  //   return (
+  //     <section className='cart'>
+  //       <header>
+  //         <h2>Your bag</h2>
+  //         <h4 className='empty-cart'>is currently empty</h4>
+  //       </header>
+  //     </section>
+  //   )
+  // }
+
+  return (
+    <div>
+      <section className='cart' id='cart'>
         <header>
           <h2>Your bag</h2>
           <h4 className='empty-cart'>is currently empty</h4>
         </header>
       </section>
-    )
-  }
-
-  return (
-    <div>
       <h1 className='count' id='count'>
         my cart ({cartItem?.count})
       </h1>
