@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import '../../../sass/pages/addCategory.scss'
 
 import CarsOpt from '../CarsOpt'
@@ -104,7 +103,7 @@ const AddCategory = () => {
   }
   return (
     <section className='addCategory'>
-      <div className='ap-category2'>
+      <div className='ap-category2' id='ap-category2'>
         <h1>Category: {renderResult()}</h1>
         <select
           className='cat-select2'
@@ -145,9 +144,6 @@ const AddCategory = () => {
         {kidsContentVisible && <Kids />}
         {healthContentVisible && <HealthOpt />}
         {jobsServicesContentVisible && <ServicesOpt />}
-      </div>
-      <div>
-        <NavLink to='/addProduct'>Next</NavLink>
       </div>
     </section>
   )

@@ -126,7 +126,7 @@ const Fashion = () => {
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>
-        <div className='form1'>
+        <div className='form1' id='form1'>
           <div className='input'>
             <p>Name</p>
             <input
@@ -159,7 +159,7 @@ const Fashion = () => {
           </div>
         </div>
         <h1>more description</h1>
-        <div className='formDescription'>
+        <div className='formDescription' id='formDescription'>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>
@@ -237,20 +237,8 @@ const Fashion = () => {
               />
             </div>
           </div>
-          <button
-            type='submit'
-            style={{
-              width: '200px',
-              height: '50px',
-              borderRadius: '10px',
-              backgroundColor: '#fe7702',
-              color: '#fff',
-              marginLeft: '43%',
-              marginTop: '50px',
-              marginBottom: '50px',
-            }}
-          >
-            NEXT
+          <button type='submit' className='add-btn'>
+            Upload
           </button>
         </div>
       </form>

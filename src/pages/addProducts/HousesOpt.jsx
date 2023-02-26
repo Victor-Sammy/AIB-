@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { GrFormNextLink } from 'react-icons/gr'
 import '../../sass/components/_subCatOpt.scss'
+import { NavLink } from 'react-router-dom'
 
 const HousesOpt = () => {
   const [housing, setHousing] = useState('makeSelection')
@@ -68,6 +70,13 @@ const HousesOpt = () => {
           <option value='Land & Plots for Rent'>Land & Plots for Rent</option>
           <option value='Shortlets & Hotels'>Shortlets & Hotels</option>
         </select>
+      </div>
+      <div>
+        <NavLink to='/addProduct'>
+          <div className='next-btn'>
+            <GrFormNextLink />
+          </div>
+        </NavLink>
       </div>
     </div>
   )
