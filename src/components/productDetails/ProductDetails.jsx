@@ -51,35 +51,49 @@ const ProductDetails = () => {
   return (
     <main className=" wrapper productDetails">
       <div className="productDetails_carousel">
-        <Carousel
-          showStatus={false}
-          showIndicators={false}
-          showArrows={false}
-          showThumbs={false}
-          selectedItem={currentSlide}
-          autoPlay={true}
-          infiniteLoop={true}
-          interval={4000}
-          onChange={(index) => setCarouselIndex(index)}
-        >
-          {productDetails.images.map((image) => {
+        <div className="productDetails_carousel-main">
+          <Carousel
+            showStatus={false}
+            showIndicators={false}
+            showArrows={false}
+            showThumbs={false}
+            selectedItem={currentSlide}
+            autoPlay={true}
+            infiniteLoop={true}
+            interval={4000}
+            onChange={(index) => setCarouselIndex(index)}
+          >
+            {productDetails.images.map((image) => {
+              return (
+                <div className="productDetails_carousel-item">
+                  <img src={image} />
+                </div>
+              );
+            })}
+          </Carousel>
+          <div className="productDetails_carousel-controls">
+            <button onClick={carouselPrev} disabled={currentSlide == 0}>
+              <ArrowLeft />
+            </button>
+            <button
+              onClick={carouselNext}
+              disabled={currentSlide == productDetails.images.length - 1}
+            >
+              <ArrowRight />
+            </button>
+          </div>
+        </div>
+        <div className="productDetails_carousel-thumbs">
+          {productDetails.images.map((image, index) => {
             return (
-              <div className="productDetails_carousel-item">
+              <div
+                className={`thumb ${currentSlide == index ? "active" : ""}`}
+                onClick={() => setcurrentSlide(index)}
+              >
                 <img src={image} />
               </div>
             );
           })}
-        </Carousel>
-        <div className="productDetails_carousel-controls">
-          <button onClick={carouselPrev} disabled={currentSlide == 0}>
-            <ArrowLeft />
-          </button>
-          <button
-            onClick={carouselNext}
-            disabled={currentSlide == productDetails.images.length - 1}
-          >
-            <ArrowRight />
-          </button>
         </div>
       </div>
     </main>

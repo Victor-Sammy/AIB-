@@ -1,13 +1,28 @@
 .productDetails {
   &_carousel {
     margin-top: 2.9rem;
+    &-main {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    &-item {
+      display: grid;
+      place-items: center;
+
+      img {
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 28rem;
+      }
+    }
 
     &-controls {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: calc(100% - 4.4rem);
-      margin: 0 auto;
+      left: 2.2rem;
       pointer-events: none;
       position: absolute;
       top: 50%;
@@ -27,6 +42,29 @@
 
         &:disabled {
           opacity: 0.3;
+        }
+      }
+    }
+    &-thumbs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      .thumb {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.26rem;
+        opacity: 0.2;
+
+        img {
+          object-fit: contain;
+          max-width: 4rem;
+          max-height: 4rem;
+        }
+
+        &.active {
+          opacity: 1;
         }
       }
     }
