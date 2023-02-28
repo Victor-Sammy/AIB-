@@ -1,6 +1,6 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import '../sass/pages/_product.scss'
+import "../sass/pages/_productDetails.scss";
 
 const Ratings = ({ value, color }) => {
   return (

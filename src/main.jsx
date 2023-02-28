@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import "./fontawesome";
 import { dom } from "@fortawesome/fontawesome-svg-core";
-import "./components/interceptors/axios";
+import "./Api/Api";
 import AppProviders from "./context";
 
 dom.watch();

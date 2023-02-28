@@ -73,7 +73,7 @@ export default function ItemCard({ item }) {
       <div className="productItem-image">
         <img src={item.images[0].image} alt={`${item.name}`} />
       </div>
-      <Link to="/" className="productItem-content">
+      <Link to={`/products/${item.id}`} className="productItem-content">
         <div className="productItem-content-category">
           {item.category ?? "Bliss Fashion"}
         </div>

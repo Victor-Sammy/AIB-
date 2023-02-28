@@ -1,25 +1,37 @@
+import axios from "axios";
+
+axios.defaults.baseURL = "https://aib-shop.up.railway.app";
+
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("USER_ACCESS_TOKEN");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 export const getCart = () => {
-  const cartID = localStorage.getItem('cartID')
-  const accessToken = localStorage.getItem('USER_ACCESS_TOKEN')
-  // const cartID = "351ab1cd-cbcd-4c0b-95d9-b83ce1331a9b";
+  const cartID = localStorage.getItem("cartID");
+  const accessToken = localStorage.getItem("USER_ACCESS_TOKEN");
 
   try {
     if (cartID && accessToken) {
-      return axios.get(`/ad/carts/${cartID}/items`)
+      return axios.get(`/ad/carts/${cartID}/items`);
     } else {
-      return null
+      return null;
     }
   } catch {
-    return null
+    return null;
   }
-}
+};
 
 export const getNotifications = () => {
   try {
     // return axios.get(`/ad/notifications`);
 
-    return null
+    return null;
   } catch {
-    return null
+    return null;
   }
-}
+};

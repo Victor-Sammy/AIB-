@@ -6,7 +6,6 @@ import Home from "./pages/home/Home";
 import Footer from "./components/Footer";
 import SignInPage from "./pages/signin/signin";
 import SignUpPage from "./pages/signup/signup";
-import Product from "./components/productDetails/Product";
 import Header from "./components/Header";
 import CategoryPage from "./pages/category/category";
 import Details from "./components/productDetails/Details";
@@ -33,6 +32,7 @@ import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage";
 import SuccessfullSignUp from "./components/signup/successfullSignUp";
+import ProductDetails from "./components/productDetails/ProductDetails";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -58,7 +58,7 @@ const Wrapper = () => {
         <Route exact path="/" element={<Loader />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/product/:category" element={<CategoryPage />} />
-        <Route exact path="/products/:id" element={<Product />}>
+        <Route exact path="/products/:id" element={<ProductDetails />}>
           <Route path="details" element={<Details />} />
           <Route path="specs" element={<Specs />} />
         </Route>
