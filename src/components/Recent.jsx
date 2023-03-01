@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import '../sass/pages/_cart.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { AiOutlineHeart } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 const Recent = () => {
   const [recent, setRecent] = useState([])
+  const [addToWishlist, setAddToWishlist] = useState([])
 
   useEffect(() => {
     fetchRecentProduct()
@@ -16,6 +18,16 @@ const Recent = () => {
     const data = await response.json()
     setRecent(data)
   }
+
+  const slideLeft = () => {
+    var slider = document.getElementById('slide')
+    slider.scrollLeft = slider.scrollLeft - 500
+  }
+  const slideRight = () => {
+    var slider = document.getElementById('slide')
+    slider.scrollLeft = slider.scrollLeft + 500
+  }
+
   return (
     <section className='recent-products'>
       <div className='recent-top'>
@@ -28,36 +40,49 @@ const Recent = () => {
         </div>
       </div>
 
-      <div className='recent-display' id='recent-display'>
-        {recent.map((data) => {
-          return (
-            <div key={data.id} className='rv-itm'>
-              <Link className='recent-link' to=''>
-                <div className='rv-imge'>
-                  <img src={data.image} alt='' />
+      <div className='st-items-display' id='st-items-display'>
+        <div className='left-arrow' id='left-arrow' onClick={slideLeft}>
+          <MdChevronLeft />
+        </div>
+        <div className='slide' id='slide'>
+          {recent.map((value) => {
+            return (
+              <div key={value.id} className='item' id='item'>
+                <NavLink to={`/products/${value.id}`} className='trend-link'>
+                  <div className='image' id='image'>
+                    <img src={value.image} alt='' />
+                  </div>
+                  <div className='details' id='details'>
+                    <div className='item-name' id='item-name'>
+                      <span>{value.category}</span>
+                    </div>
+                    <div className='store-name' id='store-name'>
+                      <span>Chicken Factory</span>
+                    </div>
+                    <div className='price' id='price'>
+                      <span>NGN {value.price}</span>
+                    </div>
+                    <div className='rating' id='rating'>
+                      <span className='stars'>⭐⭐⭐⭐⭐</span>
+                    </div>
+                  </div>
+                </NavLink>
+                <div className='wishlist-icon'>
+                  <AiOutlineHeart
+                    key={value.id}
+                    onClick={() => setAddToWishlist(!addToWishlist)}
+                    className={`heart-icon ${
+                      addToWishlist ? 'heart-active' : ''
+                    }`}
+                  />
                 </div>
-                <div className='rv-info'>
-                  <div className='rv-cate-name'>
-                    <h4>{data.category}</h4>
-                  </div>
-                  <div className='rv-item-make'>
-                    <h3>{data.title}</h3>
-                  </div>
-                  <div className='rv-item-price'>
-                    <h2>NGN {data.price}</h2>
-                  </div>
-                  <div className='rv-item-rating'>
-                    <span className='rv-starss'>⭐⭐⭐⭐⭐</span>
-                    <span className='rv-numb-stars'>5.0 (34k)</span>
-                  </div>
-                  <div className='rv-wishlist-icn'>
-                    <AiOutlineHeart />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          )
-        })}
+              </div>
+            )
+          })}
+        </div>
+        <div className='right-arrow' id='right-arrow' onClick={slideRight}>
+          <MdChevronRight />
+        </div>
       </div>
     </section>
   )

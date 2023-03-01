@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { GrFormNextLink } from 'react-icons/gr'
 import '../../sass/components/_subCatOpt.scss'
+import { NavLink } from 'react-router-dom'
 
 const MusicArtOpt = () => {
   const [musicArt, setMusicArt] = useState('selectMusicArt')
@@ -34,6 +36,13 @@ const MusicArtOpt = () => {
           <option value='musicalAccessories'>Musical Accessories</option>
           <option value='musicalInstruments'>Musical Instruments</option>
         </select>
+      </div>
+      <div>
+        <NavLink to='/addProduct'>
+          <div className='next-btn'>
+            <GrFormNextLink />
+          </div>
+        </NavLink>
       </div>
     </div>
   )

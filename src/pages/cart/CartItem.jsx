@@ -6,7 +6,6 @@ import { RiDeleteBin5Fill } from 'react-icons/ri'
 import '../../sass/pages/_cart.scss'
 
 const CartItem = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
   //const dispatch = useDispatch()
   const cartId = localStorage.getItem('cartID')
 
@@ -38,9 +37,22 @@ const CartItem = () => {
     })
   }
 
+  if (cartItem.length < 1) {
+    return (
+      <section className='cart' id='cart'>
+        <header>
+          <h2>Your bag</h2>
+          <h4 className='empty-cart'>is currently empty</h4>
+        </header>
+      </section>
+    )
+  }
+
   return (
     <div>
-      <h1 style={{ fontSize: '22px' }}>my cart ({cartItem?.count})</h1>
+      <h1 className='count' id='count'>
+        my cart ({cartItem?.count})
+      </h1>
       <div className='cart-container' id='cart-container'>
         <div className='cart-info' id='cart-info'>
           <div className='cart-items'>
