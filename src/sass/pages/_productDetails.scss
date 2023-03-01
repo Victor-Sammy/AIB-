@@ -153,6 +153,33 @@
       }
     }
   }
+
+  &_cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 4rem;
+
+    &-cart {
+      @include button;
+      flex: 1;
+
+      svg {
+        width: 24px;
+        fill: white;
+      }
+    }
+    &-buy {
+      flex: 1;
+      outline: none;
+      border: 1px solid $color-orange;
+      color: $color-orange;
+      background-color: transparent;
+      height: 44px;
+      font-weight: 400;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+  }
 }
 
 // .product {

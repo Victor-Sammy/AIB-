@@ -21,6 +21,7 @@ import StarHalf from "../vectors/StarHalf";
 import StarOutline from "../vectors/StarOutline";
 import Ratings from "../Ratings";
 import OptionSelector from "./OptionSelector";
+import Cart from "../vectors/Cart";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -139,6 +140,12 @@ const ProductDetails = () => {
         selectOption={selectOption}
         ref={selectedOptions}
       />
+      <div className="productDetails_cta">
+        <button className="productDetails_cta-cart">
+          <Cart /> Add to Cart
+        </button>
+        <button className="productDetails_cta-buy">Buy</button>
+      </div>
     </main>
   );
 };
