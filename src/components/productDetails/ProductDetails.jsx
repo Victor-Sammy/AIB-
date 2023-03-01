@@ -15,34 +15,99 @@ import iphone1 from "../../assets/iphone1.png";
 import iphone2 from "../../assets/iphone2.png";
 import iphone3 from "../../assets/iphone3.png";
 import iphone4 from "../../assets/iphone4.png";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import ArrowRight from "../vectors/ArrowRight";
-import ArrowLeft from "../vectors/ArrowLeft";
+import Carousel from "./Carousel";
+import Star from "../vectors/Star";
+import StarHalf from "../vectors/StarHalf";
+import StarOutline from "../vectors/StarOutline";
+import Ratings from "../Ratings";
+import OptionSelector from "./OptionSelector";
+
+const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
 const productDetails = {
   images: [iphone1, iphone2, iphone3, iphone4],
+  name: "Apple iPhone 13 pro",
+  description:
+    "6.1 Inch Super Retina - (6GB RAM + 256GB ROM) IOS 15, 5G, FaceTime - GOLD",
+  price: 850000,
+  avgRating: 3.5,
+  ratingsCount: 34000,
+  options: [
+    {
+      name: "Capacity",
+      options: [
+        {
+          value: "64GB",
+          additionalPrice: 6000,
+        },
+        {
+          value: "128GB",
+          additionalPrice: 50000,
+        },
+        {
+          value: "256GB",
+          additionalPrice: 80000,
+        },
+        {
+          value: "512GB",
+          additionalPrice: 120000,
+        },
+        {
+          value: "1TB",
+          additionalPrice: 210000,
+        },
+      ],
+    },
+    {
+      name: "Color",
+      options: [
+        {
+          value: "Blue",
+          additionalPrice: 0,
+        },
+        {
+          value: "Red",
+          additionalPrice: 3000,
+        },
+      ],
+    },
+  ],
 };
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const [currentSlide, setcurrentSlide] = useState(0);
+  const [price, setPrice] = useState(0);
+  const selectedOptions = useRef([]);
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProductDetails(id),
   });
 
-  const carouselPrev = () => {
-    setcurrentSlide((index) => index - 1);
+  const selectOption = (index, value) => {
+    const prevAdditionalPrice =
+      selectedOptions.current[index].option.additionalPrice;
+    selectedOptions.current[index].option = value;
+    setPrice(
+      (price) =>
+        price + Number(value.additionalPrice) - Number(prevAdditionalPrice)
+    );
   };
 
-  const carouselNext = () => {
-    setcurrentSlide((index) => index + 1);
-  };
-  const setCarouselIndex = (index) => {
-    setcurrentSlide(index);
-  };
+  useEffect(() => {
+    const price = productDetails.options.reduce(
+      (previousValue, variant) =>
+        previousValue + variant.options[0].additionalPrice,
+      productDetails.price
+    );
+    productDetails.options.forEach((variant) => {
+      selectedOptions.current.push({
+        name: variant.name,
+        option: variant.options[0],
+      });
+    });
+    setPrice(price);
+  }, [productDetails]);
 
   if (isLoading) {
     return <div>...Loading</div>;
@@ -50,55 +115,46 @@ const ProductDetails = () => {
 
   return (
     <main className=" wrapper productDetails">
-      <div className="productDetails_carousel">
-        <div className="productDetails_carousel-main">
-          <Carousel
-            showStatus={false}
-            showIndicators={false}
-            showArrows={false}
-            showThumbs={false}
-            selectedItem={currentSlide}
-            autoPlay={true}
-            infiniteLoop={true}
-            interval={4000}
-            onChange={(index) => setCarouselIndex(index)}
-          >
-            {productDetails.images.map((image) => {
-              return (
-                <div className="productDetails_carousel-item">
-                  <img src={image} />
-                </div>
-              );
-            })}
-          </Carousel>
-          <div className="productDetails_carousel-controls">
-            <button onClick={carouselPrev} disabled={currentSlide == 0}>
-              <ArrowLeft />
-            </button>
-            <button
-              onClick={carouselNext}
-              disabled={currentSlide == productDetails.images.length - 1}
-            >
-              <ArrowRight />
-            </button>
-          </div>
-        </div>
-        <div className="productDetails_carousel-thumbs">
-          {productDetails.images.map((image, index) => {
-            return (
-              <div
-                className={`thumb ${currentSlide == index ? "active" : ""}`}
-                onClick={() => setcurrentSlide(index)}
-              >
-                <img src={image} />
-              </div>
-            );
-          })}
+      <Carousel images={productDetails.images} />
+      <div className="productDetails_details">
+        <h1 className="productDetails_details-name">{productDetails.name}</h1>
+        <p className="productDetails_details-description">
+          {productDetails.description}
+        </p>
+        <p className="productDetails_details-price">
+          NGN{price.toLocaleString()}
+        </p>
+        <div className="productDetails_details-rating">
+          <span className="stars">
+            <Ratings rating={productDetails.avgRating} color="#FE8946" />
+          </span>
+          <span className="rating">{productDetails.avgRating}</span>
+          <span className="ratingCount">
+            ({formatter.format(productDetails.ratingsCount)})
+          </span>
         </div>
       </div>
+      <OptionSelector
+        options={productDetails.options}
+        selectOption={selectOption}
+        ref={selectedOptions}
+      />
     </main>
   );
 };
+
+{
+  /* <i
+  style={{ color }}
+  className={
+    value + 1 === rate + 0.5
+      ? "fa-solid fa-star-half-alt"
+      : value >= rate
+      ? "fa-solid fa-star"
+      : "far fa-star"
+  }
+></i>; */
+}
 
 // const Product = () => {
 //   const { id } = useParams();
