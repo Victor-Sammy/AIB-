@@ -16,14 +16,14 @@ const Home = () => {
       <CategoryPreview
         slug="trending"
         title="Trending Now"
-        requestPath="/ad/trending"
+        requestPath="/ad/trending/"
         fullListPath="/"
         className="trendingPreview"
       />
       <CategoryPreview
         slug="popular"
         title="Most Popular"
-        requestPath="/ad/trending"
+        requestPath="/ad/trending/"
         fullListPath="/"
         className="trendingPreview"
       />
@@ -33,7 +33,7 @@ const Home = () => {
       <CategoryPreview
         slug="trendingInMen"
         title="Trending in Men"
-        requestPath="/ad/trending"
+        requestPath="/ad/trending/"
         fullListPath="/"
         className="trendingPreview"
       />

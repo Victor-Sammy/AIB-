@@ -180,6 +180,63 @@
       border-radius: 4px;
     }
   }
+
+  &__info {
+    &-header {
+      display: flex;
+      position: relative;
+      align-items: center;
+      border-radius: 0.6rem;
+      overflow: hidden;
+      // box-shadow: $shadow-2;
+      width: fit-content;
+      background-color: white;
+      box-shadow: none;
+      border-radius: 0;
+      background: transparent;
+
+      .subNavigation-highlight {
+        height: 2px;
+        border-radius: 1px;
+        top: unset;
+        bottom: 0;
+      }
+
+      .subNavigation-button.active {
+        color: $color-orange;
+      }
+
+      &-highlight {
+        width: 3rem;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all ease-in-out 0.2s;
+        border-radius: 0.6rem;
+        background-color: $color-dark-grey2;
+      }
+
+      &-button {
+        // @include medium-subtext;
+        color: $color-dark-grey2;
+        padding: 0.85rem 2rem;
+        border-radius: 0.6rem;
+        transition: all ease-in-out 0.2s;
+        background: transparent;
+        position: relative;
+        z-index: 1;
+
+        // &:hover {
+        //   background-color: $primary-lightGreen;
+        // }
+        &.active {
+          color: white;
+          background: transparent;
+        }
+      }
+    }
+  }
 }
 
 // .product {

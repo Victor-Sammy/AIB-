@@ -16,12 +16,10 @@ import iphone2 from "../../assets/iphone2.png";
 import iphone3 from "../../assets/iphone3.png";
 import iphone4 from "../../assets/iphone4.png";
 import Carousel from "./Carousel";
-import Star from "../vectors/Star";
-import StarHalf from "../vectors/StarHalf";
-import StarOutline from "../vectors/StarOutline";
 import Ratings from "../Ratings";
 import OptionSelector from "./OptionSelector";
 import Cart from "../vectors/Cart";
+import Info from "./info";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -73,6 +71,68 @@ const productDetails = {
       ],
     },
   ],
+  properties: [
+    {
+      name: "Brand",
+      value: "Apple",
+    },
+    {
+      name: "Display Type",
+      value: "OLED",
+    },
+    {
+      name: "Internal Storage",
+      value: "256GB",
+    },
+    {
+      name: "Model",
+      value: "Iphone 13 Pro",
+    },
+    {
+      name: "Screen Size",
+      value: "6.1",
+    },
+    {
+      name: "Card Slot",
+      value: "No",
+    },
+    {
+      name: "Condition",
+      value: "Brand New",
+    },
+    {
+      name: "Resolution",
+      value: "1125 x 2436",
+    },
+    {
+      name: "Main Camera",
+      value: "Triple",
+    },
+    {
+      name: "SIM",
+      value: "Nano-SIM",
+    },
+    {
+      name: "RAM",
+      value: "3GB",
+    },
+    {
+      name: "Selfie Camera",
+      value: "12MP (f/2.2)",
+    },
+    {
+      name: "OS",
+      value: "IOS",
+    },
+    {
+      name: "Colour",
+      value: "Others",
+    },
+    {
+      name: "Battery",
+      value: "3190mAh",
+    },
+  ],
 };
 
 const ProductDetails = () => {
@@ -114,6 +174,19 @@ const ProductDetails = () => {
     return <div>...Loading</div>;
   }
 
+  const splitedProudctProperties = [];
+
+  if (productDetails.properties.length > 3) {
+    let arr = [];
+    productDetails.properties.forEach((property, index) => {
+      arr.push(property);
+      if (index % 3 == 2) {
+        splitedProudctProperties.push(arr);
+        arr = [];
+      }
+    });
+  }
+
   return (
     <main className=" wrapper productDetails">
       <Carousel images={productDetails.images} />
@@ -146,6 +219,8 @@ const ProductDetails = () => {
         </button>
         <button className="productDetails_cta-buy">Buy</button>
       </div>
+
+      {/* <Info /> */}
     </main>
   );
 };

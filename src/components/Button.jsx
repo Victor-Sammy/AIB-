@@ -7,10 +7,11 @@ export default function Button({
   iconLeft,
   iconRight,
   loading,
+  className,
   ...props
 }) {
   return (
-    <button className="button" {...props}>
+    <button className={`button ${className}`} {...props}>
       {iconLeft && <span className="button-icon">{iconLeft}</span>}
       {text}
       {iconRight && !loading && (
