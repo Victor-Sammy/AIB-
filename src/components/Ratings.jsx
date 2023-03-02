@@ -3,7 +3,7 @@ import Star from "./vectors/Star";
 import StarHalf from "./vectors/StarHalf";
 import StarOutline from "./vectors/StarOutline";
 
-const Ratings = ({ rating, color }) => {
+const Ratings = ({ rating, color = "#FE8946" }) => {
   return (
     <>
       {Array(Math.floor(rating))
@@ -15,7 +15,7 @@ const Ratings = ({ rating, color }) => {
       {Array(5 - Math.ceil(rating))
         .fill(0)
         .map((item) => (
-          <StarOutline fill={color} />
+          <Star fill={"#DADADA"} />
         ))}
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import "../../sass/pages/_productDetails.scss";
 
-export default function Info() {
+export default function Info({ productDetails, productSpecifications }) {
   const [selected, setSelected] = useState("details");
 
   const selectItem = (e, item) => {
@@ -19,6 +19,27 @@ export default function Info() {
   const navItemRefs = useRef([]);
   const activeNavBacground = useRef();
   const navWrapRef = useRef();
+
+  const splitedProudctDetails = [];
+  const splitedProductSpecifications = [];
+
+  let arr = [];
+  productDetails.forEach((property, index) => {
+    arr.push(property);
+    if (index % 3 == 2 || index == productDetails.length - 1) {
+      splitedProudctDetails.push(arr);
+      arr = [];
+    }
+  });
+
+  arr = [];
+  productSpecifications.forEach((property, index) => {
+    arr.push(property);
+    if (index % 3 == 2 || index == productSpecifications.length - 1) {
+      splitedProductSpecifications.push(arr);
+      arr = [];
+    }
+  });
 
   useLayoutEffect(() => {
     const itemElement = navItemRefs.current.find((element) =>
@@ -43,7 +64,7 @@ export default function Info() {
         ></span>
         <button
           ref={(ref) => (navItemRefs.current[0] = ref)}
-          onClick={(e) => selectItem(e, "detials")}
+          onClick={(e) => selectItem(e, "details")}
           className={`productDetails_info-header-button ${
             selected === "details" ? "active" : ""
           }`}
@@ -60,6 +81,37 @@ export default function Info() {
           Specifications
         </button>
       </div>
+      {selected == "details" ? (
+        <table className="productDetails_info-content">
+          {splitedProudctDetails.map((productDetailsGroup) => (
+            <tr className="detailRow">
+              {productDetailsGroup.map((productDetail) => (
+                <td className="detailData">
+                  <div className="detailData_title">
+                    {productDetail.name.toUpperCase()}
+                  </div>
+                  <div className="detailData_value">{productDetail.value}</div>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </table>
+      ) : (
+        <table className="productDetails_info-content">
+          {splitedProductSpecifications.map((productSpecificationsGroup) => (
+            <tr className="detailRow">
+              {productSpecificationsGroup.map((productSpec) => (
+                <td className="detailData">
+                  <div className="detailData_title">
+                    {productSpec.name.toUpperCase()}
+                  </div>
+                  <div className="detailData_value">{productSpec.value}</div>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </table>
+      )}
     </div>
   );
 }

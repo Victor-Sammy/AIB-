@@ -8,8 +8,6 @@ import SignInPage from "./pages/signin/signin";
 import SignUpPage from "./pages/signup/signup";
 import Header from "./components/Header";
 import CategoryPage from "./pages/category/category";
-import Details from "./components/productDetails/Details";
-import Specs from "./components/productDetails/Specs";
 import Cart from "./pages/cart/Cart";
 import "react-toastify/dist/ReactToastify.css";
 import ShippingAddress from "./pages/checkout/ShippingAddress";
@@ -35,37 +33,34 @@ import SuccessfullSignUp from "./components/signup/successfullSignUp";
 import ProductDetails from "./components/productDetails/ProductDetails";
 
 function App() {
-  axios.defaults.withCredentials = true
+  axios.defaults.withCredentials = true;
 
   return (
     <Routes>
-      <Route exact path='/' element={<LandingPage />} />
-      <Route exact path='/signin' element={<SignInPage />} />
-      <Route exact path='/signup' element={<SignUpPage />} />
-      <Route exact path='/successfullsignup' element={<SuccessfullSignUp />} />
-      <Route path='/*' element={<Wrapper />} />
+      <Route exact path="/" element={<LandingPage />} />
+      <Route exact path="/signin" element={<SignInPage />} />
+      <Route exact path="/signup" element={<SignUpPage />} />
+      <Route exact path="/successfullsignup" element={<SuccessfullSignUp />} />
+      <Route path="/*" element={<Wrapper />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
 
 const Wrapper = () => {
   return (
-    <div className='App'>
+    <div className="App">
       <Header />
       <Routes>
         <Route exact path="/" element={<Loader />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/product/:category" element={<CategoryPage />} />
-        <Route exact path="/products/:id" element={<ProductDetails />}>
-          <Route path="details" element={<Details />} />
-          <Route path="specs" element={<Specs />} />
-        </Route>
-        <Route exact path='/cart' element={<Cart />} />
+        <Route exact path="/products/:id" element={<ProductDetails />} />
+        <Route exact path="/cart" element={<Cart />} />
         <Route
           exact
-          path='/shipping'
+          path="/shipping"
           element={
             <RequireAuth>
               <ShippingAddress />
@@ -74,17 +69,17 @@ const Wrapper = () => {
         />
         <Route
           exact
-          path='/payment'
+          path="/payment"
           element={
             <RequireAuth>
               <Payment />
             </RequireAuth>
           }
         />
-        <Route exact path='/seeAllProfile' element={<SeeAllProfile />} />
-        <Route exact path='/seeAllTrends' element={<SeeAllTrends />} />
+        <Route exact path="/seeAllProfile" element={<SeeAllProfile />} />
+        <Route exact path="/seeAllTrends" element={<SeeAllTrends />} />
         <Route
-          path='/wallet/:page'
+          path="/wallet/:page"
           element={
             <RequireAuth>
               <Wallet />
@@ -92,7 +87,7 @@ const Wrapper = () => {
           }
         />
         <Route
-          path='profile'
+          path="profile"
           element={
             <RequireAuth>
               <StoreProfile />
@@ -100,28 +95,28 @@ const Wrapper = () => {
           }
         />
 
-        <Route path='profile' element={<StoreProfile />} />
+        <Route path="profile" element={<StoreProfile />} />
 
-        <Route path='addProduct' element={<AddProduct />} />
-        <Route path='addImages' element={<AddImages />} />
-        <Route path='/addCategory' element={<AddCategory />} />
-        <Route path='/demo' element={<Demo />} />
+        <Route path="addProduct" element={<AddProduct />} />
+        <Route path="addImages" element={<AddImages />} />
+        <Route path="/addCategory" element={<AddCategory />} />
+        <Route path="/demo" element={<Demo />} />
         <Route
-          path='/editProfile'
+          path="/editProfile"
           element={
             <RequireAuth>
               <EditProfile />
             </RequireAuth>
           }
         />
-        <Route path='addProduct' element={<AddProduct />} />
-        <Route path='/reset' element={<Reset />} />
-        <Route path='/otp' element={<Otp />} />
-        <Route path='/changePassword' element={<ChangePassword />} />
-        <Route path='/resetSuccess' element={<ResetSuccess />} />
+        <Route path="addProduct" element={<AddProduct />} />
+        <Route path="/reset" element={<Reset />} />
+        <Route path="/otp" element={<Otp />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
+        <Route path="/resetSuccess" element={<ResetSuccess />} />
       </Routes>
       <Footer />
-      <ToastContainer position='bottom-right' />
+      <ToastContainer position="bottom-right" />
     </div>
-  )
-}
+  );
+};

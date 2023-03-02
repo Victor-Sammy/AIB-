@@ -1,14 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../sass/pages/_productDetails.scss";
-import { NavLink, useParams } from "react-router-dom";
-import { RiArrowLeftSLine } from "react-icons/ri";
-import { AiOutlineHeart } from "react-icons/ai";
-import Review from "../Review";
-//import axios from 'axios'
-import Similar from "../Similar";
-import ProductGallery from "../productGallery/ProductGallery";
-import Details from "./Details";
-import Specs from "./Specs";
+import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../Api/products";
 import { useQuery } from "@tanstack/react-query";
 import iphone1 from "../../assets/iphone1.png";
@@ -20,6 +12,7 @@ import Ratings from "../Ratings";
 import OptionSelector from "./OptionSelector";
 import Cart from "../vectors/Cart";
 import Info from "./info";
+import RatingsAndReviews from "./RatingsAndReviews";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -29,8 +22,17 @@ const productDetails = {
   description:
     "6.1 Inch Super Retina - (6GB RAM + 256GB ROM) IOS 15, 5G, FaceTime - GOLD",
   price: 850000,
-  avgRating: 3.5,
-  ratingsCount: 34000,
+  ratings: {
+    average: 3.5,
+    count: 3400,
+    details: {
+      5: 2000,
+      4: 800,
+      3: 400,
+      2: 150,
+      1: 50,
+    },
+  },
   options: [
     {
       name: "Capacity",
@@ -71,7 +73,7 @@ const productDetails = {
       ],
     },
   ],
-  properties: [
+  details: [
     {
       name: "Brand",
       value: "Apple",
@@ -92,6 +94,48 @@ const productDetails = {
       name: "Screen Size",
       value: "6.1",
     },
+    {
+      name: "Card Slot",
+      value: "No",
+    },
+    {
+      name: "Condition",
+      value: "Brand New",
+    },
+    {
+      name: "Resolution",
+      value: "1125 x 2436",
+    },
+    {
+      name: "Main Camera",
+      value: "Triple",
+    },
+    {
+      name: "SIM",
+      value: "Nano-SIM",
+    },
+    {
+      name: "RAM",
+      value: "3GB",
+    },
+    {
+      name: "Selfie Camera",
+      value: "12MP (f/2.2)",
+    },
+    {
+      name: "OS",
+      value: "IOS",
+    },
+    {
+      name: "Colour",
+      value: "Others",
+    },
+    {
+      name: "Battery",
+      value: "3190mAh",
+    },
+  ],
+  specifications: [
     {
       name: "Card Slot",
       value: "No",
@@ -174,19 +218,6 @@ const ProductDetails = () => {
     return <div>...Loading</div>;
   }
 
-  const splitedProudctProperties = [];
-
-  if (productDetails.properties.length > 3) {
-    let arr = [];
-    productDetails.properties.forEach((property, index) => {
-      arr.push(property);
-      if (index % 3 == 2) {
-        splitedProudctProperties.push(arr);
-        arr = [];
-      }
-    });
-  }
-
   return (
     <main className=" wrapper productDetails">
       <Carousel images={productDetails.images} />
@@ -200,11 +231,11 @@ const ProductDetails = () => {
         </p>
         <div className="productDetails_details-rating">
           <span className="stars">
-            <Ratings rating={productDetails.avgRating} color="#FE8946" />
+            <Ratings rating={productDetails.ratings.average} color="#FE8946" />
           </span>
-          <span className="rating">{productDetails.avgRating}</span>
+          <span className="rating">{productDetails.ratings.average}</span>
           <span className="ratingCount">
-            ({formatter.format(productDetails.ratingsCount)})
+            ({formatter.format(productDetails.ratings.count)})
           </span>
         </div>
       </div>
@@ -220,7 +251,11 @@ const ProductDetails = () => {
         <button className="productDetails_cta-buy">Buy</button>
       </div>
 
-      <Info />
+      <Info
+        productDetails={productDetails.details}
+        productSpecifications={productDetails.specifications}
+      />
+      <RatingsAndReviews id={id} ratings={productDetails.ratings} />
     </main>
   );
 };
