@@ -181,61 +181,91 @@
     }
   }
 
-  &__info {
+  &_info {
+    margin-top: 4rem;
     &-header {
       display: flex;
-      position: relative;
       align-items: center;
-      border-radius: 0.6rem;
-      overflow: hidden;
-      // box-shadow: $shadow-2;
-      width: fit-content;
-      background-color: white;
-      box-shadow: none;
-      border-radius: 0;
-      background: transparent;
-
-      .subNavigation-highlight {
-        height: 2px;
-        border-radius: 1px;
-        top: unset;
-        bottom: 0;
-      }
-
-      .subNavigation-button.active {
-        color: $color-orange;
-      }
+      position: relative;
+      border-bottom: 2px solid #c7c7c7;
+      margin-bottom: 2rem;
 
       &-highlight {
-        width: 3rem;
-        height: 100%;
         position: absolute;
-        top: 0;
+        height: 6px;
+        width: 50%;
         left: 0;
-        transition: all ease-in-out 0.2s;
-        border-radius: 0.6rem;
-        background-color: $color-dark-grey2;
+        border-radius: 1px;
+        bottom: -4px;
+        background-color: $color-orange;
+        transition: all 300ms ease-in-out;
       }
 
       &-button {
-        // @include medium-subtext;
-        color: $color-dark-grey2;
-        padding: 0.85rem 2rem;
-        border-radius: 0.6rem;
-        transition: all ease-in-out 0.2s;
-        background: transparent;
-        position: relative;
-        z-index: 1;
-
-        // &:hover {
-        //   background-color: $primary-lightGreen;
-        // }
-        &.active {
-          color: white;
-          background: transparent;
-        }
+        flex: 1;
+        border: none;
+        outline: none;
+        background-color: white;
+        color: black;
+        font-size: 12px;
+        height: 32px;
+        font-weight: 500;
       }
     }
+    // &-header {
+    //   display: flex;
+    //   position: relative;
+    //   align-items: center;
+    //   border-radius: 0.6rem;
+    //   overflow: hidden;
+    //   // box-shadow: $shadow-2;
+    //   width: fit-content;
+    //   background-color: white;
+    //   box-shadow: none;
+    //   border-radius: 0;
+    //   background: transparent;
+
+    //   .subNavigation-highlight {
+    //     height: 2px;
+    //     border-radius: 1px;
+    //     top: unset;
+    //     bottom: 0;
+    //   }
+
+    //   .subNavigation-button.active {
+    //     color: $color-orange;
+    //   }
+
+    //   &-highlight {
+    //     width: 3rem;
+    //     height: 100%;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     transition: all ease-in-out 0.2s;
+    //     border-radius: 0.6rem;
+    //     background-color: $color-dark-grey2;
+    //   }
+
+    //   &-button {
+    //     // @include medium-subtext;
+    //     color: $color-dark-grey2;
+    //     padding: 0.85rem 2rem;
+    //     border-radius: 0.6rem;
+    //     transition: all ease-in-out 0.2s;
+    //     background: transparent;
+    //     position: relative;
+    //     z-index: 1;
+
+    //     // &:hover {
+    //     //   background-color: $primary-lightGreen;
+    //     // }
+    //     &.active {
+    //       color: white;
+    //       background: transparent;
+    //     }
+    //   }
+    // }
   }
 }
 

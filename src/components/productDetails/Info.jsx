@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import Button from "../Button";
+import "../../sass/pages/_productDetails.scss";
 
 export default function Info() {
-  const [selected, setSelected] = useState("Detials");
+  const [selected, setSelected] = useState("details");
 
   const selectItem = (e, item) => {
     const itemElement = e.currentTarget;
@@ -22,8 +22,9 @@ export default function Info() {
 
   useLayoutEffect(() => {
     const itemElement = navItemRefs.current.find((element) =>
-      element.querySelector("button").classList.contains("active")
+      element.classList.contains("active")
     );
+    console.log(itemElement);
     let left =
       itemElement.getBoundingClientRect().left -
       navWrapRef.current.getBoundingClientRect().left;
@@ -38,19 +39,26 @@ export default function Info() {
       <div className="productDetails_info-header" ref={navWrapRef}>
         <span
           ref={activeNavBacground}
-          className="productDetails__info-header-highlight"
+          className="productDetails_info-header-highlight"
         ></span>
-        {["Details", "Specification"].map((item, index) => (
-          <span key={index} ref={(ref) => (navItemRefs.current[index] = ref)}>
-            <Button
-              text={item}
-              onClick={(e) => selectItem(e, item)}
-              className={`productDetails__info-header-button ${
-                selected === item ? "active" : ""
-              }`}
-            />
-          </span>
-        ))}
+        <button
+          ref={(ref) => (navItemRefs.current[0] = ref)}
+          onClick={(e) => selectItem(e, "detials")}
+          className={`productDetails_info-header-button ${
+            selected === "details" ? "active" : ""
+          }`}
+        >
+          Details
+        </button>
+        <button
+          ref={(ref) => (navItemRefs.current[1] = ref)}
+          onClick={(e) => selectItem(e, "specifications")}
+          className={`productDetails_info-header-button ${
+            selected === "specifications" ? "active" : ""
+          }`}
+        >
+          Specifications
+        </button>
       </div>
     </div>
   );

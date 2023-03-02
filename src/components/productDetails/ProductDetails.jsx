@@ -220,7 +220,7 @@ const ProductDetails = () => {
         <button className="productDetails_cta-buy">Buy</button>
       </div>
 
-      {/* <Info /> */}
+      <Info />
     </main>
   );
 };
