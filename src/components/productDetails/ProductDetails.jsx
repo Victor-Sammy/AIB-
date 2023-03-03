@@ -7,16 +7,16 @@ import iphone1 from "../../assets/iphone1.png";
 import iphone2 from "../../assets/iphone2.png";
 import iphone3 from "../../assets/iphone3.png";
 import iphone4 from "../../assets/iphone4.png";
-import Carousel from "./Carousel";
-import Ratings from "../Ratings";
-import OptionSelector from "./OptionSelector";
-import Cart from "../vectors/Cart";
-import Info from "./info";
-import RatingsAndReviews from "./RatingsAndReviews";
+import Carousel from "./Carousel.jsx";
+import Ratings from "../Ratings.jsx";
+import OptionSelector from "./OptionSelector.jsx";
+import Cart from "../vectors/Cart.jsx";
+import Info from "./info.jsx";
+import RatingsAndReviews from "./RatingsAndReviews.jsx";
 import CategoryPreview from "../CategoryPreview";
 import { getUserLikedItems, toggleItemLike } from "../../Api/user";
 import { toast } from "react-toastify";
-import Heart from "../vectors/Heart";
+import Heart from "../vectors/Heart.jsx";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
