@@ -24,6 +24,7 @@
     "chart.js": "^4.2.0",
     "date-fns": "^2.29.3",
     "framer-motion": "^9.0.1",
+    "javascript-time-ago": "^2.5.9",
     "pretty-checkbox-react": "^3.2.0",
     "primeicons": "^6.0.1",
     "primereact": "^9.0.0-beta.1",

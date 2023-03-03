@@ -7,6 +7,13 @@ import Bar from "../Bar/Bar";
 import Button from "../Button";
 import Ratings from "../Ratings";
 import "../../sass/pages/_productDetails.scss";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addDefaultLocale(en);
+
+// Create formatter (English).
+const timeAgo = new TimeAgo("en-US");
 
 export default function RatingsAndReviews({ id, ratings }) {
   const navigate = useNavigate();
@@ -89,6 +96,39 @@ export default function RatingsAndReviews({ id, ratings }) {
             </tr>
           </table>
         </div>
+        {reviews && (
+          <div className="productDetails_feedback-reviews">
+            {reviews.map((review) => (
+              <div className="review">
+                <div className="review_header">
+                  <div className="review_header-details">
+                    <img src={review.user.profileImage} alt="" />
+                    <div>
+                      <p className="name">
+                        {review.user.firstname} {review.user.lastname}
+                      </p>
+                      <p>
+                        <Ratings rating={review.rating} />
+                      </p>
+                    </div>
+                  </div>
+                  <div className="review_header-date">
+                    <p>
+                      {new Date(review.created_at).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <p>{timeAgo.format(review.created_at)}</p>
+                  </div>
+                </div>
+                <h4>{review.title}</h4>
+                <p>{review.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
