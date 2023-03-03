@@ -19,7 +19,11 @@ export default function CategoryPreview({
   const navigate = useNavigate();
   const scrollRef = useRef();
 
-  const { data: productList, isLoading } = useQuery({
+  const {
+    data: productList,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: [`${slug} preview`],
     queryFn: () => getPreviewProducts(requestPath),
   });
@@ -32,6 +36,10 @@ export default function CategoryPreview({
     var slider = scrollRef.current;
     slider.scrollLeft = slider.scrollLeft + 250;
   };
+
+  if (isError) {
+    return <div>Error loading products</div>;
+  }
 
   return (
     <div className={`preview ${className}`}>
@@ -76,7 +84,7 @@ export default function CategoryPreview({
                 .filter((item) => item.images.length > 0)
                 // .slice(0, 5)
                 .map((item) => (
-                  <ItemCard item={item} />
+                  <ItemCard key={item.id} item={item} />
                 ))}
               {}
             </div>

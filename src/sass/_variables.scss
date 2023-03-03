@@ -5,7 +5,7 @@ $color-dark-grey: #012348;
 $color-dark-grey2: #2d2d2d;
 $color-dark-grey3: #202020;
 $color-light-grey: #c7c6c6;
-$color-light-grey2: #F6F6F6;
+$color-light-grey2: #f6f6f6;
 
 @mixin loader {
   background: linear-gradient(
@@ -19,6 +19,21 @@ $color-light-grey2: #F6F6F6;
   background-size: 250px 400%;
   background-repeat: repeat;
   animation: loading 4s linear infinite;
+}
+
+@mixin button {
+  outline: none;
+  border: none;
+  color: white;
+  background-color: $color-orange;
+  height: 44px;
+  font-weight: 400;
+  font-size: 12px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #ca640b;
+  }
 }
 
 @keyframes loading {

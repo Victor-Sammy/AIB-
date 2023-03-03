@@ -58,7 +58,7 @@ export default function ItemCard({ item }) {
   });
 
   return (
-    <div className="productItem">
+    <Link to={`/products/${item.id}`} className="productItem">
       <div className="productItem-heart">
         {likedItems?.[item.id] ? (
           <Heart
@@ -73,7 +73,7 @@ export default function ItemCard({ item }) {
       <div className="productItem-image">
         <img src={item.images[0].image} alt={`${item.name}`} />
       </div>
-      <Link to="/" className="productItem-content">
+      <div className="productItem-content">
         <div className="productItem-content-category">
           {item.category ?? "Bliss Fashion"}
         </div>
@@ -86,7 +86,7 @@ export default function ItemCard({ item }) {
           <span className="rating">5.0</span>
           <span className="ratingCount">(34k)</span>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

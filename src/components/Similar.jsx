@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../sass/pages/_product.scss'
+import "../sass/pages/_productDetails.scss";
 import { BsArrowRightShort } from 'react-icons/bs'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
