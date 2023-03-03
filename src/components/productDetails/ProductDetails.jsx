@@ -11,7 +11,7 @@ import Carousel from "./Carousel.jsx";
 import Ratings from "../Ratings.jsx";
 import OptionSelector from "./OptionSelector.jsx";
 import Cart from "../vectors/Cart.jsx";
-import Info from "./info.jsx";
+import Info from "./Info.jsx";
 import RatingsAndReviews from "./RatingsAndReviews.jsx";
 import CategoryPreview from "../CategoryPreview";
 import { getUserLikedItems, toggleItemLike } from "../../Api/user";
