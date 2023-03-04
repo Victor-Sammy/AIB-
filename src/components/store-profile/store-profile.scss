@@ -1196,6 +1196,129 @@
     }
   }  
 }
+@media (max-width: 690px) {
+  #store-profile {
+    padding: 0 5%;
+    #st-flex {
+      gap: 3%;
+      #store-info {
+        #sp-img {
+          width: 100px;
+          height: 100px;
+        }
+        #header-icon {
+          width: 100px;
+          height: 100px;
+        }
+        #sp-name {
+          span {
+            font-size: 13px;
+          }
+        }
+        #sp-description {
+          span {
+            font-size: 10px;
+          }
+        }
+        #sp-location {
+          width: 90%;
+          height: 20px;
+          span {
+            font-size: 10px;
+          }
+        }
+        #sp-option {
+          width: 100%;
+          #sp-add {
+            width: 90%;
+            margin-left: 5%;
+            height: 35px;
+          }
+          #sp-profile {
+            margin-left: 5%;
+            width: 90%;
+            height: 35px;
+          }
+        }
+        #sp-engagements {
+          margin-top: 20px;
+          margin-bottom: 20px;
+          gap: 15px;
+          #sp-fb {
+            & > img {
+              height: 30px;
+              width: 30px;
+            }
+            span {
+              font-size: 8px;
+            }
+          }
+        }
+      }
+    }
+    #store-split {
+      gap: 120px;
+      .sp-si {
+        min-width: 70px;
+        font-size: 12px;
+      }
+      .active {
+        width: 250px !important;
+        & > span {
+          font-size: 14px;
+          width: 250px;
+        }
+      }
+    }
+    #st-items {
+      #st-items-display {
+        #slide {
+          display: grid;
+          gap: 5% !important;
+          grid-template-columns: 20.6% 20.6% 20.6% 20.6% !important;
+          #item {
+            width: 125px !important;
+          }
+        }
+      }
+    }
+    #st-review {
+      .st-review-display {
+        #review-img {
+          width: 47px;
+          height: 47px;
+        }
+        #review-details {
+          #r-top {
+            #r-name {
+              font-size: 12px;
+              font-weight: 600;
+            }
+            #r-date {
+              font-size: 12px;
+              font-weight: 500;
+            }
+          }
+          #r-rating {
+            span {
+              font-size: 7px !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+          }
+          #r-subject {
+            font-size: 14px !important;
+            font-weight: 600;
+          }
+          #r-comment {
+            font-size: 10px !important;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }  
+}
 
 @media (max-width: 720px) {
   #store-profile {
