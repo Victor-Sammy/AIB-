@@ -4,6 +4,7 @@
   height: fit-content;
   box-sizing: border-box;
   background: #fdfdfd;
+  scroll-behavior: smooth;
 
   .sp-top {
     margin-top: 0;
@@ -110,6 +111,9 @@
             border-radius: 63px;
             background: #1673ca;
             cursor: pointer;
+            &:hover {
+              background: #1eb4fa;
+            }
     
             & > span {
               font-size: 12px;
@@ -131,6 +135,9 @@
             border-radius: 63px;
             background: #ca640b;
             cursor: pointer;
+            &:hover {
+              background: #fe7702;
+            }
     
             & > span {
               font-size: 12px;
@@ -155,6 +162,10 @@
             display: flex;
             align-items: center;
             flex-direction: column;
+            transition: .2s all ease-in-out;
+            &:hover {
+              transform: scale(1.1);
+            }
       
             & > img {
               object-fit: contain;
@@ -179,6 +190,7 @@
         justify-content: flex-start;
         align-items: center;
         gap: 500px;
+        transition: .1s all ease-in-out;
     
         .sp-si {
           font-size: 18px;
