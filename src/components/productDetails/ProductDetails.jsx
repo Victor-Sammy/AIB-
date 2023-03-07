@@ -269,10 +269,6 @@ const ProductDetails = () => {
     setPrice(price);
   }, [productDetails]);
 
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
-
   return (
     <main className=" wrapper productDetails">
       <div className="productDetails_back desktop" onClick={() => navigate(-1)}>
@@ -282,62 +278,102 @@ const ProductDetails = () => {
         Back to Products
       </div>
       <div className="detailsWrap">
-        <Carousel images={productDetails.images} />
+        {isLoading ? (
+          <div className="productDetails_carouselLoading">
+            <div className="productDetails_carouselLoading-main"></div>
+            <div className="productDetails_carouselLoading-thumbs">
+              <div className="loadingThumb"></div>
+              <div className="loadingThumb"></div>
+              <div className="loadingThumb"></div>
+              <div className="loadingThumb"></div>
+            </div>
+          </div>
+        ) : (
+          <Carousel images={productDetails.images} />
+        )}
         <div className="productDetails_detailWrap">
-          <div className="productDetails_details">
-            <div className="productDetails_details-nameWrap">
-              <h1 className="productDetails_details-name">
-                {productDetails.name}
-              </h1>
-              <div>
-                {likedItems?.[id] ? (
-                  <Heart
-                    fill="#EB5757"
-                    stroke="#EB5757"
-                    onClick={() => toggleLike({ id, add: false })}
+          {isLoading ? (
+            <div className="productDetails_detailsLoading">
+              <div className="name"></div>
+              <div className="description"></div>
+              <div className="description2"></div>
+              <div className="price"></div>
+              <div className="ratings"></div>
+            </div>
+          ) : (
+            <div className="productDetails_details">
+              <div className="productDetails_details-nameWrap">
+                <h1 className="productDetails_details-name">
+                  {productDetails.name}
+                </h1>
+                <div>
+                  {likedItems?.[id] ? (
+                    <Heart
+                      fill="#EB5757"
+                      stroke="#EB5757"
+                      onClick={() => toggleLike({ id, add: false })}
+                    />
+                  ) : (
+                    <Heart onClick={() => toggleLike({ id, add: true })} />
+                  )}
+                </div>
+              </div>
+              <p className="productDetails_details-description">
+                {productDetails.description}
+              </p>
+              <p className="productDetails_details-price">
+                NGN{price.toLocaleString()}
+              </p>
+              <div className="productDetails_details-rating">
+                <span className="stars">
+                  <Ratings
+                    rating={productDetails.ratings.average}
+                    color="#FE8946"
                   />
-                ) : (
-                  <Heart onClick={() => toggleLike({ id, add: true })} />
-                )}
+                </span>
+                <span className="rating">{productDetails.ratings.average}</span>
+                <span className="ratingCount">
+                  ({formatter.format(productDetails.ratings.count)})
+                </span>
               </div>
             </div>
-            <p className="productDetails_details-description">
-              {productDetails.description}
-            </p>
-            <p className="productDetails_details-price">
-              NGN{price.toLocaleString()}
-            </p>
-            <div className="productDetails_details-rating">
-              <span className="stars">
-                <Ratings
-                  rating={productDetails.ratings.average}
-                  color="#FE8946"
-                />
-              </span>
-              <span className="rating">{productDetails.ratings.average}</span>
-              <span className="ratingCount">
-                ({formatter.format(productDetails.ratings.count)})
-              </span>
+          )}
+          {isLoading ? (
+            <div className="productDetails_optionsLoading desktop">
+              <div className="title"></div>
+              <div className="options">
+                <div className="option"></div>
+                <div className="option"></div>
+                <div className="option"></div>
+                <div className="option"></div>
+              </div>
             </div>
-          </div>
-          <OptionSelector
-            options={productDetails.options}
-            selectOption={selectOption}
-            ref={selectedOptions}
-          />
-          <div className="productDetails_cta">
-            <button className="productDetails_cta-cart">
-              <Cart /> Add to Cart
-            </button>
-            <button className="productDetails_cta-buy">Buy</button>
-          </div>
+          ) : (
+            <OptionSelector
+              options={productDetails.options}
+              selectOption={selectOption}
+              ref={selectedOptions}
+            />
+          )}
+          {!isLoading && (
+            <div className="productDetails_cta">
+              <button className="productDetails_cta-cart">
+                <Cart /> Add to Cart
+              </button>
+              <button className="productDetails_cta-buy">Buy</button>
+            </div>
+          )}
         </div>
 
-        <Info
-          productDetails={productDetails.details}
-          productSpecifications={productDetails.specifications}
-        />
-        <RatingsAndReviews id={id} ratings={productDetails.ratings} />
+        {!isLoading && (
+          <>
+            <Info
+              productDetails={productDetails.details}
+              productSpecifications={productDetails.specifications}
+            />
+            <RatingsAndReviews id={id} ratings={productDetails.ratings} />
+          </>
+        )}
       </div>
 
       <CategoryPreview
