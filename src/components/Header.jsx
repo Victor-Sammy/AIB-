@@ -10,7 +10,7 @@ import Cart from "./vectors/Cart";
 import Bell from "./vectors/Bell";
 import Search from "./vectors/Search";
 import { useAuth } from "../context/AuthContext";
-import { getCart, getNotifications } from "../Api/Api";
+import { getNotifications } from "../Api/Api";
 import { useQuery } from "@tanstack/react-query";
 import Hamburger from "./vectors/Hamburger";
 import Close from "./vectors/Close";
@@ -23,6 +23,7 @@ import sofaYellow from "../assets/sofaYellow.png";
 import monitorGrey from "../assets/monitorGrey.png";
 import mobilePurple from "../assets/mobilePurple.png";
 import stackPurple from "../assets/stackPurple.png";
+import { getCart } from "../Api/cart";
 
 const Header = () => {
   const navigate = useNavigate();
