@@ -37,6 +37,9 @@ function App() {
 
   function loadCart() {
     onload = () => {
+      // axios.post('/ad/carts/').then((res) => {
+      //   res.data
+      // })
       localStorage.setItem('cartID', '351ab1cdcbcd4c0b95d9b83ce1331a9b')
     }
   }
