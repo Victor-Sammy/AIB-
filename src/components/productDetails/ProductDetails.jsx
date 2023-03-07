@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../sass/pages/_productDetails.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProductDetails } from "../../Api/products";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import iphone1 from "../../assets/iphone1.png";
@@ -17,6 +17,7 @@ import CategoryPreview from "../CategoryPreview";
 import { getUserLikedItems, toggleItemLike } from "../../Api/user";
 import { toast } from "react-toastify";
 import Heart from "../vectors/Heart.jsx";
+import ArrowLeft from "../vectors/ArrowLeft";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -188,6 +189,7 @@ const ProductDetails = () => {
   const [price, setPrice] = useState(0);
   const selectedOptions = useRef([]);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", id],
@@ -273,6 +275,12 @@ const ProductDetails = () => {
 
   return (
     <main className=" wrapper productDetails">
+      <div className="productDetails_back desktop" onClick={() => navigate(-1)}>
+        <button>
+          <ArrowLeft />
+        </button>
+        Back to Products
+      </div>
       <div className="detailsWrap">
         <Carousel images={productDetails.images} />
         <div className="productDetails_detailWrap">
