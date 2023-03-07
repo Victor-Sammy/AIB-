@@ -33,12 +33,12 @@ const EditProfile = () => {
   const [dob, setDOB] = useState('')
   const [address, setAddress] = useState('')
   const [gender, setGender] = useState('')
-  // const [data, setData] = useState({
-  //   storeName: '',
-  //   location: '',
-  //   delivery: '',
-  //   description: '',
-  // })
+  const [data, setData] = useState({
+    storeName: '',
+    location: '',
+    delivery: '',
+    description: '',
+  })
 
   const { user } = useAuth()
 
@@ -106,26 +106,21 @@ const EditProfile = () => {
       formData.append('profile_image', img)
     }
     formData.append('owner', userID)
-    formData.append('name', storeName)
-    formData.append('description', description)
-    formData.append('adress', location)
-    formData.append('delivery', delivery)
+    formData.append('name', data.storeName)
+    formData.append('description', data.description)
+    formData.append('adress', data.location)
+    formData.append('delivery', data.delivery)
 
     axios.defaults.withCredentials = true
 
     console.log(JSON.stringify(userID))
 
     axios
-      .post(
-        '/stores/',
-        JSON.stringify(formData)
-        //{
-        // headers: {
-        //   'content-Type': 'multipart/form-data',
-        //   Authorization: `Bearer ${token}`,
-        // },
-        //}
-      )
+      .post('/stores/', formData, {
+        headers: {
+          'content-Type': 'multipart/form-data',
+        },
+      })
       .then((response) => {
         response.data
         if (response.status !== 200) {
@@ -233,8 +228,8 @@ const EditProfile = () => {
               <InputText
                 id='storeName'
                 name='storeName'
-                value={storeName}
-                onChange={handleChange}
+                value={data.storeName}
+                onChange={handle}
                 required
               />
             </div>
@@ -244,8 +239,8 @@ const EditProfile = () => {
                 type='text'
                 name='location'
                 id='location'
-                value={location}
-                onChange={handleChange}
+                value={data.location}
+                onChange={handle}
                 required
               />
             </div>
@@ -257,8 +252,8 @@ const EditProfile = () => {
                 type='text'
                 name='description'
                 id='description'
-                value={description}
-                onChange={handleChange}
+                value={data.description}
+                onChange={handle}
                 required
               />
             </div>
@@ -269,9 +264,9 @@ const EditProfile = () => {
                 className='d-input'
                 name='delivery'
                 id='delivery'
-                value={delivery}
+                value={data.delivery}
                 options={option}
-                onChange={handleChange}
+                onChange={handle}
                 placeholder='Delivery'
               />
               {/* <select
