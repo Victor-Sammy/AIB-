@@ -132,6 +132,7 @@
         font-weight: 400;
         font-size: 12px;
         color: $color-dark-grey2;
+        margin-bottom: 1.2rem;
       }
       &_options {
         display: flex;
@@ -399,6 +400,7 @@
     }
     &_detailWrap {
       grid-area: details;
+      margin-top: 6rem;
     }
     &_info {
       grid-area: info;
