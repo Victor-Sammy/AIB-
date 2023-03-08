@@ -41,7 +41,7 @@ const StoreProfile = () => {
 
   const getStoreData = () => {
     axios
-      .get('/stores/')
+      .get('ad/store/')
       .then((response) => {
         console.log(response.data)
         const storeData = response.data
