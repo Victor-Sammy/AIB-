@@ -27,12 +27,12 @@ export default function AuthProvider(props) {
         return
       }
 
-      userData = await axios.get('/ad/profile/me').catch((e) => {
+      userData = await axios.get('/ad/profile/me/').catch((e) => {
         return null
       })
 
-      console.log('userData', userData)
-      // setUser(userData);
+      // console.log('userData', userData)
+      setUser(userData.data);
     }
     autoLogin()
   }, [token])

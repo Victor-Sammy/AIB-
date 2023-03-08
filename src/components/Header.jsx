@@ -94,7 +94,7 @@ const Header = () => {
             {user ? (
               <div className="navItem dropdown">
                 <UserIcon />
-                <span className="desktop">{user.username}</span>
+                <span className="desktop">{user.user.username}</span>
                 {/* <AiOutlineCaretDown /> */}
                 <ArrowDown className="desktop" />
                 <div className="dropdown-content">
