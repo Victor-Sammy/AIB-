@@ -24,9 +24,11 @@ export default function ItemCard({ item }) {
       const likedItems = { ...previousLikedItems };
 
       if (add) {
-        likedItems[`${id}`] = item;
+        likedItems.results.push(item);
       } else {
-        delete likedItems[`${id}`];
+        likedItems.results = likedItems.results.filter(
+          (likedItem) => likedItem.id !== item.id
+        );
       }
 
       // Optimistically update to the new value
@@ -58,9 +60,9 @@ export default function ItemCard({ item }) {
   });
 
   return (
-    <Link to={`/products/${item.id}`} className="productItem">
+    <div className="productItem">
       <div className="productItem-heart">
-        {likedItems?.[item.id] ? (
+        {likedItems?.results.some((likedItem) => likedItem.id === item.id) ? (
           <Heart
             fill="#EB5757"
             stroke="#EB5757"
@@ -73,7 +75,7 @@ export default function ItemCard({ item }) {
       <div className="productItem-image">
         <img src={item.images[0].image} alt={`${item.name}`} />
       </div>
-      <div className="productItem-content">
+      <Link to={`/products/${item.id}`} className="productItem-content">
         <div className="productItem-content-category">
           {item.category ?? "Bliss Fashion"}
         </div>
@@ -86,7 +88,7 @@ export default function ItemCard({ item }) {
           <span className="rating">5.0</span>
           <span className="ratingCount">(34k)</span>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
