@@ -24,6 +24,7 @@ const formatter = Intl.NumberFormat("en", { notation: "compact" });
 const productDetails = {
   images: [iphone1, iphone2, iphone3, iphone4],
   name: "Apple iPhone 13 pro",
+  category: "Phones",
   description:
     "6.1 Inch Super Retina - (6GB RAM + 256GB ROM) IOS 15, 5G, FaceTime - GOLD",
   price: 850000,
@@ -38,46 +39,6 @@ const productDetails = {
       1: 50,
     },
   },
-  options: [
-    {
-      name: "Capacity",
-      options: [
-        {
-          value: "64GB",
-          additionalPrice: 6000,
-        },
-        {
-          value: "128GB",
-          additionalPrice: 50000,
-        },
-        {
-          value: "256GB",
-          additionalPrice: 80000,
-        },
-        {
-          value: "512GB",
-          additionalPrice: 120000,
-        },
-        {
-          value: "1TB",
-          additionalPrice: 210000,
-        },
-      ],
-    },
-    {
-      name: "Color",
-      options: [
-        {
-          value: "Blue",
-          additionalPrice: 0,
-        },
-        {
-          value: "Red",
-          additionalPrice: 3000,
-        },
-      ],
-    },
-  ],
   details: [
     {
       name: "Brand",
@@ -186,7 +147,7 @@ const productDetails = {
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const [price, setPrice] = useState(0);
+  // const [price, setPrice] = useState(0);
   const selectedOptions = useRef([]);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -255,18 +216,18 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    const price = productDetails.options.reduce(
-      (previousValue, variant) =>
-        previousValue + variant.options[0].additionalPrice,
-      productDetails.price
-    );
-    productDetails.options.forEach((variant) => {
-      selectedOptions.current.push({
-        name: variant.name,
-        option: variant.options[0],
-      });
-    });
-    setPrice(price);
+    // const price = productDetails.options.reduce(
+    //   (previousValue, variant) =>
+    //     previousValue + variant.options[0].additionalPrice,
+    //   productDetails.price
+    // );
+    // productDetails.options.forEach((variant) => {
+    //   selectedOptions.current.push({
+    //     name: variant.name,
+    //     option: variant.options[0],
+    //   });
+    // });
+    // setPrice(price);
   }, [productDetails]);
 
   return (
@@ -322,7 +283,7 @@ const ProductDetails = () => {
                 {productDetails.description}
               </p>
               <p className="productDetails_details-price">
-                NGN{price.toLocaleString()}
+                NGN{productDetails.price.toLocaleString()}
               </p>
               <div className="productDetails_details-rating">
                 <span className="stars">
@@ -338,7 +299,7 @@ const ProductDetails = () => {
               </div>
             </div>
           )}
-          {isLoading ? (
+          {/* {isLoading ? (
             <div className="productDetails_optionsLoading desktop">
               <div className="title"></div>
               <div className="options">
@@ -354,7 +315,7 @@ const ProductDetails = () => {
               selectOption={selectOption}
               ref={selectedOptions}
             />
-          )}
+          )} */}
           {!isLoading && (
             <div className="productDetails_cta">
               <button className="productDetails_cta-cart">
