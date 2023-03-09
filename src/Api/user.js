@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const getUserLikedItems = () => {
-  return { 4: true, 9: true };
+  return axios.get("/ad/favourites/").then((result) => result.data);
+  // return { 4: true, 9: true };
 };
 
 export const toggleItemLike = (id) => {

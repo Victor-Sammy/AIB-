@@ -18,6 +18,7 @@ import { getUserLikedItems, toggleItemLike } from "../../Api/user";
 import { toast } from "react-toastify";
 import Heart from "../vectors/Heart.jsx";
 import ArrowLeft from "../vectors/ArrowLeft";
+import axios from "axios";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -161,6 +162,8 @@ const ProductDetails = () => {
     queryKey: ["userLikedItems"],
     queryFn: getUserLikedItems,
   });
+
+  console.log("likedItems", likedItems);
 
   // Mutations
   const { mutate: toggleLike } = useMutation({
