@@ -23,6 +23,8 @@ export default function ItemCard({ item }) {
 
       const likedItems = { ...previousLikedItems };
 
+      console.log("likedItems", likedItems);
+
       if (add) {
         likedItems.results.push(item);
       } else {
