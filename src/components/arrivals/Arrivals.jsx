@@ -12,10 +12,18 @@ import "./style.scss";
 const Arrivals = () => {
   const navigate = useNavigate();
 
-  const { data: productList, isLoading } = useQuery({
+  const {
+    data: productList,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: [`new arrivals preview`],
     queryFn: () => getPreviewProducts("/ad/trending/"),
   });
+
+  if (isError) {
+    return <div>Error loading products</div>;
+  }
 
   return (
     <div className={`arivalsPreview`}>

@@ -9,7 +9,7 @@ import iphone3 from "../../assets/iphone3.png";
 import iphone4 from "../../assets/iphone4.png";
 import Carousel from "./Carousel.jsx";
 import Ratings from "../Ratings.jsx";
-import OptionSelector from "./OptionSelector.jsx";
+// import OptionSelector from "./OptionSelector.jsx";
 import Cart from "../vectors/Cart.jsx";
 import Info from "./Info.jsx";
 import RatingsAndReviews from "./RatingsAndReviews.jsx";
