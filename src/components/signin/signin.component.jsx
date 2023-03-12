@@ -78,7 +78,7 @@ const SignIn = () => {
         .catch((err) => {
           setLoading(false)
           setFormError(
-            err.response.data.detail ||
+            err.response?.data?.detail ||
               err.message ||
               'Error login in, check credentials'
           )

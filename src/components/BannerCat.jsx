@@ -12,6 +12,8 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import ICONS from "../assets/other-icons.png";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 const imageSlide = [
   {
@@ -29,24 +31,7 @@ const imageSlide = [
 ];
 
 const BannerCat = () => {
-  //https://fakestoreapi.com/products?limit=3
-
   const navigate = useNavigate();
-
-  const [bannerImage, setBannerImage] = useState([]);
-  useEffect(() => {
-    bannerImg();
-  }, []);
-
-  const bannerImg = async () => {
-    const response = await fetch(
-      "http://f1d3-154-120-88-110.ngrok.io/imagebanner/"
-    );
-    const jsonData = await response.json();
-    console.log(jsonData);
-    setBannerImage(jsonData);
-    console.log(bannerImage);
-  };
 
   return (
     <section className="cat-banner">
@@ -179,7 +164,30 @@ const BannerCat = () => {
       </div>
 
       {/* Banner */}
-      <div className="banner">
+      <Carousel
+        showStatus={false}
+        showIndicators={true}
+        showArrows={false}
+        showThumbs={false}
+        autoPlay={true}
+        infiniteLoop={true}
+        interval={4000}
+        renderIndicator={(clickHandler, isSelected) => {
+          <CustomIndicator
+            isSelected={isSelected}
+            clickHandler={clickHandler}
+          />;
+        }}
+      >
+        {imageSlide.map((image) => {
+          return (
+            <div className="cat-banner_carousel-item" key={image.id}>
+              <img src={image.img} />
+            </div>
+          );
+        })}
+      </Carousel>
+      {/* <div className="banner">
         <div className="swiperWrap">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
@@ -197,7 +205,7 @@ const BannerCat = () => {
                 </SwiperSlide>
               );
             })}
-            {/* {bannerImage.map((values) => {
+           {bannerImage.map((values) => {
             return (
               <SwiperSlide className="slide" key={values.images.id}>
                 {values.images.map((img) => (
@@ -205,12 +213,36 @@ const BannerCat = () => {
                 ))}
               </SwiperSlide>
             );
-          })} */}
+          })}
           </Swiper>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
 
 export default BannerCat;
+
+const CustomIndicator = ({ isSelected, clickHandler }) => {
+  return isSelected ? (
+    <span
+      style={{
+        width: "16px",
+        height: "16px",
+        borderRadius: "50%",
+        backgroundColor: "#fe7702",
+      }}
+      onClick={clickHandler}
+    ></span>
+  ) : (
+    <span
+      style={{
+        width: "16px",
+        height: "16px",
+        borderRadius: "50%",
+        backgroundColor: "#D9D9D9",
+      }}
+      onClick={clickHandler}
+    ></span>
+  );
+};
