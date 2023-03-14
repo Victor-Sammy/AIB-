@@ -44,13 +44,14 @@ const StoreProfile = () => {
       .get('ad/store/')
       .then((response) => {
         console.log(response.data)
-        const storeData = response.data
+        const storeData = response.data?.results[0]
 
-        const mainStore = storeData?.results?.find(
-          (store) => store.owner === url_key
-        )
+        // const mainStore = storeData?.results?.find(
+        //   (store) => store.owner === url_key
+        // )
 
-        setProfile(mainStore)
+        setProfile(storeData)
+        console.log(storeData)
       })
       .catch((error) => console.error(`Error: ${error}`))
   }
@@ -64,7 +65,7 @@ const StoreProfile = () => {
       <div className='sp-top' id='sp-top'>
         {profile ? (
           <div className='sp-cover' id='sp-cover'>
-            <img src={profile ? profile.profile_image : coverPhoto} alt='' />
+            <img src={coverPhoto} alt='' />
           </div>
         ) : (
           <div className='header-cover'>
@@ -77,7 +78,7 @@ const StoreProfile = () => {
           <div className='store-info' id='store-info'>
             {profile ? (
               <div className='sp-img' id='sp-img'>
-                <img src={profile ? profile.profile_image : Pic} alt='' />
+                <img src={profile ? profile?.profile_image : Pic} alt='' />
               </div>
             ) : (
               <div className='header-icon' id='header-icon'>
@@ -85,14 +86,16 @@ const StoreProfile = () => {
               </div>
             )}
             <div className='sp-name' id='sp-name'>
-              <span>{profile ? profile.name : 'Store Name'}</span>
+              <span>{profile ? profile[0]?.name : 'Store Name'}</span>
             </div>
             <div className='sp-location' id='sp-location'>
               <HiLocationMarker />
-              <span>{profile ? profile.adress : 'Store location'}</span>
+              <span>{profile ? profile?.address : 'Store location'}</span>
             </div>
             <div className='sp-description' id='sp-description'>
-              <span>{profile ? profile.description : 'Store Description'}</span>
+              <span>
+                {profile ? profile?.description : 'Store Description'}
+              </span>
             </div>
             <div className='sp-option' id='sp-option'>
               <div

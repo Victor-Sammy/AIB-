@@ -51,10 +51,12 @@
         box-shadow: 1px 1px 8px #949494;
   
         #sp-img {
-          border-radius: 50%;
           margin-bottom: 24px;
           & > img {
-            object-fit: contain;
+            width: 100% !important;
+            height: auto;
+            object-fit: cover !important;
+            border-radius: 50%;
           }
         }
         #header-icon {
@@ -71,18 +73,21 @@
           }
         }
         #sp-name {
-          font-weight: 500;
+          font-weight: 600;
           margin-bottom: 4px;
         }
   
-        .sp-location {
+        #sp-location {
+          height: auto !important;
           border-radius: 10px;
           background: #cdc7c7;
-          margin-bottom: 8px;
+          margin-bottom: 15px;
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 30px;
+          gap: 10px;
+          padding-left: 2%;
+          padding-right: 2%;
   
           & > span {
             //font-size: 12px;
@@ -90,13 +95,14 @@
             color: #000000;
           }
         }
-        .sp-description {
+        #sp-description {
           //width: 90%;
           font-size: 12px;
           font-weight: 400;
           color: #000000;
           text-align: center;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
+          padding: 0 5%;
         }
         .sp-option {
           display: flex;
@@ -508,6 +514,9 @@
         #sp-location {
           width: 300px !important;
           height: 20px;
+          span {
+            font-size: 10px !important;
+          }
         }
         #sp-option {
           margin-bottom: 38px;
@@ -613,6 +622,26 @@
     padding: 0 5%;
     .st-flex {
       #store-info {
+        #sp-img {
+          width: 110px !important;
+          height: 110px !important;
+          img {
+            height: 120px;
+          }
+        }
+        #sp-name {
+          font-size: 16px;
+        }
+        #sp-location {
+          width: 200px;
+          height: 20px;
+          span {
+            font-size: 8px;
+          }
+        }
+        #sp-description {
+          font-size: 10px;
+        }
       }
     }
     #store-split {
@@ -707,6 +736,9 @@
         #sp-location {
           width: 200px;
           height: 20px;
+          span {
+            font-size: 8px;
+          }
         }
         #sp-option {
           #sp-add {
@@ -829,13 +861,6 @@
           }
         }
         #sp-description {
-          span {
-            font-size: 10px;
-          }
-        }
-        #sp-location {
-          width: 200px;
-          height: 20px;
           span {
             font-size: 10px;
           }
@@ -964,9 +989,6 @@
         #sp-location {
           width: 200px;
           height: 20px;
-          span {
-            font-size: 10px;
-          }
         }
         #sp-option {
           #sp-add {
@@ -1081,8 +1103,13 @@
       gap: 3%;
       #store-info {
         #sp-img {
-          width: 100px;
-          height: 100px;
+          width: 100px !important;
+          height: 100px !important;
+          img {
+            width: 100px !important;
+            height: 100px !important;
+            object-fit: cover;
+          }
         }
         #header-icon {
           width: 100px;
@@ -1100,10 +1127,7 @@
         }
         #sp-location {
           width: 90%;
-          height: 20px;
-          span {
-            font-size: 10px;
-          }
+          height: auto !important;
         }
         #sp-option {
           width: 100%;
@@ -1224,9 +1248,6 @@
         #sp-location {
           width: 90%;
           height: 20px;
-          span {
-            font-size: 10px;
-          }
         }
         #sp-option {
           width: 100%;

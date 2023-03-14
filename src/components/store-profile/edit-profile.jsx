@@ -11,15 +11,12 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-// import { selectUser } from '../../store/userSlice'
-// import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { AiOutlineUser } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import { useAuth } from '../../context/AuthContext'
 
 const EditProfile = () => {
-  //const user = useSelector(selectUser)
   const [pic, setPic] = useState('')
   const [selectedImage, setSelectedImage] = useState('')
   const [storeName, setStoreName] = useState('')
@@ -41,8 +38,9 @@ const EditProfile = () => {
   })
 
   const { user } = useAuth()
+  console.log(user.email)
 
-  const userID = localStorage.getItem('USER_ID')
+  //const userEmail = localStorage.getItem('USER_EMAIL')
   //const [error, setError] = useState('')
 
   // const dispatch = useDispatch();
@@ -105,18 +103,27 @@ const EditProfile = () => {
     for (let img of selectedImage) {
       formData.append('profile_image', img)
     }
-    formData.append('owner', userID)
+    formData.append('owner', user.email)
     formData.append('name', data.storeName)
     formData.append('description', data.description)
-    formData.append('adress', data.location)
+    formData.append('address', data.location)
     formData.append('delivery', data.delivery)
 
     axios.defaults.withCredentials = true
 
-    console.log(JSON.stringify(userID))
+    const url = 'https://aib-shop.up.railway.app/ad/store/'
 
+    // const requestOptions = {
+    //   method: 'POST',
+    //   // headers: {
+    //   //   'Content-Type': 'multipart/form-data',
+    //   //   Authentication: token,
+    //   // },
+    //   body: formData,
+    // }
+    // fetch(url, requestOptions)
     axios
-      .post('/stores/', formData, {
+      .post(url, formData, {
         headers: {
           'content-Type': 'multipart/form-data',
         },
@@ -124,11 +131,11 @@ const EditProfile = () => {
       .then((response) => {
         response.data
         if (response.status !== 200) {
-          response.data
+          // response.data
           //   setError(response);
           // }
-          // console.log("Store Success");
-          // console.log(response);
+          console.log('Store Success')
+          console.log(response)
 
           // setPhoto("");
           // setStoreName("");
