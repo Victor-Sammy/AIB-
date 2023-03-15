@@ -53,8 +53,8 @@ export default function CategoryPreview({
           <div className="preview-loading-items">
             {Array(5)
               .fill(0)
-              .map((item) => (
-                <div className="item"></div>
+              .map((item, index) => (
+                <div className="item" key={index}></div>
               ))}
             {}
           </div>
@@ -71,17 +71,19 @@ export default function CategoryPreview({
           </div>
 
           <div className="preview-wrap">
-            <div className="preview-scroll">
-              <div className="left-arrw" onClick={slideLt}>
-                <MdChevronLeft />
+            {productList.data.results.length > 5 && (
+              <div className="preview-scroll">
+                <div className="left-arrw" onClick={slideLt}>
+                  <MdChevronLeft />
+                </div>
+                <div className="right-arrw" onClick={slideRt}>
+                  <MdChevronRight />
+                </div>
               </div>
-              <div className="right-arrw" onClick={slideRt}>
-                <MdChevronRight />
-              </div>
-            </div>
+            )}
             <div className="preview-items" ref={scrollRef}>
               {productList.data.results
-                .filter((item) => item.images.length > 0)
+                // .filter((item) => item.images.length > 0)
                 // .slice(0, 5)
                 .map((item) => (
                   <ItemCard key={item.id} item={item} />

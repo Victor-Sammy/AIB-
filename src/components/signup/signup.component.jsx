@@ -1,7 +1,7 @@
 import React from "react";
 import "../../sass/components/signup.style.scss";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../form-input/button.component";
 import EmailIcon from "../../assets/ema.png";
@@ -19,6 +19,8 @@ const passwordValidator = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
 const SignUp = () => {
   const { register, user } = useAuth();
   const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
+  const nextUrl = searchParams.get("next");
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -263,7 +265,9 @@ const SignUp = () => {
 
           <div className="sub-footer">
             <span>Have an account? </span>
-            <span onClick={() => navigate("/signin")}>Login</span>
+            <Link to={nextUrl ? `/signin?next=${nextUrl}` : "/signin"}>
+              <span>Login</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -45,7 +45,6 @@ export default function Info({ productDetails, productSpecifications }) {
     const itemElement = navItemRefs.current.find((element) =>
       element.classList.contains("active")
     );
-    console.log(itemElement);
     let left =
       itemElement.getBoundingClientRect().left -
       navWrapRef.current.getBoundingClientRect().left;
@@ -83,33 +82,43 @@ export default function Info({ productDetails, productSpecifications }) {
       </div>
       {selected == "details" ? (
         <table className="productDetails_info-content">
-          {splitedProudctDetails.map((productDetailsGroup) => (
-            <tr className="detailRow">
-              {productDetailsGroup.map((productDetail) => (
-                <td className="detailData">
-                  <div className="detailData_title">
-                    {productDetail.name.toUpperCase()}
-                  </div>
-                  <div className="detailData_value">{productDetail.value}</div>
-                </td>
-              ))}
-            </tr>
-          ))}
+          <tbody>
+            {splitedProudctDetails.map((productDetailsGroup, index) => (
+              <tr className="detailRow" key={index}>
+                {productDetailsGroup.map((productDetail) => (
+                  <td className="detailData" key={productDetail.name}>
+                    <div className="detailData_title">
+                      {productDetail.name.toUpperCase()}
+                    </div>
+                    <div className="detailData_value">
+                      {productDetail.value}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
         </table>
       ) : (
         <table className="productDetails_info-content">
-          {splitedProductSpecifications.map((productSpecificationsGroup) => (
-            <tr className="detailRow">
-              {productSpecificationsGroup.map((productSpec) => (
-                <td className="detailData">
-                  <div className="detailData_title">
-                    {productSpec.name.toUpperCase()}
-                  </div>
-                  <div className="detailData_value">{productSpec.value}</div>
-                </td>
-              ))}
-            </tr>
-          ))}
+          <tbody>
+            {splitedProductSpecifications.map(
+              (productSpecificationsGroup, index) => (
+                <tr className="detailRow" key={index}>
+                  {productSpecificationsGroup.map((productSpec) => (
+                    <td className="detailData" key={productSpec.name}>
+                      <div className="detailData_title">
+                        {productSpec.name.toUpperCase()}
+                      </div>
+                      <div className="detailData_value">
+                        {productSpec.value}
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              )
+            )}
+          </tbody>
         </table>
       )}
     </div>

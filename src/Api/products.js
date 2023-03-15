@@ -1,16 +1,21 @@
 import axios from "axios";
 import bisolaDavid from "../assets/bisolaDavid.png";
+import { client } from "./Api";
 
 export const getPreviewProducts = (path) => {
-  return axios.get(path);
+  return client.get(path);
 };
 
 export const getProductDetails = (id) => {
-  return axios.get(`/ad/products/${id}/`);
+  return client.get(`/ad/products/${id}/`);
+};
+
+export const toggleItemLike = (id) => {
+  return client.post(`/ad/products/${id}/likes/`);
 };
 
 export const getProductReviews = (id) => {
-  // return axios.get(`/ad/products/${id}/reviews`);
+  // return client.get(`/ad/products/${id}/reviews`);
 
   return [
     {
@@ -28,7 +33,7 @@ export const getProductReviews = (id) => {
       created_at: 1677766927716,
     },
     {
-      id: 1,
+      id: 2,
       user: {
         id: 2,
         firstname: "Bisola",
