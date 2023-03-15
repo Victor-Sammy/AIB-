@@ -11,6 +11,7 @@ import "./style.scss";
 
 const Arrivals = () => {
   const navigate = useNavigate();
+  const scrollRef = useRef();
 
   const {
     data: productList,
@@ -25,6 +26,15 @@ const Arrivals = () => {
     return <div>Error loading products</div>;
   }
 
+  const slideLt = () => {
+    var slider = scrollRef.current;
+    slider.scrollLeft = slider.scrollLeft - 250;
+  };
+  const slideRt = () => {
+    var slider = scrollRef.current;
+    slider.scrollLeft = slider.scrollLeft + 250;
+  };
+
   return (
     <div className={`arivalsPreview`}>
       {isLoading ? (
@@ -37,8 +47,8 @@ const Arrivals = () => {
           <div className="arivalsPreview-loading-items">
             {Array(5)
               .fill(0)
-              .map((item) => (
-                <div className="item"></div>
+              .map((item, index) => (
+                <div className="item" key={index}></div>
               ))}
             {}
           </div>
@@ -54,14 +64,26 @@ const Arrivals = () => {
             />
           </div>
 
-          <div className="arivalsPreview-items">
-            {productList.data.results
-              .filter((item) => item.images.length > 0)
-              // .slice(0, 5)
-              .map((item) => (
-                <ItemCard item={item} />
-              ))}
-            {}
+          <div className="arivalsPreview-wrap">
+            {productList.data.results.length > 5 && (
+              <div className="arivalsPreview-scroll">
+                <div className="left-arrw" onClick={slideLt}>
+                  <MdChevronLeft />
+                </div>
+                <div className="right-arrw" onClick={slideRt}>
+                  <MdChevronRight />
+                </div>
+              </div>
+            )}
+            <div className="arivalsPreview-items" ref={scrollRef}>
+              {productList.data.results
+                // .filter((item) => item.images.length > 0)
+                // .slice(0, 5)
+                .map((item) => (
+                  <ItemCard item={item} key={item.id} />
+                ))}
+              {}
+            </div>
           </div>
         </>
       )}

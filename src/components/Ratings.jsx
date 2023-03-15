@@ -8,14 +8,14 @@ const Ratings = ({ rating, color = "#FE8946" }) => {
     <>
       {Array(Math.floor(rating))
         .fill(0)
-        .map((item) => (
-          <Star fill={color} />
+        .map((item, index) => (
+          <Star fill={color} key={index} />
         ))}
       {rating % 1 !== 0 && <StarHalf fill={color} />}
       {Array(5 - Math.ceil(rating))
         .fill(0)
-        .map((item) => (
-          <Star fill={"#DADADA"} />
+        .map((item, index) => (
+          <Star fill={"#DADADA"} key={Math.ceil(rating) + index} />
         ))}
     </>
   );

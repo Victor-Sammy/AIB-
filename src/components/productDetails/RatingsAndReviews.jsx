@@ -44,62 +44,64 @@ export default function RatingsAndReviews({ id, ratings }) {
             </p>
           </div>
           <table className="ratingBars">
-            <tr>
-              <td className="ratingBars_tag">Excellent</td>
-              <td className="ratingBars_bar">
-                <Bar
-                  value={ratings.details["5"]}
-                  total={ratings.count}
-                  color="#27A08B"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="ratingBars_tag">Good</td>
-              <td className="ratingBars_bar">
-                <Bar
-                  value={ratings.details["4"]}
-                  total={ratings.count}
-                  color="#8CCF65"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="ratingBars_tag">Average</td>
-              <td className="ratingBars_bar">
-                <Bar
-                  value={ratings.details["3"]}
-                  total={ratings.count}
-                  color="#FDC73D"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="ratingBars_tag">Below Average</td>
-              <td className="ratingBars_bar">
-                <Bar
-                  value={ratings.details["2"]}
-                  total={ratings.count}
-                  color="#FB9B06"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="ratingBars_tag">Poor</td>
-              <td className="ratingBars_bar">
-                <Bar
-                  value={ratings.details["1"]}
-                  total={ratings.count}
-                  color="#E20D0D"
-                />
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="ratingBars_tag">Excellent</td>
+                <td className="ratingBars_bar">
+                  <Bar
+                    value={ratings.details["5"]}
+                    total={ratings.count}
+                    color="#27A08B"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="ratingBars_tag">Good</td>
+                <td className="ratingBars_bar">
+                  <Bar
+                    value={ratings.details["4"]}
+                    total={ratings.count}
+                    color="#8CCF65"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="ratingBars_tag">Average</td>
+                <td className="ratingBars_bar">
+                  <Bar
+                    value={ratings.details["3"]}
+                    total={ratings.count}
+                    color="#FDC73D"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="ratingBars_tag">Below Average</td>
+                <td className="ratingBars_bar">
+                  <Bar
+                    value={ratings.details["2"]}
+                    total={ratings.count}
+                    color="#FB9B06"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="ratingBars_tag">Poor</td>
+                <td className="ratingBars_bar">
+                  <Bar
+                    value={ratings.details["1"]}
+                    total={ratings.count}
+                    color="#E20D0D"
+                  />
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         {reviews && (
           <div className="productDetails_feedback-reviews">
             {reviews.map((review) => (
-              <div className="review">
+              <div className="review" key={review.id}>
                 <div className="review_header">
                   <div className="review_header-details">
                     <img src={review.user.profileImage} alt="" />
