@@ -1,53 +1,60 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const SportsOpt = () => {
-  const [sports, setSports] = useState('selectSports')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [sportAccessories, setSportAccessories] = useState(false)
-  const [campingGear, setCampingGear] = useState(false)
-  const [sportEquipments, setSportEquipments] = useState(false)
+  const options = ['Sport Accessories', 'Sport equipments']
 
-  useEffect(() => {
-    sports === 'sportAccessories'
-      ? setSportAccessories(true)
-      : setSportAccessories(false)
-    sports === 'campingGear' ? setCampingGear(true) : setCampingGear(false)
-    sports === 'sportEquipments'
-      ? setSportEquipments(true)
-      : setSportEquipments(false)
-  }, [sports])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setSports(e.target.value)
-  }
+  selected === 'Sport Accessories' ? localStorage.setItem('subcatID', 12) : ''
+  selected === 'Sport equipments' ? localStorage.setItem('subcatID', 13) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={sports}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectSports'>Select for Sports</option>
-          <option value='sportAccessories'>Sports Accessories</option>
-          <option value='campingGear'>Camping Gear</option>
-          <option value='sportEquipments'>Sports Equipments</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

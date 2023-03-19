@@ -1,63 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import '../../sass/components/_subCatOpt.scss'
-import { GrFormNextLink } from 'react-icons/gr'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const FashionOpt = () => {
-  const [fashion, setFashion] = useState('selectFashion')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [men, setMen] = useState(false)
-  const [women, setWomen] = useState(false)
-  const [bags, setBags] = useState(false)
-  const [clothingAccessories, setClothingAccessories] = useState(false)
-  const [shoes, setShoes] = useState(false)
-  const [watches, setWatches] = useState(false)
-  const [weddingWears, setWeddingWears] = useState(false)
+  const options = [
+    'Bags',
+    'Mens fashion',
+    'Shoes',
+    'Watches',
+    'Womens fashion',
+    'clothing Accessories',
+    'wedding wears',
+  ]
 
-  useEffect(() => {
-    fashion === 'Mens fashion' ? setMen(true) : setMen(false)
-    fashion === 'Womens fashion' ? setWomen(true) : setWomen(false)
-    fashion === 'Bags' ? setBags(true) : setBags(false)
-    fashion === 'clothing Accessories'
-      ? setClothingAccessories(true)
-      : setClothingAccessories(false)
-    fashion === 'Shoes' ? setShoes(true) : setShoes(false)
-    fashion === 'Watches' ? setWatches(true) : setWatches(false)
-    fashion === 'wedding wears' ? setWeddingWears(true) : setWeddingWears(false)
-  }, [fashion])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setFashion(e.target.value)
-  }
+  selected === 'Bags' ? localStorage.setItem('subcatID', 47) : ''
+  selected === 'Mens fashion' ? localStorage.setItem('subcatID', 48) : ''
+  selected === 'Shoes' ? localStorage.setItem('subcatID', 49) : ''
+  selected === 'Watches' ? localStorage.setItem('subcatID', 50) : ''
+  selected === 'Womens fashion' ? localStorage.setItem('subcatID', 51) : ''
+  selected === 'clothing Accessories'
+    ? localStorage.setItem('subcatID', 52)
+    : ''
+  selected === 'wedding wears' ? localStorage.setItem('subcatID', 53) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={fashion}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectFashon'>Choose Fashion</option>
-          <option value='Mens fashion'>Men's Fashion</option>
-          <option value='Womens fashion'>Women's Fashion</option>
-          <option value='Bags'>Bags</option>
-          <option value='clothing Accessories'>Clothing Accessories</option>
-          <option value='Shoes'>Shoes</option>
-          <option value='Watches'>Watches</option>
-          <option value='wedding wears'>Wedding Wears</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

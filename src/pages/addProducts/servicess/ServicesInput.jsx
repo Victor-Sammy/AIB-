@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
-import { AiFillCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai'
+import {
+  AiFillCloseCircle,
+  AiOutlinePlus,
+  AiOutlinePlusCircle,
+} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -12,9 +16,9 @@ const ServicesInput = () => {
     name: '',
     price: '',
     description: '',
-    subCategory: localStorage.getItem('subCategory')
-      ? localStorage.getItem('subCategory')
-      : 'no-subcategory',
+    subCategory: localStorage.getItem('sub-cat')
+      ? localStorage.getItem('sub-cat')
+      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -26,6 +30,10 @@ const ServicesInput = () => {
     e.preventDefault()
     console.log(selectedImages)
 
+    const storeID = localStorage.getItem('store-id')
+    const categoryID = localStorage.getItem('categoryID')
+    const subCatID = localStorage.getItem('subcatID')
+
     const formData = new FormData()
     for (let img of selectedImages) {
       formData.append('uploaded_images', img)
@@ -33,7 +41,9 @@ const ServicesInput = () => {
     formData.append('name', data.name)
     formData.append('price', data.price)
     formData.append('description', data.description)
-    formData.append('subCategory', data.subCategory)
+    formData.append('subcategory', subCatID)
+    formData.append('category', categoryID)
+    formData.append('store', storeID)
 
     axios
       .post(url, formData, {
@@ -83,14 +93,12 @@ const ServicesInput = () => {
   }
 
   return (
-    <div className='input-div'>
-      <div className='aboutPrdt'>
-        Customers want to know more about your product{' '}
-      </div>
+    <div className='input-div' id='input-div'>
       <form onSubmit={submitData} className='product-attributes'>
-        <div className='div-cover'>
-          <div className='add-image-display'>
-            <div className='file-cc'>
+        <div className='div-cover' id='div-cover'>
+          <h2>Add Photo</h2>
+          <div className='add-image-display' id='add-image-display'>
+            <div className='file-cc' id='file-cc'>
               <div className='file-card'>
                 <div className='file-input'>
                   <input
@@ -103,17 +111,20 @@ const ServicesInput = () => {
                     accept='image/*'
                   />
                   <button>
-                    <AiOutlinePlusCircle />
+                    <AiOutlinePlus />
                   </button>
                 </div>
               </div>
-              <p>**up to 4 or 5 photos!</p>
+              <h5>
+                *Uploaded images should not be above 5MB, and in “jpg” or “png”
+                format. Add 3 Photos or more.
+              </h5>
             </div>
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>
-        <div className='form1'>
-          <div className='input'>
+        <div className='form1' id='form1'>
+          <div className='input' id='input'>
             <p>Name</p>
             <input
               type='text'
@@ -123,7 +134,7 @@ const ServicesInput = () => {
               //required
             />
           </div>
-          <div className='input'>
+          <div className='input' id='input'>
             <p>Price</p>
             <input
               type='text'
@@ -133,7 +144,7 @@ const ServicesInput = () => {
               //required
             />
           </div>
-          <div className='description' style={{ marginTop: '120px' }}>
+          <div className='description' id='description'>
             <textarea
               id='description'
               type='text'
@@ -144,8 +155,8 @@ const ServicesInput = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <div className='formDescription'>
-          <div className='outstanding' style={{ marginTop: '50px' }}>
+        <div className='formDescription' id='formDescription'>
+          <div className='div-flex' style={{ marginTop: '190px' }}>
             <p>Sub Category</p>
             <input
               type='text'
@@ -154,20 +165,10 @@ const ServicesInput = () => {
               style={{ backgroundColor: '#e2d8d8' }}
             />
           </div>
-          <button
-            type='submit'
-            style={{
-              width: '200px',
-              height: '50px',
-              borderRadius: '10px',
-              backgroundColor: '#fe7702',
-              color: '#fff',
-              marginLeft: '43%',
-              marginTop: '250px',
-              marginBottom: '50px',
-            }}
-          >
-            NEXT
+        </div>
+        <div className='upload-div' id='upload-div'>
+          <button type='submit' className='uploadBtn' id='uploadBtn'>
+            Upload
           </button>
         </div>
       </form>

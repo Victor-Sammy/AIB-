@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 import '../../../sass/pages/addCategory.scss'
 
 import CarsOpt from '../CarsOpt'
@@ -17,133 +18,103 @@ import AddAnimalSub from './AddAnimalSub'
 import AddElectronicSub from './AddElectronicSub'
 
 const AddCategory = () => {
-  const [category, setCategory] = useState('selectCategory')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [fashionContentVisible, setFashionContentVisible] = useState(false)
-  const [animalsContentVisible, setAnimalsContentVisible] = useState(false)
-  const [electronicsContentVisible, setElectronicsContentVisible] =
-    useState(false)
-  const [commercialEquipContentVisible, setCommercialEquipContentVisible] =
-    useState(false)
-  const [carsContentVisible, setCarsContentVisible] = useState(false)
-  const [furnitureContentVisible, setFurnitureContentVisible] = useState(false)
-  const [phonesContentVisible, setPhonesContentVisible] = useState(false)
-  const [sportItemsContentVisible, setSportItemsContentVisible] =
-    useState(false)
-  const [restauantsContentVisible, setRestauantsContentVisible] =
-    useState(false)
-  const [musicContentVisible, setMusicContentVisible] = useState(false)
-  const [kidsContentVisible, setKidsContentVisible] = useState(false)
-  const [healthContentVisible, setHealthContentVisible] = useState(false)
-  const [housingPropertyContentVisible, setHousingPropertyContentVisible] =
-    useState(false)
-  const [jobsServicesContentVisible, setJobsServicesContentVisible] =
-    useState(false)
+  const options = [
+    'Fashion',
+    'Electronics',
+    'Commercial equipments and tools',
+    'Animals and Pets',
+    'Cars and Autumobiles',
+    'Home, Furnitures and appliances',
+    'Health and Beauty',
+    'Phones and Tablets',
+    'Hotels, Houses and Property',
+    'Kids and Babies world',
+    'Music',
+    'Resturants, food and Agriculture',
+    'Sport Items',
+    'jobs, Handwork, services and cvs',
+  ]
 
-  useEffect(() => {
-    category === 'fashion'
-      ? setFashionContentVisible(true)
-      : setFashionContentVisible(false)
-    category === 'animals'
-      ? setAnimalsContentVisible(true)
-      : setAnimalsContentVisible(false)
-    category === 'electronics'
-      ? setElectronicsContentVisible(true)
-      : setElectronicsContentVisible(false)
-    category === 'commercialEquip'
-      ? setCommercialEquipContentVisible(true)
-      : setCommercialEquipContentVisible(false)
-    category === 'cars'
-      ? setCarsContentVisible(true)
-      : setCarsContentVisible(false)
-    category === 'furniture'
-      ? setFurnitureContentVisible(true)
-      : setFurnitureContentVisible(false)
-    category === 'phones'
-      ? setPhonesContentVisible(true)
-      : setPhonesContentVisible(false)
-    category === 'housing'
-      ? setHousingPropertyContentVisible(true)
-      : setHousingPropertyContentVisible(false)
-    category === 'sports'
-      ? setSportItemsContentVisible(true)
-      : setSportItemsContentVisible(false)
-    category === 'restaurant'
-      ? setRestauantsContentVisible(true)
-      : setRestauantsContentVisible(false)
-    category === 'music'
-      ? setMusicContentVisible(true)
-      : setMusicContentVisible(false)
-    category === 'kids'
-      ? setKidsContentVisible(true)
-      : setKidsContentVisible(false)
-    category === 'health'
-      ? setHealthContentVisible(true)
-      : setHealthContentVisible(false)
-    category === 'services'
-      ? setJobsServicesContentVisible(true)
-      : setJobsServicesContentVisible(false)
-  }, [category])
+  selected === 'Fashion' ? localStorage.setItem('categoryID', 10) : ''
+  selected === 'Electronics' ? localStorage.setItem('categoryID', 11) : ''
+  selected === 'Commercial equipments and tools'
+    ? localStorage.setItem('categoryID', 12)
+    : ''
+  selected === 'Animals and Pets' ? localStorage.setItem('categoryID', 14) : ''
+  selected === 'Cars and Autumobiles'
+    ? localStorage.setItem('categoryID', 13)
+    : ''
+  selected === 'Home, Furnitures and appliances'
+    ? localStorage.setItem('categoryID', 8)
+    : ''
+  selected === 'Health and Beauty' ? localStorage.setItem('categoryID', 9) : ''
+  selected === 'Phones and Tablets' ? localStorage.setItem('categoryID', 4) : ''
+  selected === 'Hotels, Houses and Property'
+    ? localStorage.setItem('categoryID', 7)
+    : ''
+  selected === 'Kids and Babies world'
+    ? localStorage.setItem('categoryID', 6)
+    : ''
+  selected === 'Music' ? localStorage.setItem('categoryID', 5) : ''
+  selected === 'Resturants, food and Agriculture'
+    ? localStorage.setItem('categoryID', 3)
+    : ''
+  selected === 'Sport Items' ? localStorage.setItem('categoryID', 2) : ''
+  selected === 'jobs, Handwork, services and cvs'
+    ? localStorage.setItem('categoryID', 1)
+    : ''
 
-  const handleOnChange = (e) => {
-    localStorage.setItem('category', e.target.value)
-    setCategory(e.target.value)
-  }
-
-  const makeFirstLetterCapital = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1)
-  }
-
-  const renderResult = () => {
-    let result
-    category === 'selectCategory'
-      ? (result = 'select Category')
-      : (result = makeFirstLetterCapital(category))
-    return result
-  }
   return (
     <section className='addCategory'>
       <div className='ap-category2' id='ap-category2'>
-        <h1>Category: {renderResult()}</h1>
-        <select
-          className='cat-select2'
-          value={category}
-          onChange={handleOnChange}
-        >
-          <option disabled value='selectCategory'>
-            Select Category
-          </option>
-          <option value='fashion'>Fashion</option>
-          <option value='animals'>Animals</option>
-          <option value='electronics'>Electronics</option>
-          <option value='commercialEquip'>Commercial Equip. & Tools</option>
-          <option value='cars'>Cars & Automobiles</option>
-          <option value='furniture'>Furniture</option>
-          <option value='phones'>Phones & Tablets</option>
-          <option value='sports'>Sport Items</option>
-          <option value='restaurant'>Restaurants, Food & Agriculture</option>
-          <option value='kids'>Kids & Babies world</option>
-          <option value='music'>Music</option>
-          <option value='housing'>Hotels, Housing & Property</option>
-          <option value='health'>Health and Beauty</option>
-          <option value='services'>Jobs, Handwork, services and cvs</option>
-        </select>
+        <h1>
+          <span className='head-title'>Choose a Category</span> <br /> <br />
+          Category <span style={{ color: '#fe7702' }}>{selected}</span>
+        </h1>
+      </div>
+      <div style={{ zIndex: 2 }} className='dropdown' id='dropdown'>
+        <div className='dropdown-btn' onClick={(e) => setIsActive(!isActive)}>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('category', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div>
-        {fashionContentVisible && <FashionOpt />}
-        {animalsContentVisible && <AddAnimalSub />}
-        {electronicsContentVisible && <AddElectronicSub />}
-        {commercialEquipContentVisible && <CommEquipOpt />}
-        {carsContentVisible && <CarsOpt />}
-        {furnitureContentVisible && <FurnitureOpt />}
-        {phonesContentVisible && <PhonesTabOpt />}
-        {sportItemsContentVisible && <SportsOpt />}
-        {housingPropertyContentVisible && <HousesOpt />}
-        {restauantsContentVisible && <Restaurantsopt />}
-        {musicContentVisible && <MusicArtOpt />}
-        {kidsContentVisible && <Kids />}
-        {healthContentVisible && <HealthOpt />}
-        {jobsServicesContentVisible && <ServicesOpt />}
+        {selected === 'Fashion' && <FashionOpt />}
+        {selected === 'Electronics' && <AddElectronicSub />}
+        {selected === 'Commercial equipments and tools' && <CommEquipOpt />}
+        {selected === 'Animals and Pets' && <AddAnimalSub />}
+        {selected === 'Cars and Autumobiles' && <CarsOpt />}
+        {selected === 'Home, Furnitures and appliances' && <FurnitureOpt />}
+        {selected === 'Health and Beauty' && <HealthOpt />}
+        {selected === 'Phones and Tablets' && <PhonesTabOpt />}
+        {selected === 'Hotels, Houses and Property' && <HousesOpt />}
+        {selected === 'Kids and Babies world' && <Kids />}
+        {selected === 'Music' && <MusicArtOpt />}
+        {selected === 'Resturants, food and Agriculture' && <Restaurantsopt />}
+        {selected === 'Sport Items' && <SportsOpt />}
+        {selected === 'jobs, Handwork, services and cvs' && <ServicesOpt />}
       </div>
     </section>
   )

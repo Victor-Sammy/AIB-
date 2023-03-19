@@ -1,90 +1,95 @@
 import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../.././../sass/components/_subCatOpt.scss'
+import '../../../sass/pages/addCategory.scss'
 import { NavLink } from 'react-router-dom'
+import { BsArrowRightShort } from 'react-icons/bs'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const AddElectronicSub = () => {
-  const [electronics, setElectronics] = useState('selectElectronics')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [laptopsComputer, setLaptopsComputer] = useState(false)
-  const [headPhones, setHeadPhones] = useState(false)
-  const [audioEquipments, setAudioEquipments] = useState(false)
-  const [computerAccessories, setComputerAccessories] = useState(false)
-  const [electronicsAccessories, setElectronicsAccessories] = useState(false)
-  const [cameras, setCameras] = useState(false)
-  const [pspMachines, setPspMachines] = useState(false)
-  const [videoGamesAccessories, setVideoGamesAccessories] = useState(false)
-  const [tvDvdEquipments, setTvDvdEquipments] = useState(false)
-  const [electricalEquipments, setElectricalEquipments] = useState(false)
+  const options = [
+    'Audio and Music equipment',
+    'Computer Accessories',
+    'Electrical equipment',
+    'Electronics',
+    'Electronics Accessories',
+    'HeadPhones',
+    'Kitchen Appliances',
+    'Photos and video cameras',
+    'Tv and DVD equipment',
+    'Videogames and Accessories',
+    'printers scanners',
+  ]
 
-  useEffect(() => {
-    electronics === 'laptopsComputer'
-      ? setLaptopsComputer(true)
-      : setLaptopsComputer(false)
-    electronics === 'HeadPhones' ? setHeadPhones(true) : setHeadPhones(false)
-    electronics === 'audioEquipments'
-      ? setAudioEquipments(true)
-      : setAudioEquipments(false)
-    electronics === 'Computer Accessories'
-      ? setComputerAccessories(true)
-      : setComputerAccessories(false)
-    electronics === 'Electronics Accessories'
-      ? setElectronicsAccessories(true)
-      : setElectronicsAccessories(false)
-    electronics === 'cameras' ? setCameras(true) : setCameras(false)
-    electronics === 'pspMachines' ? setPspMachines(true) : setPspMachines(false)
-    electronics === 'videoGamesAccessories'
-      ? setVideoGamesAccessories(true)
-      : setVideoGamesAccessories(false)
-    electronics === 'tvDvdEquipments'
-      ? setTvDvdEquipments(true)
-      : setTvDvdEquipments(false)
-    electronics === 'electricalEquipments'
-      ? setElectricalEquipments(true)
-      : setElectricalEquipments(false)
-  }, [electronics])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setElectronics(e.target.value)
-  }
+  selected === 'Audio and Music equipment'
+    ? localStorage.setItem('subcatID', 54)
+    : ''
+  selected === 'Computer Accessories'
+    ? localStorage.setItem('subcatID', 55)
+    : ''
+  selected === 'Electrical equipment'
+    ? localStorage.setItem('subcatID', 56)
+    : ''
+  selected === 'Electronics' ? localStorage.setItem('subcatID', 57) : ''
+  selected === 'Electronics Accessories'
+    ? localStorage.setItem('subcatID', 58)
+    : ''
+  selected === 'HeadPhones' ? localStorage.setItem('subcatID', 59) : ''
+  selected === 'Kitchen Appliances' ? localStorage.setItem('subcatID', 60) : ''
+  selected === 'Photos and video cameras'
+    ? localStorage.setItem('subcatID', 61)
+    : ''
+  selected === 'Tv and DVD equipment'
+    ? localStorage.setItem('subcatID', 62)
+    : ''
+  selected === 'Videogames and Accessories'
+    ? localStorage.setItem('subcatID', 63)
+    : ''
+  selected === 'printers scanners' ? localStorage.setItem('subcatID', 64) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={electronics}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectElectronics'>Select Electronics</option>
-          <option value='laptopsComputer'>Laptops & Computers</option>
-          <option value='HeadPhones'>Headphones</option>
-          <option value='audioEquipments'>Audion & Music Equipment</option>
-          <option value='Computer Accessories'>Computer Accessories</option>
-          <option value='Electronics Accessories'>
-            Electronic Accessories
-          </option>
-          <option value='cameras'>Photo & Video Cameras</option>
-          <option value='pspMachines'>
-            Printers, Scanners, Photocopy machines
-          </option>
-          <option value='videoGamesAccessories'>
-            Video Games & Accessories
-          </option>
-          <option value='tvDvdEquipments'>Tv and Dvd Equipment</option>
-          <option value='electricalEquipments'>Electrical Equipment</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

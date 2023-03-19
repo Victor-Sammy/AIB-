@@ -1,42 +1,71 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const CarsOpt = () => {
-  const [cars, setCars] = useState('selectCar')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [toyota, setToyota] = useState(false)
-  const [benz, setBenz] = useState(false)
+  const options = [
+    'Cars',
+    'Busses',
+    'Motorcycle',
+    'Trucks and Trailers',
+    'Vehicle parts and Accessories',
+  ]
 
-  useEffect(() => {
-    cars === 'toyota' ? setToyota(true) : setToyota(false)
-    cars === 'benz' ? setBenz(true) : setBenz(false)
-  }, [cars])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setCars(e.target.value)
-  }
+  selected === 'Cars' ? localStorage.setItem('subcatID', 74) : ''
+  selected === 'Busses' ? localStorage.setItem('subcatID', 75) : ''
+  selected === 'Motorcycle' ? localStorage.setItem('subcatID', 76) : ''
+  selected === 'Trucks and Trailers' ? localStorage.setItem('subcatID', 77) : ''
+  selected === 'Vehicle parts and Accessories'
+    ? localStorage.setItem('subcatID', 78)
+    : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select className='subcat-select2' value={cars} onChange={handleChange}>
-          <option value='selectCar'>Select Cars</option>
-          <option value='toyota'>Toyota</option>
-          <option value='benz'>Benz</option>
-        </select>
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
+        >
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

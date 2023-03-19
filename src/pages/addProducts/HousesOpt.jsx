@@ -1,84 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const HousesOpt = () => {
-  const [housing, setHousing] = useState('makeSelection')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [housesRent, setHousesRent] = useState(false)
-  const [housesSale, setHousesSale] = useState(false)
-  const [commercialRent, setCommercialRent] = useState(false)
-  const [commercialSale, setCommercialSale] = useState(false)
-  const [eventCentres, setEventCentres] = useState(false)
-  const [landRent, setLandRent] = useState(false)
-  const [landSale, setLandSale] = useState(false)
-  const [hotels, setHotels] = useState(false)
+  const options = [
+    'Event center renting',
+    'Hotel Renting',
+    'House Renting and sales',
+  ]
 
-  useEffect(() => {
-    housing === 'Houses & Apartments for Rent'
-      ? setHousesRent(true)
-      : setHousesRent(false)
-    housing === 'Houses & Apartments fot Sale'
-      ? setHousesSale(true)
-      : setHousesSale(false)
-    housing === 'Commercial Property for Rent'
-      ? setCommercialRent(true)
-      : setCommercialRent(false)
-    housing === 'Commercial Property for Sale'
-      ? setCommercialSale(true)
-      : setCommercialSale(false)
-    housing === 'Events Centres, Venues & Workstations'
-      ? setEventCentres(true)
-      : setEventCentres(false)
-    housing === 'Land & Plots for Rent' ? setLandRent(true) : setLandRent(false)
-    housing === 'Land & Plots for Sale' ? setLandSale(true) : setLandSale(false)
-    housing === 'Shortlets & Hotels' ? setHotels(true) : setHotels(false)
-  }, [housing])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setHousing(e.target.value)
-  }
+  selected === 'Event center renting'
+    ? localStorage.setItem('subcatID', 34)
+    : ''
+  selected === 'Hotel Renting' ? localStorage.setItem('subcatID', 35) : ''
+  selected === 'House Renting and sales'
+    ? localStorage.setItem('subcatID', 36)
+    : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={housing}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='makeSelection'>Select an Option</option>
-          <option value='Commercial Property for Sale'>
-            Commercial Property for Sale
-          </option>
-          <option value='Commercial Property for Rent'>
-            Commercial Property for Rent
-          </option>
-          <option value='Houses & Apartments fot Sale'>
-            Houses & Apartments fot Sale
-          </option>
-          <option value='Houses & Apartments for Rent'>
-            Houses & Apartments for Rent
-          </option>
-          <option value='Events Centres, Venues & Workstations'>
-            Events Centres, Venues & Workstations{' '}
-          </option>
-          <option value='Land & Plots for Sale'>Land & Plots for Sale</option>
-          <option value='Land & Plots for Rent'>Land & Plots for Rent</option>
-          <option value='Shortlets & Hotels'>Shortlets & Hotels</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

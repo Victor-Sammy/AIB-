@@ -51,7 +51,7 @@ const StoreProfile = () => {
         // )
 
         setProfile(storeData)
-        console.log(storeData)
+        localStorage.setItem('store-id', storeData.id)
       })
       .catch((error) => console.error(`Error: ${error}`))
   }

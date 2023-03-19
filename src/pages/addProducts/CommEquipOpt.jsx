@@ -1,95 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const CommEquipOpt = () => {
-  const [commercialEquip, setCommercialEquip] = useState('selectCommEquip')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [industrialOvens, setIndustrialOvens] = useState(false)
-  const [manufacturingEquip, setManufacturingEquip] = useState(false)
-  const [manufacturingMaterials, setManufacturingMaterials] = useState(false)
-  const [medicalSupplies, setMedicalSupplies] = useState(false)
-  const [printingEquipment, setPrintingEquipment] = useState(false)
-  const [restaurant, setRestaurant] = useState(false)
-  const [safetyWear, setSafetyWear] = useState(false)
-  const [salonEquipment, setSalonEquipment] = useState(false)
-  const [stage, setStage] = useState(false)
-  const [stationery, setStationery] = useState(false)
-  const [storeEquipment, setStoreEquipment] = useState(false)
+  const options = [
+    'Building Materials',
+    'Doors and Windows',
+    'Measuring Tools',
+    'Medical Equipment',
+    'Safety Equipment',
+    'Sound Equipment',
+    'Stage and Lightening equipment',
+    'Stationery',
+    'saloon equipment',
+  ]
 
-  useEffect(() => {
-    commercialEquip === 'industrialOvens'
-      ? setIndustrialOvens(true)
-      : setIndustrialOvens(false)
-    commercialEquip === 'manufacturingEquip'
-      ? setManufacturingEquip(true)
-      : setManufacturingEquip(false)
-    commercialEquip === 'manufacturingMaterials'
-      ? setManufacturingMaterials(true)
-      : setManufacturingMaterials(false)
-    commercialEquip === 'medicalSupplies'
-      ? setMedicalSupplies(true)
-      : setMedicalSupplies(false)
-    commercialEquip === 'printingEquipment'
-      ? setPrintingEquipment(true)
-      : setPrintingEquipment(false)
-    commercialEquip === 'restaurant'
-      ? setRestaurant(true)
-      : setRestaurant(false)
-    commercialEquip === 'safetyWear'
-      ? setSafetyWear(true)
-      : setSafetyWear(false)
-    commercialEquip === 'salonEquipment'
-      ? setSalonEquipment(true)
-      : setSalonEquipment(false)
-    commercialEquip === 'stage' ? setStage(true) : setStage(false)
-    commercialEquip === 'stationery'
-      ? setStationery(true)
-      : setStationery(false)
-    commercialEquip === 'storeEquipment'
-      ? setStoreEquipment(true)
-      : setStoreEquipment(false)
-  }, [commercialEquip])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setCommercialEquip(e.target.value)
-  }
+  selected === 'Building Materials' ? localStorage.setItem('subcatID', 65) : ''
+  selected === 'Doors and Windows' ? localStorage.setItem('subcatID', 66) : ''
+  selected === 'Measuring Tools' ? localStorage.setItem('subcatID', 67) : ''
+  selected === 'Medical Equipment' ? localStorage.setItem('subcatID', 68) : ''
+  selected === 'Safety Equipment' ? localStorage.setItem('subcatID', 69) : ''
+  selected === 'Sound Equipment' ? localStorage.setItem('subcatID', 70) : ''
+  selected === 'Stage and Lightening equipment'
+    ? localStorage.setItem('subcatID', 71)
+    : ''
+  selected === 'Stationery' ? localStorage.setItem('subcatID', 72) : ''
+  selected === 'saloon equipment' ? localStorage.setItem('subcatID', 73) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={commercialEquip}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectCommEquip'>Select Commercial Equipment</option>
-          <option value='industrialOvens'>Industrial Ovens</option>
-          <option value='manufacturingEquip'>Manufacturing Equipment</option>
-          <option value='manufacturingMaterials'>
-            Manufacturing Materials
-          </option>
-          <option value='medicalSupplies'>Medical Supplies & Equipment</option>
-          <option value='printingEquipment'>Printing Equipment</option>
-          <option value='restaurant'>Restaurant & Catering Equipment</option>
-          <option value='safetyWear'>Safetywear & Equipment</option>
-          <option value='salonEquipment'>Salon Equipment</option>
-          <option value='stage'>Stage Lighting & Effects</option>
-          <option value='stationery'>Stationery</option>
-          <option value='storeEquipment'>Store Equipment</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

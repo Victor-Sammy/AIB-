@@ -1,57 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../.././../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import { BsArrowRightShort } from 'react-icons/bs'
+import '../.././../sass/pages/addCategory.scss'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const AddAnimalSub = () => {
-  const [animals, setAnimals] = useState('selectAnimals')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [dogs, setDogs] = useState(false)
-  const [cat, setCat] = useState(false)
-  const [monkey, setMonkey] = useState(false)
-  const [petAccessories, setPetAccessories] = useState(false)
-  const [otherAnimals, setOtherAnimals] = useState(false)
+  const options = ['Birds', 'Cats', 'Dogs', 'Other Animals', 'Pet Accessories']
 
-  useEffect(() => {
-    animals === 'dog' ? setDogs(true) : setDogs(false)
-    animals === 'cat' ? setCat(true) : setCat(false)
-    animals === 'monkey' ? setMonkey(true) : setMonkey(false)
-    animals === 'petAccessories'
-      ? setPetAccessories(true)
-      : setPetAccessories(false)
-    animals === 'otherAnimals' ? setOtherAnimals(true) : setOtherAnimals(false)
-  }, [animals])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setAnimals(e.target.value)
-  }
+  selected === 'Birds' ? localStorage.setItem('subcatID', 79) : ''
+  selected === 'Cats' ? localStorage.setItem('subcatID', 80) : ''
+  selected === 'Dogs' ? localStorage.setItem('subcatID', 81) : ''
+  selected === 'Other Animals' ? localStorage.setItem('subcatID', 82) : ''
+  selected === 'Pet Accessories' ? localStorage.setItem('subcatID', 83) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={animals}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectAnimals'>Select Animals</option>
-          <option value='dog'>Dog</option>
-          <option value='cat'>Cat</option>
-          <option value='monkey'>Monkey</option>
-          <option value='petAccessories'>Pet Accessories</option>
-          <option value='otherAnimals'>Other Animals</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

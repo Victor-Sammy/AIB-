@@ -1,68 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../../sass/components/_subCatOpt.scss'
+import React, { useState } from 'react'
+import '../../sass/pages/addCategory.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
 
 const FurnitureOpt = () => {
-  const [furnitureAppliances, setFurnitureAppliances] =
-    useState('selectFurniture')
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
 
-  const [furniture, setFurniture] = useState(false)
-  const [homeAppliances, setHomeAppliances] = useState(false)
-  const [kitchenAppliances, setKitchenAppliances] = useState(false)
-  const [kitchenWare, setKitchenWare] = useState(false)
-  const [gardening, setGardening] = useState(false)
+  const options = [
+    'Furnitures',
+    'Gardening',
+    'Home Appliances',
+    'Kitchen Appliances',
+  ]
 
-  useEffect(() => {
-    furnitureAppliances === 'furniture'
-      ? setFurniture(true)
-      : setFurniture(false)
-    furnitureAppliances === 'homeAppliances'
-      ? setHomeAppliances(true)
-      : setHomeAppliances(false)
-    furnitureAppliances === 'kitchenAppliances'
-      ? setKitchenAppliances(true)
-      : setKitchenAppliances(false)
-    furnitureAppliances === 'kitchenWare'
-      ? setKitchenWare(true)
-      : setKitchenWare(false)
-    furnitureAppliances === 'gardening'
-      ? setGardening(true)
-      : setGardening(false)
-  }, [furnitureAppliances])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setFurnitureAppliances(e.target.value)
-  }
+  selected === 'Furnitures' ? localStorage.setItem('subcatID', 37) : ''
+  selected === 'Gardening' ? localStorage.setItem('subcatID', 38) : ''
+  selected === 'Home Appliances' ? localStorage.setItem('subcatID', 39) : ''
+  selected === 'Kitchen Appliances' ? localStorage.setItem('subcatID', 40) : ''
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={furnitureAppliances}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectFurniture'>
-            Select Furniture & Home Appliances
-          </option>
-          <option value='furniture'>Furniture</option>
-          <option value='homeAppliances'>Home Appliances</option>
-          <option value='kitchenAppliances'>Kitchen Appliances</option>
-          <option value='kitchenWare'>Kitchen Ware</option>
-          <option value='gardening'>Gardening</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option)
+                }}
+                className='dropdown-item'
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 
