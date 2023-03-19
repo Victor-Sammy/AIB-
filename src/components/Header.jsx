@@ -167,13 +167,13 @@ const Header = () => {
       </div>
       {navOpen && (
         <div
-          class="navWrap"
+          className="navWrap"
           onClick={() => {
             setNavOpen(false);
           }}
         ></div>
       )}
-      <div class={`navContent mobile ${navOpen ? "open" : ""}`}>
+      <div className={`navContent mobile ${navOpen ? "open" : ""}`}>
         <div className="header__menu">
           <div
             className="header__menu-button"

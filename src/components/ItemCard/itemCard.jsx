@@ -1,12 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import Heart from "../vectors/Heart";
-import { getUserLikedItems, toggleItemLike } from "../../Api/user.js";
+import { getUserLikedItems } from "../../Api/user.js";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { toggleItemLike } from "../../Api/products";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ItemCard({ item }) {
+  const { user } = useAuth();
+  let location = useLocation();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { data: likedItems } = useQuery({
@@ -61,6 +66,15 @@ export default function ItemCard({ item }) {
     },
   });
 
+  const toggleLikeHelper = (args) => {
+    if (user) {
+      toggleLike(args);
+    } else {
+      toast.error("Login to add items to your wishlist");
+      navigate(`/signin?next=${location.pathname}`);
+    }
+  };
+
   return (
     <div className="productItem">
       <div className="productItem-heart">
@@ -68,14 +82,14 @@ export default function ItemCard({ item }) {
           <Heart
             fill="#EB5757"
             stroke="#EB5757"
-            onClick={() => toggleLike({ id: item.id, add: false })}
+            onClick={() => toggleLikeHelper({ id: item.id, add: false })}
           />
         ) : (
-          <Heart onClick={() => toggleLike({ id: item.id, add: true })} />
+          <Heart onClick={() => toggleLikeHelper({ id: item.id, add: true })} />
         )}
       </div>
       <div className="productItem-image">
-        <img src={item.images[0].image} alt={`${item.name}`} />
+        <img src={item.images[0]?.image} alt={`${item.name}`} />
       </div>
       <Link to={`/products/${item.id}`} className="productItem-content">
         <div className="productItem-content-category">

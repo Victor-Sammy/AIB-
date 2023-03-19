@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../sass/pages/_productDetails.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import { getProductDetails } from "../../Api/products";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getProductDetails, toggleItemLike } from "../../Api/products";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import iphone1 from "../../assets/iphone1.png";
 import iphone2 from "../../assets/iphone2.png";
@@ -14,11 +14,12 @@ import Cart from "../vectors/Cart.jsx";
 import Info from "./Info.jsx";
 import RatingsAndReviews from "./RatingsAndReviews.jsx";
 import CategoryPreview from "../CategoryPreview";
-import { getUserLikedItems, toggleItemLike } from "../../Api/user";
+import { getUserLikedItems } from "../../Api/user";
 import { toast } from "react-toastify";
 import Heart from "../vectors/Heart.jsx";
 import ArrowLeft from "../vectors/ArrowLeft";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -148,8 +149,8 @@ const productDetails = {
 
 const ProductDetails = () => {
   const { id } = useParams();
-  // const [price, setPrice] = useState(0);
-  const selectedOptions = useRef([]);
+  const { user } = useAuth();
+  let location = useLocation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -163,8 +164,6 @@ const ProductDetails = () => {
     queryFn: getUserLikedItems,
   });
 
-  console.log("likedItems", likedItems);
-
   // Mutations
   const { mutate: toggleLike } = useMutation({
     mutationFn: ({ id, add }) => toggleItemLike(id),
@@ -175,9 +174,11 @@ const ProductDetails = () => {
       const likedItems = { ...previousLikedItems };
 
       if (add) {
-        likedItems[`${id}`] = productDetails;
+        likedItems.results.push(item);
       } else {
-        delete likedItems[`${id}`];
+        likedItems.results = likedItems.results.filter(
+          (likedItem) => likedItem.id !== item.id
+        );
       }
 
       // Optimistically update to the new value
@@ -187,7 +188,7 @@ const ProductDetails = () => {
     },
     onSuccess: (data, variables, context) => {
       toast.success(
-        `${productDetails.name} successfully ${
+        `${item.name} successfully ${
           variables.add ? "added to" : "removed from"
         } favourites`
       );
@@ -197,8 +198,8 @@ const ProductDetails = () => {
       toast.error(
         `Error ${
           variables.add
-            ? `adding ${productDetails.name} to`
-            : `removing ${productDetails.name} from`
+            ? `adding ${item.name} to`
+            : `removing ${item.name} from`
         } favourites`
       );
     },
@@ -208,30 +209,14 @@ const ProductDetails = () => {
     },
   });
 
-  const selectOption = (index, value) => {
-    const prevAdditionalPrice =
-      selectedOptions.current[index].option.additionalPrice;
-    selectedOptions.current[index].option = value;
-    setPrice(
-      (price) =>
-        price + Number(value.additionalPrice) - Number(prevAdditionalPrice)
-    );
+  const toggleLikeHelper = (args) => {
+    if (user) {
+      toggleLike(args);
+    } else {
+      toast.error("Login to add items to your wishlist");
+      navigate(`/signin?next=${location.pathname}`);
+    }
   };
-
-  useEffect(() => {
-    // const price = productDetails.options.reduce(
-    //   (previousValue, variant) =>
-    //     previousValue + variant.options[0].additionalPrice,
-    //   productDetails.price
-    // );
-    // productDetails.options.forEach((variant) => {
-    //   selectedOptions.current.push({
-    //     name: variant.name,
-    //     option: variant.options[0],
-    //   });
-    // });
-    // setPrice(price);
-  }, [productDetails]);
 
   return (
     <main className=" wrapper productDetails">
@@ -275,10 +260,12 @@ const ProductDetails = () => {
                     <Heart
                       fill="#EB5757"
                       stroke="#EB5757"
-                      onClick={() => toggleLike({ id, add: false })}
+                      onClick={() => toggleLikeHelper({ id, add: false })}
                     />
                   ) : (
-                    <Heart onClick={() => toggleLike({ id, add: true })} />
+                    <Heart
+                      onClick={() => toggleLikeHelper({ id, add: true })}
+                    />
                   )}
                 </div>
               </div>

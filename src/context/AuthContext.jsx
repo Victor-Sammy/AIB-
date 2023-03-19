@@ -20,13 +20,13 @@ export default function AuthProvider(props) {
     // retrieve user from last session or cache
 
     const autoLogin = async () => {
-      console.log('running auto login')
       let userData = null
 
       if (!token) {
         return
       }
 
+      console.log('running auto login')
       userData = await axios.get('/ad/profile/me/').catch((e) => {
         return null
       })
