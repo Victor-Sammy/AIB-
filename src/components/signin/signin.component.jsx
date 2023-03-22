@@ -72,9 +72,11 @@ const SignIn = () => {
 
     if (validEmail && validPassword) {
       setLoading(true);
+      const cartID = localStorage.getItem("cartID");
       login({
         email,
         password,
+        ...(cartID ? { cartID } : {}),
       })
         .then(() => {
           setLoading(false);

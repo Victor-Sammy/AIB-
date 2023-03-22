@@ -111,10 +111,12 @@ const SignUp = () => {
 
     if (validateFields()) {
       setLoading(true);
+      const cartID = localStorage.getItem("cartID");
       register({
         username,
         email,
         password,
+        ...(cartID ? { cartID } : {}),
       })
         .then((response) => {
           toast.success("Successful Account Creation");

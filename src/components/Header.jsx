@@ -37,11 +37,13 @@ const Header = () => {
   };
 
   // Queries
-  const cartQuery = useQuery({ queryKey: ["cart"], queryFn: getCart });
+  const { data: cart } = useQuery({ queryKey: ["cart"], queryFn: getCart });
   const notificationQuery = useQuery({
     queryKey: ["notification"],
     queryFn: getNotifications,
   });
+
+  console.log("cart", cart);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -129,9 +131,14 @@ const Header = () => {
 
             <Link to="/cart" className="navItem">
               <div className="indicator">
-                {cartQuery.data && (
+                {cart && (
                   <span className="indicator-value">
-                    {cartQuery.data.data.count}
+                    {cart.data.count
+                      ? cart.data.results.reduce(
+                          (count, item) => item.quantity + count,
+                          0
+                        )
+                      : 0}
                   </span>
                 )}
                 <Cart />

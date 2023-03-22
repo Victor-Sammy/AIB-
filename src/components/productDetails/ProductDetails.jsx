@@ -18,134 +18,12 @@ import { getUserLikedItems } from "../../Api/user";
 import { toast } from "react-toastify";
 import Heart from "../vectors/Heart.jsx";
 import ArrowLeft from "../vectors/ArrowLeft";
-import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import { addToCart } from "../../Api/cart";
+import LoadingSpinner from "../vectors/LoadingSpinner";
+import { useMemo } from "react";
 
 const formatter = Intl.NumberFormat("en", { notation: "compact" });
-
-const productDetails = {
-  images: [iphone1, iphone2, iphone3, iphone4],
-  name: "Apple iPhone 13 pro",
-  category: "Phones",
-  description:
-    "6.1 Inch Super Retina - (6GB RAM + 256GB ROM) IOS 15, 5G, FaceTime - GOLD",
-  price: 850000,
-  ratings: {
-    average: 3.5,
-    count: 3400,
-    details: {
-      5: 2000,
-      4: 800,
-      3: 400,
-      2: 150,
-      1: 50,
-    },
-  },
-  details: [
-    {
-      name: "Brand",
-      value: "Apple",
-    },
-    {
-      name: "Display Type",
-      value: "OLED",
-    },
-    {
-      name: "Internal Storage",
-      value: "256GB",
-    },
-    {
-      name: "Model",
-      value: "Iphone 13 Pro",
-    },
-    {
-      name: "Screen Size",
-      value: "6.1",
-    },
-    {
-      name: "Card Slot",
-      value: "No",
-    },
-    {
-      name: "Condition",
-      value: "Brand New",
-    },
-    {
-      name: "Resolution",
-      value: "1125 x 2436",
-    },
-    {
-      name: "Main Camera",
-      value: "Triple",
-    },
-    {
-      name: "SIM",
-      value: "Nano-SIM",
-    },
-    {
-      name: "RAM",
-      value: "3GB",
-    },
-    {
-      name: "Selfie Camera",
-      value: "12MP (f/2.2)",
-    },
-    {
-      name: "OS",
-      value: "IOS",
-    },
-    {
-      name: "Colour",
-      value: "Others",
-    },
-    {
-      name: "Battery",
-      value: "3190mAh",
-    },
-  ],
-  specifications: [
-    {
-      name: "Card Slot",
-      value: "No",
-    },
-    {
-      name: "Condition",
-      value: "Brand New",
-    },
-    {
-      name: "Resolution",
-      value: "1125 x 2436",
-    },
-    {
-      name: "Main Camera",
-      value: "Triple",
-    },
-    {
-      name: "SIM",
-      value: "Nano-SIM",
-    },
-    {
-      name: "RAM",
-      value: "3GB",
-    },
-    {
-      name: "Selfie Camera",
-      value: "12MP (f/2.2)",
-    },
-    {
-      name: "OS",
-      value: "IOS",
-    },
-    {
-      name: "Colour",
-      value: "Others",
-    },
-    {
-      name: "Battery",
-      value: "3190mAh",
-    },
-  ],
-};
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -158,6 +36,8 @@ const ProductDetails = () => {
     queryKey: ["product", id],
     queryFn: () => getProductDetails(id),
   });
+
+  console.log("Product", product);
 
   const { data: likedItems } = useQuery({
     queryKey: ["userLikedItems"],
@@ -209,6 +89,21 @@ const ProductDetails = () => {
     },
   });
 
+  const { mutate: addProductToCart, isLoading: addingProductToCart } =
+    useMutation({
+      mutationFn: (id) => addToCart(id),
+      onSuccess: (data, variables, context) => {
+        toast.success(`${product.name} successfully added to cart`);
+      },
+      onError: (err, newTodo, context) => {
+        toast.error(`Error adding ${product.name} to cart`);
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
+      },
+    });
+
   const toggleLikeHelper = (args) => {
     if (user) {
       toggleLike(args);
@@ -217,6 +112,32 @@ const ProductDetails = () => {
       navigate(`/signin?next=${location.pathname}`);
     }
   };
+
+  const productDetails = useMemo(() => {
+    const productDetails = [];
+    const primaryKeys = [
+      "id",
+      "name",
+      "description",
+      "price",
+      "rating_info",
+      "images",
+      "start_date",
+      "created_at",
+      "updated_at",
+    ];
+    if (product) {
+      Object.entries(product).forEach(([key, value]) => {
+        if (primaryKeys.includes(key) || !value) return;
+        productDetails.push({
+          name: key,
+          value: JSON.stringify(value),
+        });
+      });
+    }
+
+    return productDetails;
+  }, [product]);
 
   return (
     <main className=" wrapper productDetails">
@@ -238,7 +159,9 @@ const ProductDetails = () => {
             </div>
           </div>
         ) : (
-          <Carousel images={productDetails.images} />
+          <Carousel
+            images={product.images.map((imageObject) => imageObject.image)}
+          />
         )}
         <div className="productDetails_detailWrap">
           {isLoading ? (
@@ -252,9 +175,7 @@ const ProductDetails = () => {
           ) : (
             <div className="productDetails_details">
               <div className="productDetails_details-nameWrap">
-                <h1 className="productDetails_details-name">
-                  {productDetails.name}
-                </h1>
+                <h1 className="productDetails_details-name">{product.name}</h1>
                 <div>
                   {likedItems?.[id] ? (
                     <Heart
@@ -270,21 +191,21 @@ const ProductDetails = () => {
                 </div>
               </div>
               <p className="productDetails_details-description">
-                {productDetails.description}
+                {product.description}
               </p>
               <p className="productDetails_details-price">
-                NGN{productDetails.price.toLocaleString()}
+                NGN{product.price.toLocaleString()}
               </p>
               <div className="productDetails_details-rating">
                 <span className="stars">
                   <Ratings
-                    rating={productDetails.ratings.average}
+                    rating={product.rating_info.average}
                     color="#FE8946"
                   />
                 </span>
-                <span className="rating">{productDetails.ratings.average}</span>
+                <span className="rating">{product.rating_info.average}</span>
                 <span className="ratingCount">
-                  ({formatter.format(productDetails.ratings.count)})
+                  ({formatter.format(product.rating_info.count)})
                 </span>
               </div>
             </div>
@@ -308,8 +229,12 @@ const ProductDetails = () => {
           )} */}
           {!isLoading && (
             <div className="productDetails_cta">
-              <button className="productDetails_cta-cart">
-                <Cart /> Add to Cart
+              <button
+                className="productDetails_cta-cart"
+                onClick={() => addProductToCart(product.id)}
+              >
+                {addingProductToCart ? <LoadingSpinner /> : <Cart />} Add to
+                Cart
               </button>
               <button className="productDetails_cta-buy">Buy</button>
             </div>
@@ -318,11 +243,8 @@ const ProductDetails = () => {
 
         {!isLoading && (
           <>
-            <Info
-              productDetails={productDetails.details}
-              productSpecifications={productDetails.specifications}
-            />
-            <RatingsAndReviews id={id} ratings={productDetails.ratings} />
+            <Info productDetails={productDetails} />
+            <RatingsAndReviews id={id} ratings={product.rating_info} />
           </>
         )}
       </div>
