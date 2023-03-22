@@ -21,6 +21,7 @@ export default function RatingsAndReviews({ id, ratings }) {
     queryKey: ["productReviews", id],
     queryFn: () => getProductReviews(id),
   });
+  
   return (
     <div className="productDetails_feedback">
       <div className="productDetails_feedback-header">

@@ -5,20 +5,32 @@ export const getCart = () => {
   const accessToken = localStorage.getItem("USER_ACCESS_TOKEN");
 
   try {
-    if (cartID && accessToken) {
-      return client.get(`/ad/carts/${cartID}/items`);
-    } else {
-      return null;
-    }
+    return client.get(`/ad/carts/${cartID}/items/`);
   } catch {
     return null;
   }
 };
 
-export const addToCart = async (item) => {
+export const addToCart = async (itemID, quantity = 1) => {
   const cartID = localStorage.getItem("cartID");
 
-  if (!cartID) {
-    await client.get(`/ad/carts/${cartID}/items`);
+  if (cartID) {
+    return client.post(`/ad/carts/${cartID}/items/`, {
+      product_id: itemID,
+      quantity,
+    });
+  } else {
+    // create cart then add item
+    return client.post("/ad/carts/").then((data) => {
+      console.log("data", data);
+      const {
+        data: { id },
+      } = data;
+      localStorage.setItem("cartID", id);
+      return client.post(`/ad/carts/${id}/items/`, {
+        product_id: itemID,
+        quantity,
+      });
+    });
   }
 };

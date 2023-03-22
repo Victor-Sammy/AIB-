@@ -26,8 +26,8 @@ export default function AuthProvider(props) {
         return;
       }
 
-      console.log("running auto login");
       userData = await axios.get("/ad/profile/me/").catch((e) => {
+        logout();
         return null;
       });
 
@@ -46,6 +46,7 @@ export default function AuthProvider(props) {
 
       setUser(result.data);
       localStorage.setItem("USER_ID", result.data.id);
+      localStorage.setItem("cartID", result.data.cartId);
       localStorage.setItem("USER_ACCESS_TOKEN", result.data.tokens.access);
       localStorage.setItem("USER_REFRESH_TOKEN", result.data.tokens.refresh);
 
@@ -60,6 +61,7 @@ export default function AuthProvider(props) {
     return Promise.all([
       setUser(null),
       localStorage.removeItem("USER_ID"),
+      localStorage.removeItem("cartID"),
       localStorage.removeItem("USER_ACCESS_TOKEN"),
       localStorage.removeItem("USER_REFRESH_TOKEN"),
     ]).then(() => {

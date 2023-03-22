@@ -1,4 +1,3 @@
-import axios from "axios";
 import bisolaDavid from "../assets/bisolaDavid.png";
 import { client } from "./Api";
 
@@ -7,7 +6,7 @@ export const getPreviewProducts = (path) => {
 };
 
 export const getProductDetails = (id) => {
-  return client.get(`/ad/products/${id}/`);
+  return client.get(`/ad/products/${id}/`).then((result) => result.data);
 };
 
 export const toggleItemLike = (id) => {
@@ -15,7 +14,9 @@ export const toggleItemLike = (id) => {
 };
 
 export const getProductReviews = (id) => {
-  // return client.get(`/ad/products/${id}/reviews`);
+  client
+    .get(`/ad/products/${id}/ratings/`)
+    .then((result) => console.log("Reviews", result.data));
 
   return [
     {
