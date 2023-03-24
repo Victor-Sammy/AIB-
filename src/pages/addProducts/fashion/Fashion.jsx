@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlinePlus, AiTwotoneDelete } from 'react-icons/ai'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../../sass/components/_subCatOpt.scss'
@@ -81,8 +81,13 @@ const Fashion = () => {
   }
 
   const onSelectFile = async (e) => {
-    setSelectedImages(e.target.files)
-    //const selectedFiles = e.target.files[0]
+    const selectedFiles = []
+    const targetFiles = e.target.files
+    const targetFilesObject = [...targetFiles]
+    targetFilesObject.map((file) => {
+      return selectedFiles.push(URL.createObjectURL(file))
+    })
+    setSelectedImages(selectedFiles)
     //const file = newData[0]
     //const base64 = await getbase64(file)
     //console.log(base64)
@@ -97,9 +102,11 @@ const Fashion = () => {
     // e.target.value = ''
   }
 
-  function deleteHandler(image) {
-    setSelectedImages(selectedImages.filter((e) => e !== image))
-    URL.revokeObjectURL(image)
+  function deleteHandler(e) {
+    const del = selectedImages.filter((url, index) => index !== e)
+    setSelectedImages(del)
+    console.log(del)
+    //URL.revokeObjectURL(url)
   }
 
   return (
@@ -130,6 +137,16 @@ const Fashion = () => {
                 format. Add 3 Photos or more.
               </h5>
             </div>
+            {selectedImages.map((url, index) => {
+              return (
+                <div className='img-preview' id='img-preview'>
+                  <img src={url} alt='' />
+                  <span onClick={() => deleteHandler(index)}>
+                    <AiTwotoneDelete />
+                  </span>
+                </div>
+              )
+            })}
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>
@@ -165,8 +182,8 @@ const Fashion = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>

@@ -31,6 +31,7 @@ import { Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/landingPage'
 import SuccessfullSignUp from './components/signup/successfullSignUp'
 import ProductDetails from './components/productDetails/ProductDetails'
+import PopUp from './components/store-profile/PopUp'
 
 function App() {
   axios.defaults.withCredentials = true
@@ -55,6 +56,7 @@ function App() {
       <Route exact path='/signup' element={<SignUpPage />} />
       <Route exact path='/successfullsignup' element={<SuccessfullSignUp />} />
       <Route path='/*' element={<Wrapper />} />
+      <Route path='/itemEdit/:id' element={<PopUp />} />
     </Routes>
   )
 }

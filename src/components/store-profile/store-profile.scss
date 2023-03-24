@@ -316,8 +316,10 @@
                   text-align: center;
                   .item-name {
                     width: 180px;
-                    //height: 17px;
+                    padding: 0 auto;
                     margin-bottom: 1px;
+                    //overflow: hidden;
+                    white-space: nowrap;
                     span {
                       font-size: 18px;
                       font-weight: 500;
@@ -361,11 +363,19 @@
                       justify-content: center;
                     }
                   }
-                }
+                }               
+              }
+              button {
+                margin-left: 5%;
+                transform: translateY(-7px);
+                padding: 2.5% 7%;
+                border: none;
+                background: #f02630;
+                color: #fdfdfd;
               }
               .wishlist-icon {
                 position: absolute;
-                top: 16px;
+                top: -2px;
                 right: 19px;
                 width: 22px;
                 height: 22px;
@@ -917,6 +927,12 @@
                   height: 80px !important;
                 }
               }
+              #details {
+                width: 180px;
+                #item-name {
+                  //padding-right: 10px;
+                }
+              }
             }
           }
         }
@@ -960,7 +976,7 @@
     }
   }  
 }
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   #store-profile {
     padding: 0 5%;
     #st-flex {
@@ -1043,9 +1059,11 @@
                 }
               }
               #details {
+                width: 150px;
                 gap: .5px;
                 height: 65px !important;
                 #item-name {
+                  width: 150px;
                   span {
                     font-size: 12px !important;               
                   }
@@ -1180,6 +1198,29 @@
           grid-template-columns: 20.6% 20.6% 20.6% 20.6% !important;
           #item {
             min-width: 125px !important;
+            #trend-link {
+              #details {
+                width: 120px;
+                //padding: 0 20px;
+                #item-name {                 
+                  // width: 120px !important;
+                  // padding-left: 10px;
+                  // padding-right: 10px;
+                  //overflow: hidden;
+                  & span {
+                    font-size: 10px !important;         
+                  }
+                }
+                #store-name {
+                  & span {
+                    font-size: 10px;
+                  }
+                }
+              }
+            }
+            #wishlist-icon {
+              font-size: 18px;
+            }
           }
         }
       }

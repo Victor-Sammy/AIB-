@@ -76,6 +76,7 @@
                 margin-top: 35px;
                 .file-cc {
                     margin-left: 15%;
+                    width: 35%;
                     //height: 300px;
                     .file-card {
                         margin-top: 50px; 
@@ -114,13 +115,41 @@
                         }
                     }
                     h5 {
-                        width: 80%;
+                        width: 90%;
                         margin-top: 10px;
                         font-weight: 500;
                         color: #909090;
                         opacity: 70%;
                     }
                     
+                }
+                #img-preview {
+                    width: 120px;
+                    height: 160px;
+                    background: #666464;
+                    margin-right: 10px;
+                    display: flex;
+                    //justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 10px;
+                    border-radius: 10px;
+                    & img {
+                        margin-top: 10%;
+                        border-radius: 10px;
+                        width: 80%;
+                        height: 100px;
+                        object-fit: cover;
+                    }
+                    & span {
+                        font-size: 25px;
+                        color: rgb(243, 121, 105);
+                        cursor: pointer;
+                        &:hover {
+                            transform: scale(1.1);
+                            color: rgb(170, 32, 13);
+                        }
+                    }
                 }
                 .error {
                     position: relative;
@@ -173,16 +202,14 @@
             }
         }
         #form1 {
-            width: 70%;
-            margin-right: 10px !important;
-            position: relative;
-            //display: flex;
-            //align-items: center;
+            width: 100%;
+            //position: relative;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center !important;
+            align-items: center !important;
             //gap: 200px;
             #input {
-                width: 200px;
-                margin-right: 0;
-                padding-right: 0;
                 p {
                     width: 200px;
                     margin-right: 0 !important;
@@ -190,31 +217,33 @@
                 }
             }
             .description {
-                position: absolute;
                 top: 220px;
-                //right: 30%;
-                width: 40%;
                 margin-bottom: 0;
                 textarea {
                     width: 800px;
                     height: 120px;
                     border-radius: 10px;
-                    padding-left: 10px;
+                    padding-left: 20px !important;
                     padding-top: 10px;
                     margin-bottom: 5px;
                 }
             }
         }
-        h1 {
-            margin-top: 200px;
-            //margin-left: 30%;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: 700;
-            color: #000;
-            opacity: 60%;
-        }
-        .formDescription {
+        #formDescription {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5%;
+            h1 {              
+                //margin-left: 30%;
+                text-align: center !important;
+                margin-bottom: 20px;
+                font-size: 18px;
+                font-weight: 700;
+                color: #000;
+                opacity: 60%;
+            }
             p {
                 text-align: start;
             }
@@ -277,38 +306,53 @@
 }    
 
 @media (min-width: 1600px) {
-    #form1 {
-        left: 25% !important;
-        #input {
-            margin-bottom: 25px;
-            p {
-                margin-bottom: 2px;
+    .input-div {
+        .product-attributes {
+            #div-cover {
+                width: 1000px !important;
+                margin-inline: auto;
+                h2 {
+                    font-size: 16px;
+                    left: 7%;
+                }
+                #file-cc {
+                    margin-left: 5%;
+                }
             }
-            input {
-                width: 800px !important;
-                height: 70px;
-                border: 1px solid #000;
-                border-radius: 10px;
-                padding-left: 10px;
+            #form1 {
+                width: 100%;
+                #input {
+                    margin-bottom: 20px;
+                    p {
+                        margin-bottom: 2px;
+                    }
+                    input {
+                        width: 800px !important;
+                        height: 70px;
+                        border: 1px solid #000;
+                        border-radius: 10px;
+                        padding-left: 10px;
+                        margin: 0 auto;
+                    }
+                }
+                #description {
+                    width: 800px;
+                    margin-left: 0;
+                    textarea {
+                        width: 800px !important;
+                        margin-left: 0;
+                        padding-left: 0;
+                    }
+                }
+            }
+            #formDescription {
+                .div-flex {
+                    input {
+                        width: 800px !important;
+                    }
+                } 
             }
         }
-        .description {
-            left: 0;
-            textarea {
-                width: 800px !important;
-            }
-        }
-    }
-    h1 {
-        margin-left: 45%;;
-    }
-    #formDescription {
-        margin-left: 25%;
-        .div-flex {
-            input {
-                width: 800px !important;
-            }
-        } 
     }
 }
 
@@ -329,16 +373,14 @@
         }
     }
     #form1 {
-        left: 25%;
         #input {
-            width: 800px;
             margin-right: 0 !important;
             margin-bottom: 25px;
             p {
                 margin-bottom: 2px;
             }
             input {
-                width: 600px;
+                width: 800px;
                 height: 70px;
                 border: 1px solid #000;
                 border-radius: 10px;
@@ -346,20 +388,15 @@
             }
         }
         .description {
-            left: 0;
             textarea {
-                width: 600px !important;
+                width: 800px !important;
             }
         }
     }
-    h1 {
-        margin-left: 45%;;
-    }
     #formDescription {
-        margin-left: 25%;
         .div-flex {
             input {
-                width: 600px;
+                width: 800px;
             }
         } 
     }   
@@ -391,16 +428,14 @@
         }
     }
     #form1 {
-        left: 15%;
         #input {
-            width: 800px;
             margin-right: 0 !important;
             margin-bottom: 25px;
             p {
                 margin-bottom: 2px;
             }
             input {
-                width: 600px;
+                width: 800px !important;
                 height: 70px;
                 border: 1px solid #000;
                 border-radius: 10px;
@@ -408,20 +443,15 @@
             }
         }
         .description {
-            left: 0;
             textarea {
-                width: 600px !important;
+                width: 800px !important;
             }
         }
     }
-    h1 {
-        margin-left: 45%;;
-    }
     #formDescription {
-        margin-left: 15%;
         .div-flex {
             input {
-                width: 600px;
+                width: 800px !important;
             }
         } 
     }   
@@ -438,23 +468,33 @@
                     left: 7%;
                 }
                 #file-cc {
+                    width: 20%;
                     margin-left: 5%;
+                    .file-card {
+                        width: 100px;
+                        height: 100px;
+                        margin-top: 50px;
+                        margin-bottom: 5px;
+                    }
+                    h5 {
+                        margin-top: 10px;
+                        font-size: 10px;
+                    }
                 }
             }
         }
     }
     #form1 {
         width: 100% !important;
-        left: 0;
         #input {
-            width: 100% !important;
+            width: 100%;
             margin-right: 0 !important;
             margin-bottom: 25px;
             p {
                 margin-bottom: 2px;
             }
             input {
-                width: 100%;
+                width: 100% !important;
                 height: 70px;
                 border: 1px solid #000;
                 border-radius: 10px;
@@ -463,21 +503,16 @@
         }
         .description {
             width: 100% !important;
-            left: 0;
             textarea {
                 width: 100% !important;
             }
         }
     }
-    h1 {
-        margin-left: 45%;;
-    }
-    #formDescription {
-        width: 100%;
-        margin-left: 0%;
+    #formDescription {       
         .div-flex {
+            width: 100% !important;
             input {
-                width: 100%;
+                width: 100% !important;
             }
         } 
     }   
@@ -487,7 +522,7 @@
     .input-div {
         .product-attributes {
             #div-cover {
-                height: 100px;
+                height: 120px;
                 border-radius: 16px;
                 margin: 20px 0;
                 h2 {
@@ -497,15 +532,32 @@
                 #add-image-display {
                     margin-top: 25px;
                     #file-cc {
+                        width: 24%;
+                        margin-top: 3px;
                         .file-card {
-                            width: 47px;
-                            height: 47px;
+                            width: 40px;
+                            height: 40px;
                             margin-top: 0;
                             margin-bottom: 5px;
                         }
                         h5 {
-                            margin-top: 0;
-                            font-size: 8px;
+                            margin-top: 10px;
+                            font-size: 6px;
+                        }
+                    }
+                    #img-preview {
+                        width: 60px;
+                        height: 80px;
+                        margin-right: 5px;
+                        display: flex;
+                        gap: 2px;
+                        & img {
+                            margin-top: 5%;
+                            height: 50px;
+                            object-fit: cover;
+                        }
+                        & span {
+                            font-size: 15px;
                         }
                     }
                 }
@@ -513,7 +565,7 @@
             #form1 {
                 #input {
                     input {
-                        height: 54px;
+                        height: 50px !important;
                     }
                 }
                 #description {
@@ -521,15 +573,13 @@
                         height: 100px;
                     }
                 }
-            }
-            h1 {
-                margin-left: 0;
-                text-align: center;
-                font-size: 14px;
-            }
+            }           
             #formDescription {
+                h1 {
+                    font-size: 14px;
+                }
                 input {
-                    height: 54px;
+                    height: 50px !important;
                 }
             }
         }

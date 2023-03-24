@@ -7,53 +7,44 @@ import './store-profile.scss'
 import ThumbUp from '../../assets/thumbup.png'
 import ThumbDown from '../../assets/thumbdown.png'
 import LikesIcon from '../../assets/likes.png'
-import axios from 'axios'
 import Pic from '../../assets/d-img.png'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { AiOutlineUser } from 'react-icons/ai'
-import { useAuth } from '../../context/AuthContext'
 import coverPhoto from '../../assets/unsplash_c9FQyqIECds.png'
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css'
+import PopUp from './PopUp'
+import { getStoreItems } from '../../Api/store'
+import { useQuery } from '@tanstack/react-query'
 
 const StoreProfile = () => {
   const navigate = useNavigate()
 
-  const { user } = useAuth()
-
-  //const user = useSelector(selectUser)
-  const [profile, setProfile] = useState()
   const [value, setValue] = useState(1)
-  const [store, setStore] = useState([])
   const [addToWishlist, setAddToWishlist] = useState(false)
 
-  const url_key = user
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [`storeItems`],
+    queryFn: () => getStoreItems(),
+  })
+  const storeInfo = data?.data?.results[0]
+  const storeItems = data?.data?.results[0].store_product
+  console.log(storeInfo)
+  console.log(storeItems)
+  //console.log(data.data)
 
-  useEffect(() => {
-    getStoreData()
-    fetchData()
-  }, [])
+  if (isLoading) return <h1>...Loading</h1>
+  if (isError) return <h1>Error Loading Products</h1>
 
-  const fetchData = async () => {
-    const response = await fetch('https://fakestoreapi.com/products?limit=8')
-    const data = await response.json()
-    setStore(data)
+  const Blurry = () => {
+    e.preventDefault()
   }
 
-  const getStoreData = () => {
-    axios
-      .get('ad/store/')
-      .then((response) => {
-        console.log(response.data)
-        const storeData = response.data?.results[0]
-
-        // const mainStore = storeData?.results?.find(
-        //   (store) => store.owner === url_key
-        // )
-
-        setProfile(storeData)
-        localStorage.setItem('store-id', storeData.id)
-      })
-      .catch((error) => console.error(`Error: ${error}`))
+  const styles = {
+    main: {
+      opacity: '50%',
+    },
   }
 
   return (
@@ -63,7 +54,7 @@ const StoreProfile = () => {
       onload={() => navigate('items')}
     >
       <div className='sp-top' id='sp-top'>
-        {profile ? (
+        {storeInfo ? (
           <div className='sp-cover' id='sp-cover'>
             <img src={coverPhoto} alt='' />
           </div>
@@ -76,9 +67,9 @@ const StoreProfile = () => {
       <div className='st-flex' id='st-flex'>
         <div className='store-content' id='store-content'>
           <div className='store-info' id='store-info'>
-            {profile ? (
+            {storeInfo ? (
               <div className='sp-img' id='sp-img'>
-                <img src={profile ? profile?.profile_image : Pic} alt='' />
+                <img src={storeInfo ? storeInfo?.profile_image : Pic} alt='' />
               </div>
             ) : (
               <div className='header-icon' id='header-icon'>
@@ -86,15 +77,15 @@ const StoreProfile = () => {
               </div>
             )}
             <div className='sp-name' id='sp-name'>
-              <span>{profile ? profile[0]?.name : 'Store Name'}</span>
+              <span>{storeInfo ? storeInfo?.name : 'Store Name'}</span>
             </div>
             <div className='sp-location' id='sp-location'>
               <HiLocationMarker />
-              <span>{profile ? profile?.address : 'Store location'}</span>
+              <span>{storeInfo ? storeInfo?.address : 'Store location'}</span>
             </div>
             <div className='sp-description' id='sp-description'>
               <span>
-                {profile ? profile?.description : 'Store Description'}
+                {storeInfo ? storeInfo?.description : 'Store Description'}
               </span>
             </div>
             <div className='sp-option' id='sp-option'>
@@ -111,7 +102,7 @@ const StoreProfile = () => {
                 id='sp-profile'
                 onClick={() => navigate('/editProfile')}
               >
-                <span>Edit Profile</span>
+                <span>Edit Store</span>
                 <MdOutlineManageAccounts />
               </div>
             </div>
@@ -176,34 +167,47 @@ const StoreProfile = () => {
 
               <div className='st-items-display' id='st-items-display'>
                 <div className='slide' id='slide'>
-                  {store.map((value) => {
+                  {storeItems.map((item) => {
                     return (
-                      <div key={value.id} className='item' id='item'>
+                      <div key={item?.id} className='item' id='item'>
                         <NavLink
-                          to={`/products/${value.id}`}
+                          to={`/products/${item.id}`}
                           className='trend-link'
+                          id='trend-link'
                         >
                           <div className='image' id='image'>
-                            <img src={value.image} alt='' />
+                            <img src={item?.images[0]?.image} alt='' />
                           </div>
                           <div className='details' id='details'>
                             <div className='item-name' id='item-name'>
-                              <span>{value.category}</span>
+                              <span>{item?.name}</span>
                             </div>
                             <div className='store-name' id='store-name'>
-                              <span>Chicken Factory</span>
+                              <span>
+                                {storeInfo ? storeInfo?.name : 'Store Name'}
+                              </span>
                             </div>
                             <div className='price' id='price'>
-                              <span>NGN {value.price}</span>
+                              <span>NGN {item?.price}</span>
                             </div>
                             <div className='rating' id='rating'>
                               <span className='stars'>⭐⭐⭐⭐⭐</span>
                             </div>
                           </div>
                         </NavLink>
+                        <div onClick={Blurry}>
+                          <Popup
+                            contentStyle={{ width: '35%', height: 'auto' }}
+                            trigger={<button> Edit </button>}
+                            position='center'
+                            nested
+                          >
+                            <PopUp id={item?.id} />
+                          </Popup>
+                        </div>
                         <div className='wishlist-icon' id='wishlist-icon'>
                           <AiOutlineHeart
-                            key={value.id}
+                            key={item?.id}
                             onClick={() => setAddToWishlist(!addToWishlist)}
                             className={`heart-icon ${
                               addToWishlist ? 'heart-active' : ''
