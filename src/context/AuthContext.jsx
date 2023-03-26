@@ -12,6 +12,7 @@ AuthContext.displayName = "AuthContext";
 
 export default function AuthProvider(props) {
   const [user, setUser] = useState(null);
+  const [loading, setloading] = useState(true);
   const queryClient = useQueryClient();
 
   const [token] = useState(localStorage.getItem("USER_ACCESS_TOKEN"));
@@ -35,14 +36,19 @@ export default function AuthProvider(props) {
 
       setUser({ id: userData.data.id, ...userData.data.user });
     };
-    autoLogin();
+    autoLogin()
+      .catch((e) => {
+        logout();
+      })
+      .finally(() => {
+        setloading(false);
+      });
   }, [token]);
 
   const login = useCallback(
     async (details) => {
+      setloading(true);
       const result = await axios.post("/auth/login/", details);
-
-      console.log("result", result.data);
 
       setUser(result.data);
       localStorage.setItem("USER_ID", result.data.id);
@@ -52,6 +58,7 @@ export default function AuthProvider(props) {
 
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       queryClient.invalidateQueries({ queryKey: ["notification"] });
+      setloading(false);
       return result.data;
     },
     [setUser]
@@ -59,6 +66,7 @@ export default function AuthProvider(props) {
 
   const logout = useCallback(() => {
     return Promise.all([
+      setloading(true),
       setUser(null),
       localStorage.removeItem("USER_ID"),
       localStorage.removeItem("cartID"),
@@ -67,6 +75,7 @@ export default function AuthProvider(props) {
     ]).then(() => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       queryClient.invalidateQueries({ queryKey: ["notification"] });
+      setloading(false);
     });
   }, [setUser]);
 
@@ -82,8 +91,8 @@ export default function AuthProvider(props) {
   // );
 
   const value = useMemo(
-    () => ({ user, login, logout, register }),
-    [login, logout, user, register]
+    () => ({ user, login, logout, register, loading }),
+    [login, logout, user, register, loading]
   );
 
   return <AuthContext.Provider value={value} {...props} />;

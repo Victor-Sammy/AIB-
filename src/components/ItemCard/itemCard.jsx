@@ -26,14 +26,12 @@ export default function ItemCard({ item }) {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
 
-      const likedItems = { ...previousLikedItems };
-
-      console.log("likedItems", likedItems);
+      let likedItems = { ...previousLikedItems };
 
       if (add) {
-        likedItems.results.push(item);
+        likedItems.push(item);
       } else {
-        likedItems.results = likedItems.results.filter(
+        likedItems = likedItems.filter(
           (likedItem) => likedItem.id !== item.id
         );
       }
@@ -78,7 +76,7 @@ export default function ItemCard({ item }) {
   return (
     <div className="productItem">
       <div className="productItem-heart">
-        {likedItems?.results.some((likedItem) => likedItem.id === item.id) ? (
+        {likedItems?.some((likedItem) => likedItem.id === item.id) ? (
           <Heart
             fill="#EB5757"
             stroke="#EB5757"
