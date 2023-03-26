@@ -2,7 +2,10 @@ import { client } from "./Api";
 
 export const getCart = () => {
   const cartID = localStorage.getItem("cartID");
-  const accessToken = localStorage.getItem("USER_ACCESS_TOKEN");
+
+  if (!cartID) {
+    return null;
+  }
 
   try {
     return client.get(`/ad/carts/${cartID}/items/`);

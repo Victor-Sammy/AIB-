@@ -37,8 +37,6 @@ const ProductDetails = () => {
     queryFn: () => getProductDetails(id),
   });
 
-  console.log("Product", product);
-
   const { data: likedItems } = useQuery({
     queryKey: ["userLikedItems"],
     queryFn: getUserLikedItems,
@@ -51,14 +49,12 @@ const ProductDetails = () => {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
 
-      const likedItems = { ...previousLikedItems };
+      let likedItems = { ...previousLikedItems };
 
       if (add) {
-        likedItems.results.push(item);
+        likedItems.push(item);
       } else {
-        likedItems.results = likedItems.results.filter(
-          (likedItem) => likedItem.id !== item.id
-        );
+        likedItems = likedItems.filter((likedItem) => likedItem.id !== item.id);
       }
 
       // Optimistically update to the new value
@@ -177,7 +173,9 @@ const ProductDetails = () => {
               <div className="productDetails_details-nameWrap">
                 <h1 className="productDetails_details-name">{product.name}</h1>
                 <div>
-                  {likedItems?.[id] ? (
+                  {likedItems?.some(
+                    (likedItem) => likedItem.id === product.id
+                  ) ? (
                     <Heart
                       fill="#EB5757"
                       stroke="#EB5757"
