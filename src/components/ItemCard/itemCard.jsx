@@ -26,7 +26,7 @@ export default function ItemCard({ item }) {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
 
-      let likedItems = [ ...previousLikedItems ];
+      let likedItems = [...previousLikedItems];
 
       if (add) {
         likedItems.push(item);
@@ -88,7 +88,7 @@ export default function ItemCard({ item }) {
           />
         )}
       </div>
-      <Link Link to={`/products/${item.id}`} className="productItem-linkWrap">
+      <Link to={`/products/${item.id}`} className="productItem-linkWrap">
         <div className="productItem-image">
           <img src={item.images[0]?.image} alt={`${item.name}`} />
         </div>

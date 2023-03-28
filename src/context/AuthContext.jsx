@@ -23,7 +23,7 @@ export default function AuthProvider(props) {
 
     const autoLogin = async () => {
       let userData = null;
-      
+
       if (!token) {
         return;
       }
@@ -38,6 +38,8 @@ export default function AuthProvider(props) {
           logout();
           return null;
         });
+
+      if (!userData.data.user) throw new Error("Expired token");
 
       setUser({ id: userData.data.id, ...userData.data.user });
     };
