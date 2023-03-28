@@ -91,6 +91,7 @@ export default function AuthProvider(props) {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       queryClient.invalidateQueries({ queryKey: ["notification"] });
       setloading(false);
+      window.location.reload(); 
     });
   }, [setUser]);
 
