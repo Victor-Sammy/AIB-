@@ -49,12 +49,14 @@ const ProductDetails = () => {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
 
-      let likedItems = { ...previousLikedItems };
+      let likedItems = [...previousLikedItems];
 
       if (add) {
-        likedItems.push(item);
+        likedItems.push(product);
       } else {
-        likedItems = likedItems.filter((likedItem) => likedItem.id !== item.id);
+        likedItems = likedItems.filter(
+          (likedItem) => likedItem.id !== product.id
+        );
       }
 
       // Optimistically update to the new value
@@ -64,7 +66,7 @@ const ProductDetails = () => {
     },
     onSuccess: (data, variables, context) => {
       toast.success(
-        `${item.name} successfully ${
+        `${product.name} successfully ${
           variables.add ? "added to" : "removed from"
         } favourites`
       );
@@ -74,8 +76,8 @@ const ProductDetails = () => {
       toast.error(
         `Error ${
           variables.add
-            ? `adding ${item.name} to`
-            : `removing ${item.name} from`
+            ? `adding ${product.name} to`
+            : `removing ${product.name} from`
         } favourites`
       );
     },

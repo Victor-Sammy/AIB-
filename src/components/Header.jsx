@@ -43,8 +43,6 @@ const Header = () => {
     queryFn: getNotifications,
   });
 
-  console.log("cart", cart);
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const setSearchQueryHandler = (e) => {
@@ -131,16 +129,16 @@ const Header = () => {
 
             <Link to="/cart" className="navItem">
               <div className="indicator">
-                {cart && (
+                {cart?.data.length ? (
                   <span className="indicator-value">
-                    {cart.data.count
-                      ? cart.data.results.reduce(
+                    {cart.data.length
+                      ? cart.data.reduce(
                           (count, item) => item.quantity + count,
                           0
                         )
                       : 0}
                   </span>
-                )}
+                ) : null}
                 <Cart />
               </div>
               <span className="desktop">Cart</span>

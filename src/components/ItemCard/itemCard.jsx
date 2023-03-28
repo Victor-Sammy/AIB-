@@ -26,14 +26,12 @@ export default function ItemCard({ item }) {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
 
-      let likedItems = { ...previousLikedItems };
+      let likedItems = [...previousLikedItems];
 
       if (add) {
         likedItems.push(item);
       } else {
-        likedItems = likedItems.filter(
-          (likedItem) => likedItem.id !== item.id
-        );
+        likedItems = likedItems.filter((likedItem) => likedItem.id !== item.id);
       }
 
       // Optimistically update to the new value
@@ -64,7 +62,9 @@ export default function ItemCard({ item }) {
     },
   });
 
-  const toggleLikeHelper = (args) => {
+  const toggleLikeHelper = (e, args) => {
+    e.stopPropagation();
+
     if (user) {
       toggleLike(args);
     } else {
@@ -80,27 +80,31 @@ export default function ItemCard({ item }) {
           <Heart
             fill="#EB5757"
             stroke="#EB5757"
-            onClick={() => toggleLikeHelper({ id: item.id, add: false })}
+            onClick={(e) => toggleLikeHelper(e, { id: item.id, add: false })}
           />
         ) : (
-          <Heart onClick={() => toggleLikeHelper({ id: item.id, add: true })} />
+          <Heart
+            onClick={(e) => toggleLikeHelper(e, { id: item.id, add: true })}
+          />
         )}
       </div>
-      <div className="productItem-image">
-        <img src={item.images[0]?.image} alt={`${item.name}`} />
-      </div>
-      <Link to={`/products/${item.id}`} className="productItem-content">
-        <div className="productItem-content-category">
-          {item.category ?? "Bliss Fashion"}
+      <Link to={`/products/${item.id}`} className="productItem-linkWrap">
+        <div className="productItem-image">
+          <img src={item.images[0]?.image} alt={`${item.name}`} />
         </div>
-        <div className="productItem-content-name">{item.name}</div>
-        <div className="productItem-content-price">
-          NGN {item.price.toLocaleString()}
-        </div>
-        <div className="productItem-content-rating">
-          <span className="stars">⭐⭐⭐⭐⭐</span>
-          <span className="rating">5.0</span>
-          <span className="ratingCount">(34k)</span>
+        <div className="productItem-content">
+          <div className="productItem-content-category">
+            {item.category ?? "Bliss Fashion"}
+          </div>
+          <div className="productItem-content-name">{item.name}</div>
+          <div className="productItem-content-price">
+            NGN {item.price.toLocaleString()}
+          </div>
+          <div className="productItem-content-rating">
+            <span className="stars">⭐⭐⭐⭐⭐</span>
+            <span className="rating">5.0</span>
+            <span className="ratingCount">(34k)</span>
+          </div>
         </div>
       </Link>
     </div>

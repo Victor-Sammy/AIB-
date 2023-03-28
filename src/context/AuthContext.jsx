@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLayoutEffect } from "react";
 
 // const { useAsync } = require("utils/hooks");
 
@@ -15,9 +16,9 @@ export default function AuthProvider(props) {
   const [loading, setloading] = useState(true);
   const queryClient = useQueryClient();
 
-  const [token] = useState(localStorage.getItem("USER_ACCESS_TOKEN"));
+  const token = localStorage.getItem("USER_ACCESS_TOKEN");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // retrieve user from last session or cache
 
     const autoLogin = async () => {
@@ -27,12 +28,18 @@ export default function AuthProvider(props) {
         return;
       }
 
-      userData = await axios.get("/ad/profile/me/").catch((e) => {
-        logout();
-        return null;
-      });
+      userData = await axios
+        .get("/ad/profile/me/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .catch((e) => {
+          logout();
+          return null;
+        });
 
-      console.log("userData", userData);
+      if (!userData.data.user) throw new Error("Expired token");
 
       setUser({ id: userData.data.id, ...userData.data.user });
     };
@@ -43,16 +50,24 @@ export default function AuthProvider(props) {
       .finally(() => {
         setloading(false);
       });
-  }, [token]);
+  }, []);
 
   const login = useCallback(
     async (details) => {
       setloading(true);
       const result = await axios.post("/auth/login/", details);
+      const cart = await axios.post(
+        "/ad/carts/",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${result.data.tokens.access}`,
+          },
+        }
+      );
 
       setUser(result.data);
-      localStorage.setItem("USER_ID", result.data.id);
-      localStorage.setItem("cartID", result.data.cartId);
+      localStorage.setItem("cartID", cart.data.id);
       localStorage.setItem("USER_ACCESS_TOKEN", result.data.tokens.access);
       localStorage.setItem("USER_REFRESH_TOKEN", result.data.tokens.refresh);
 
