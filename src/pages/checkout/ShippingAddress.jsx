@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { BsArrowRightShort, BsCheck } from "react-icons/bs";
+import React, { useState } from "react";
 import "../../sass/pages/_shipping.scss";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCart } from "../../Api/cart";
-import Check from "../../components/vectors/Check";
-import Input from "../../components/Input/input";
-import CustomButton from "../../components/form-input/button.component";
+import Check from "../../components/vectors/Check.jsx";
+import Input from "../../components/Input/input.jsx";
+import CustomButton from "../../components/form-input/button.component.jsx";
 
 const ShippingAddress = () => {
   const [shippingDetails, setShippingDetails] = useState({
@@ -24,11 +22,15 @@ const ShippingAddress = () => {
     queryFn: getCart,
   });
 
-  console.log("cart", cart);
-
   const submitHandler = (e) => {
     e.preventDefault();
+
+    console.log("form submitted");
   };
+
+  // useEffect(() => {
+
+  // },[])
 
   if (isLoading) return;
 
@@ -94,7 +96,7 @@ const ShippingAddress = () => {
               <span>Pick from point</span>
             </label>
           </div>
-          <form action="">
+          <form onSubmit={submitHandler}>
             <Input
               placeholder="Email"
               value={shippingDetails.email}
@@ -155,6 +157,7 @@ const ShippingAddress = () => {
           }
           loading={false}
           className="shipping_proceed"
+          onClick={submitHandler}
         >
           Proceed to Payment
         </CustomButton>
