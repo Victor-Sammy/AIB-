@@ -3,7 +3,7 @@ import "../../sass/pages/_shipping.scss";
 import { useQuery } from "@tanstack/react-query";
 import { getCart } from "../../Api/cart";
 import Check from "../../components/vectors/Check.jsx";
-import Input from "../../components/Input/input.jsx";
+import Input from "../../components/Input/Input.jsx";
 import CustomButton from "../../components/form-input/button.component.jsx";
 
 const ShippingAddress = () => {
