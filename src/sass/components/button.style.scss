@@ -13,7 +13,8 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: all ease 0.2ms;
+  gap: 10px;
+  transition: all ease-in-out 0.8ms;
 
   .arrow {
     height: 22px;
@@ -22,11 +23,27 @@
     font-size: 18px;
     background-color: #db6805;
     color: #fff;
-    margin-left: 11px;
+    // margin-left: 11px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all ease 0.2ms;
+  }
+  &:hover {
+    gap: 10px;
+    background-color: #db6805;
+
+    .arrow {
+      background-color: #fe7702;
+    }
+  }
+  &:disabled {
+    background-color: #db6805;
+    cursor: not-allowed;
+
+    .arrow {
+      background-color: #db6805;
+    }
   }
 }
 .button:hover {
@@ -78,7 +95,7 @@
   &:hover {
     gap: 10px;
 
-    .button-icon{
+    .button-icon {
       background-color: #fe7702;
     }
   }
