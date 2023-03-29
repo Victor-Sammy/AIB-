@@ -1,175 +1,203 @@
-import React, { useEffect, useState } from "react";
-import { BsArrowRightShort, BsCheck } from "react-icons/bs";
+import React, { useState } from "react";
 import "../../sass/pages/_shipping.scss";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCart } from "../../Api/cart";
+import Check from "../../components/vectors/Check.jsx";
+import Input from "../../components/Input/Input.jsx";
+import CustomButton from "../../components/form-input/button.component.jsx";
 
 const ShippingAddress = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const [email, setEmail] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [province, setProvince] = useState();
-  const [postalCode, setPostalCode] = useState();
+  const [shippingDetails, setShippingDetails] = useState({
+    deliveryOption: "home delivery",
+    email: "example@email.com",
+    phone: "08023888552",
+    address: "123 somewhere street, in some city",
+    city: "Yaba",
+    state: "Lagos State",
+    zip: "100104",
+  });
 
   const { data: cart, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
   });
 
-  const handleOnChange = () => {
-    setIsChecked(!isChecked);
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
+
+    console.log("form submitted");
   };
+
+  // useEffect(() => {
+
+  // },[])
 
   if (isLoading) return;
 
   return (
-    <section className="shipping-page">
-      <div className="progress-bar">
-        <div className="progress1">
-          <BsCheck />
+    <section className="shipping">
+      <div className="shipping_progress">
+        <div className="shipping_progress-tab active">
+          <span className="check">
+            <Check />
+          </span>
+          <span className="title">Shipping details</span>
         </div>
-        <div className="progress2">
-          <BsCheck />
+        <div className="shipping_progress-tab">
+          <span className="check">
+            <Check />
+          </span>
+          <span className="title">Payment details</span>
         </div>
-        <div className="progress3">
-          <BsCheck />
+        <div className="shipping_progress-tab">
+          <span className="check">
+            <Check />
+          </span>
+          <span className="title">Successful</span>
         </div>
-      </div>
-      <div className="progress">
-        <div className="sh-details">Shipping details</div>
-        <div className="py-details">Payment details</div>
-        <div className="sh-success">Successful</div>
       </div>
 
-      <div className="shipping--cart">
-        <div className="ship-details">
-          <div className="del-options">
-            <h1>Delivery Options</h1>
-            <div className="home-del">
+      <div className="shipping_container">
+        <div className="shipping_details">
+          <div className="deliveryOption">
+            <span className="label">Delivery Options</span>
+            <label className="option">
               <input
-                type="checkbox"
-                id="home-del"
-                name="home"
-                value="home"
-                checked={isChecked}
-                onChange={handleOnChange}
+                type="radio"
+                name="delivery option"
+                checked={shippingDetails.deliveryOption === "home delivery"}
+                onChange={(e) =>
+                  setShippingDetails((s) => ({
+                    ...s,
+                    deliveryOption: "home delivery",
+                  }))
+                }
               />
-              Home Delivery
-            </div>
-            <div className="pickup">
-              <input type="checkbox" id="pickup" disabled={true} />
-              Pick from point
-            </div>
+              <div className="check">
+                <Check />
+              </div>
+              <span>Home Delivery</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="delivery option"
+                checked={shippingDetails.deliveryOption === "pick from point"}
+                onChange={(e) =>
+                  setShippingDetails((s) => ({
+                    ...s,
+                    deliveryOption: "pick from point",
+                  }))
+                }
+              />
+              <div className="check">
+                <Check />
+              </div>
+              <span>Pick from point</span>
+            </label>
           </div>
-          <form className="personal-info" onSubmit={submitHandler}>
-            <div className="email">
-              <input
-                type="email"
-                value={email}
-                required
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+          <form onSubmit={submitHandler}>
+            <Input
+              placeholder="Email"
+              value={shippingDetails.email}
+              onChange={(e) =>
+                setShippingDetails((s) => ({ ...s, email: e.target.value }))
+              }
+            />
+            <Input
+              placeholder="Phone number"
+              value={shippingDetails.phone}
+              onChange={(e) =>
+                setShippingDetails((s) => ({ ...s, phone: e.target.value }))
+              }
+            />
+            <Input
+              placeholder="Address line"
+              value={shippingDetails.address}
+              onChange={(e) =>
+                setShippingDetails((s) => ({ ...s, address: e.target.value }))
+              }
+            />
+            <Input
+              placeholder="City"
+              value={shippingDetails.city}
+              onChange={(e) =>
+                setShippingDetails((s) => ({ ...s, city: e.target.value }))
+              }
+            />
+            <div>
+              <Input
+                placeholder="State/Province/Region"
+                value={shippingDetails.state}
+                onChange={(e) =>
+                  setShippingDetails((s) => ({ ...s, state: e.target.value }))
+                }
+              />
+              <Input
+                placeholder="State/Province/Region"
+                value={shippingDetails.zip}
+                onChange={(e) =>
+                  setShippingDetails((s) => ({ ...s, zip: e.target.value }))
+                }
               />
             </div>
-            <div className="phno">
-              <input
-                type="number"
-                value={phoneNumber}
-                required
-                placeholder="Phone number"
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-            </div>
-            <div className="address">
-              <input
-                type="text"
-                value={address}
-                required
-                placeholder="Address line"
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
-            <div className="city">
-              <input
-                type="text"
-                value={city}
-                required
-                placeholder="City"
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
-            <div className="reg-postal">
-              <div className="province">
-                <input
-                  type="text"
-                  value={province}
-                  required
-                  placeholder="State/Province/Region"
-                  onChange={(e) => setProvince(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={postalCode}
-                  required
-                  placeholder="Zip/Postal code"
-                  onChange={(e) => setPostalCode(e.target.value)}
-                />
-              </div>
-            </div>
-            <Link to="/payment">
-              <div className="pay-btn" type="submit">
-                <div>
-                  <h1>Proceed to Payment</h1>
-                  <div className="py-arrow">
-                    <BsArrowRightShort />
-                  </div>
-                </div>
-              </div>
-            </Link>
           </form>
         </div>
-        <div className="cart-summary">
-          {cart.data.results.map((cart) => {
-            return (
-              <div className="sh-cart-item" key={cart.id}>
-                <div className="sh-cart-img">
-                  <img src={cart.image} alt="cart photos" />
-                </div>
-                <div className="sh-cart-info">
-                  <h1>{cart.title}</h1>
-                  <p>{cart.description}</p>
-                </div>
-                <div>
-                  <h1>NGN {cart.price}</h1>
-                  <div className="sh-cart-quantity">
-                    <span>Qty: {cart.cartQuantity}</span>
+        <CustomButton
+          disabled={
+            !(
+              shippingDetails.deliveryOption &&
+              shippingDetails.email &&
+              shippingDetails.address &&
+              shippingDetails.phone &&
+              shippingDetails.city &&
+              shippingDetails.state &&
+              shippingDetails.zip
+            )
+          }
+          loading={false}
+          className="shipping_proceed"
+          onClick={submitHandler}
+        >
+          Proceed to Payment
+        </CustomButton>
+        <div className="shipping_summary">
+          <div className="shipping_summary-items">
+            {cart.data.map(({ product, quantity, price }) => {
+              return (
+                <div className="productI">
+                  <img
+                    src={product.images[0]?.image}
+                    alt=""
+                    className="productI_image"
+                  />
+                  <div className="productI_details">
+                    <p className="name">{product.name}</p>
+                    <div className="description">{product.description}</div>
+                  </div>
+                  <div className="productI_value">
+                    <p className="quantity">x {quantity}</p>
+                    <p className="price">NGN{price.toLocaleString()}</p>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          <hr />
-          <div className="sh-cart-total">
-            <h1>Cart Summary</h1>
-            <div className="sub-total">
-              <h2>Subtotal</h2>
-              <h1>NGN {500}</h1>
-            </div>
-            <p>Deliveries fees not included</p>
+              );
+            })}
           </div>
-          <button className="cart-update">
-            <Link to="/cart">Update Cart</Link>
-          </button>
+          <hr />
+          <div className="shipping_summary-total">
+            <p className="title">Cart Summary</p>
+            <div>
+              <span>Subtotal</span>
+              <span className="total">
+                NGN
+                {cart.data
+                  .reduce((t, { price }) => t + price, 0)
+                  .toLocaleString()}
+                .00
+              </span>
+            </div>
+            <p className="delivery">Deliveries fees not included.</p>
+          </div>
         </div>
       </div>
     </section>
