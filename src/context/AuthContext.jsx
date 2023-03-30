@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useCallback } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useLayoutEffect } from 'react'
 
 // const { useAsync } = require("utils/hooks");
 
@@ -12,11 +13,12 @@ AuthContext.displayName = 'AuthContext'
 
 export default function AuthProvider(props) {
   const [user, setUser] = useState(null)
+  const [loading, setloading] = useState(true)
   const queryClient = useQueryClient()
 
-  const [token] = useState(localStorage.getItem('USER_ACCESS_TOKEN'))
+  const token = localStorage.getItem('USER_ACCESS_TOKEN')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // retrieve user from last session or cache
 
     const autoLogin = async () => {
@@ -26,32 +28,54 @@ export default function AuthProvider(props) {
         return
       }
 
-      console.log('running auto login')
-      userData = await axios.get('/ad/profile/me/').catch((e) => {
-        return null
-      })
+      userData = await axios
+        .get('/ad/profile/me/', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .catch((e) => {
+          logout()
+          return null
+        })
 
-      console.log('userData', userData)
+      if (!userData.data.user) throw new Error('Expired token')
 
       setUser({ id: userData.data.id, ...userData.data.user })
     }
     autoLogin()
-  }, [token])
+      .catch((e) => {
+        logout()
+      })
+      .finally(() => {
+        setloading(false)
+      })
+  }, [])
+
+  // trigger redeployment
 
   const login = useCallback(
     async (details) => {
+      setloading(true)
       const result = await axios.post('/auth/login/', details)
-
-      console.log('result', result.data)
+      const cart = await axios.post(
+        '/ad/carts/',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${result.data.tokens.access}`,
+          },
+        }
+      )
 
       setUser(result.data)
-      localStorage.setItem('USER_ID', result.data.id)
-      localStorage.setItem('USER_EMAIL', result.data.email)
+      localStorage.setItem('cartID', cart.data.id)
       localStorage.setItem('USER_ACCESS_TOKEN', result.data.tokens.access)
       localStorage.setItem('USER_REFRESH_TOKEN', result.data.tokens.refresh)
 
       queryClient.invalidateQueries({ queryKey: ['cart'] })
       queryClient.invalidateQueries({ queryKey: ['notification'] })
+      setloading(false)
       return result.data
     },
     [setUser]
@@ -59,14 +83,17 @@ export default function AuthProvider(props) {
 
   const logout = useCallback(() => {
     return Promise.all([
+      setloading(true),
       setUser(null),
       localStorage.removeItem('USER_ID'),
-      localStorage.removeItem('USER_EMAIL'),
+      localStorage.removeItem('cartID'),
       localStorage.removeItem('USER_ACCESS_TOKEN'),
       localStorage.removeItem('USER_REFRESH_TOKEN'),
     ]).then(() => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
       queryClient.invalidateQueries({ queryKey: ['notification'] })
+      setloading(false)
+      window.location.reload()
     })
   }, [setUser])
 
@@ -82,8 +109,8 @@ export default function AuthProvider(props) {
   // );
 
   const value = useMemo(
-    () => ({ user, login, logout, register }),
-    [login, logout, user, register]
+    () => ({ user, login, logout, register, loading }),
+    [login, logout, user, register, loading]
   )
 
   return <AuthContext.Provider value={value} {...props} />

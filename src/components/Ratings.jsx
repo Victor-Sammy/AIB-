@@ -1,9 +1,12 @@
 import React from "react";
 import Star from "./vectors/Star";
 import StarHalf from "./vectors/StarHalf";
-import StarOutline from "./vectors/StarOutline";
 
 const Ratings = ({ rating, color = "#FE8946" }) => {
+  if (typeof rating !== "number") {
+    return rating;
+  }
+
   return (
     <>
       {Array(Math.floor(rating))

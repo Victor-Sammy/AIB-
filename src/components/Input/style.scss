@@ -1,0 +1,12 @@
+.textInput {
+  padding: 18px 28px;
+  background: #f6f6f6;
+  border: none;
+  border-radius: 39px;
+  font-size: 12px;
+  &::placeholder {
+    font-size: 12px;
+    font-weight: 300;
+    color: #949494;
+  }
+}
