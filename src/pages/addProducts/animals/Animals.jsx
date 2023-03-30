@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../../sass/components/_subCatOpt.scss'
+import { client } from '../../../Api/Api'
 
 const Animals = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -22,8 +22,6 @@ const Animals = () => {
     selectedImages: '',
   })
 
-  const url = 'https://5b3c-154-120-110-145.ngrok.io/ad/products/'
-
   //const navigate = useNavigate()
 
   const submitData = async (e) => {
@@ -31,8 +29,8 @@ const Animals = () => {
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -49,8 +47,8 @@ const Animals = () => {
     formData.append('gender', data.gender)
     formData.append('condition', data.condition)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -159,8 +157,8 @@ const Animals = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Breed</p>

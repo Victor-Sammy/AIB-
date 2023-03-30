@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
-import {
-  AiFillCloseCircle,
-  AiOutlinePlus,
-  AiOutlinePlusCircle,
-} from 'react-icons/ai'
-import axios from 'axios'
+import { AiOutlinePlus } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import { client } from '../../../Api/Api'
 
 const FurnitureInput = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -25,8 +21,6 @@ const FurnitureInput = () => {
     selectedImages: '',
   })
 
-  const url = 'https://5b3c-154-120-110-145.ngrok.io/ad/products/'
-
   //const navigate = useNavigate()
 
   const submitData = async (e) => {
@@ -34,8 +28,8 @@ const FurnitureInput = () => {
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -51,8 +45,8 @@ const FurnitureInput = () => {
     formData.append('color', data.color)
     formData.append('condition', data.condition)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -161,8 +155,8 @@ const FurnitureInput = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>

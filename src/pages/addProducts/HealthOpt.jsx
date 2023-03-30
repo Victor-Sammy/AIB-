@@ -3,30 +3,19 @@ import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const HealthOpt = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Body Accessories',
-    'Hair Accessories',
-    'MakeUps',
-    'Skincare',
-    'Spa and BeautyClinic',
-    'Supplements and vitamins',
-  ]
-
-  selected === 'Body Accessories' ? localStorage.setItem('subcatID', 41) : ''
-  selected === 'Hair Accessories' ? localStorage.setItem('subcatID', 42) : ''
-  selected === 'MakeUps' ? localStorage.setItem('subcatID', 43) : ''
-  selected === 'Skincare' ? localStorage.setItem('subcatID', 44) : ''
-  selected === 'Spa and BeautyClinic'
-    ? localStorage.setItem('subcatID', 45)
-    : ''
-  selected === 'Supplements and vitamins'
-    ? localStorage.setItem('subcatID', 46)
-    : ''
+  useEffect(() => {
+    client.get('/ad/categories/9/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -47,13 +36,13 @@ const HealthOpt = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

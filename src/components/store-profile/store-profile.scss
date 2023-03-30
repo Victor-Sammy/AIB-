@@ -365,13 +365,25 @@
                   }
                 }               
               }
-              button {
-                margin-left: 5%;
-                transform: translateY(-7px);
-                padding: 2.5% 7%;
-                border: none;
-                background: #f02630;
-                color: #fdfdfd;
+              .actions {
+                display: flex;
+                justify-content: space-between;
+                .link {
+                  margin-left: 5%;
+                  transform: translateY(-7px);
+                  padding: 2.5% 7%;
+                  border: none;
+                  background: #268ef0;
+                  color: #fdfdfd;
+                }
+                .deleteBtn {
+                  margin-right: 5%;
+                  transform: translateY(-7px);
+                  padding: 2.5% 7%;
+                  border: none;
+                  background: #f02637;
+                  color: #fdfdfd;
+                }
               }
               .wishlist-icon {
                 position: absolute;

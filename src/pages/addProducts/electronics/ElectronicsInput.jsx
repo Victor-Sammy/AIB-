@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { client } from '../../../Api/Api'
 
 const ElectronicsInput = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -22,15 +23,13 @@ const ElectronicsInput = () => {
 
   //const navigate = useNavigate()
 
-  const token = localStorage.getItem('accessToken')
-
   const submitData = async (e) => {
     e.preventDefault()
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -45,25 +44,18 @@ const ElectronicsInput = () => {
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
 
-    const requestOptions = {
-      method: 'POST',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      //   Authentication: token,
-      // },
-      body: formData,
-    }
-    fetch('https://aib-shop.up.railway.app/ad/products/', requestOptions)
+    client
+      .post('/ad/products/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((res) => {
         console.log(res.status, res.data)
         if (res.status === 400) {
-          console.log(res.data)
           setErrors(res.data)
         }
         //navigate('/addProducts')
-        if (res.status === 201) {
-          console.log(res.data)
-        }
       })
       .catch((error) => {
         console.log(error.response)
@@ -162,8 +154,8 @@ const ElectronicsInput = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>

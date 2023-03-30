@@ -1,9 +1,14 @@
 .popUp-pg {
     width: 100%;
-    box-shadow: 2px 3px 8px #b9b8b8;
+    min-height: auto;
     p {
         text-align: center;
         font-size: 1.5rem;
+    }
+    .addImg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .editForm {
         width: 80%;

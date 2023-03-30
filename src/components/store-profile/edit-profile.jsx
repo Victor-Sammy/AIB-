@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './edit-profile.scss'
 import { BsFillImageFill } from 'react-icons/bs'
-import { BsPlus } from 'react-icons/bs'
+//import { BsPlus } from 'react-icons/bs'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import 'primereact/resources/themes/lara-light-indigo/theme.css' //theme
@@ -10,25 +10,37 @@ import 'primeicons/primeicons.css'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+//import PhoneInput from 'react-phone-number-input'
 import axios from 'axios'
-import { AiOutlineUser } from 'react-icons/ai'
+//import { AiOutlineUser } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import { useAuth } from '../../context/AuthContext'
 import { client } from '../../Api/Api'
+import { getStoreItems } from '../../Api/store'
+import { useQuery } from '@tanstack/react-query'
 
 const EditProfile = () => {
-  const [coverPic, setCoverPic] = useState('')
-  const [selectedImage, setSelectedImage] = useState('')
-  const [data, setData] = useState({
-    storeName: '',
-    location: '',
-    delivery: '',
-    description: '',
+  const storeQuery = useQuery({
+    queryKey: ['store'],
+    queryFn: getStoreItems,
   })
+  console.log(storeQuery.data.data)
+  const storeInfo = storeQuery.data.data[0]
 
+  const [coverPic, setCoverPic] = useState('')
+  const [selectedImage, setSelectedImage] = useState(
+    `${storeInfo ? storeInfo?.profile_image : ''}`
+  )
+
+  const [data, setData] = useState({
+    storeName: `${storeInfo ? storeInfo.name : ''}`,
+    location: `${storeInfo ? storeInfo?.address : ''}`,
+    delivery: `${storeInfo ? storeInfo?.delivery : ''}`,
+    description: `${storeInfo ? storeInfo?.description : ''}`,
+  })
+  const userEmail = localStorage.getItem('USER_EMAIL')
   const { user } = useAuth()
-  console.log(user.id)
+  console.log(user)
   const storeId = localStorage.getItem('store-id')
 
   const navigate = useNavigate()
@@ -40,47 +52,6 @@ const EditProfile = () => {
     console.log(newData)
   }
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-  //   switch (name) {
-  //     case 'storeName':
-  //       setStoreName(value)
-  //       break
-  //     case 'location':
-  //       setLocation(value)
-  //       break
-  //     case 'description':
-  //       setDescription(value)
-  //       break
-  //     case 'delivery':
-  //       setDelivery(value)
-  //       break
-  //     case 'email':
-  //       setEmail(value)
-  //       break
-  //     case 'firstName':
-  //       setFirstName(value)
-  //       break
-  //     case 'lastName':
-  //       setLastName(value)
-  //       break
-  //     case 'phone':
-  //       setPhone(value)
-  //       break
-  //     case 'dob':
-  //       setDOB(value)
-  //       break
-  //     case 'address':
-  //       setAddress(value)
-  //       break
-  //     case 'gender':
-  //       setGender(value)
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
-
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -88,13 +59,11 @@ const EditProfile = () => {
 
     // if (pic)
     formData.append('profile_image', selectedImage)
-    formData.append('owner', user.id)
+    formData.append('owner', userEmail)
     formData.append('name', data.storeName)
     formData.append('description', data.description)
     formData.append('address', data.location)
     formData.append('delivery', data.delivery)
-
-    axios.defaults.withCredentials = true
 
     client
       .put(`/ad/store/${storeId}/`, formData, {
@@ -105,12 +74,9 @@ const EditProfile = () => {
       .then((response) => {
         response.data
         toast.success('store successfully updated')
+        navigate('/profile')
         if (response.status !== 200) {
-          // response.data
-          //   setError(response);
-          // }
-          console.log('Store Success')
-          console.log(response)
+          console.log(response.data)
           toast.error('An error occurred:', response)
         }
       })

@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
-import { AiFillCloseCircle, AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlinePlus } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { client } from '../../../Api/Api'
 
 // create and import the variables from all form data and submit at once
 
 function PhoneTabInput() {
-  const url = 'https://cd3e-154-120-92-61.ngrok.io/test/phonetest/'
-
   const [selectedImages, setSelectedImages] = useState([])
   const [data, setData] = useState({
     name: '',
@@ -39,8 +37,8 @@ function PhoneTabInput() {
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -63,8 +61,8 @@ function PhoneTabInput() {
     formData.append('operating system', data.opSystem)
     formData.append('screen size', data.screenSize)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

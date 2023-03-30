@@ -4,7 +4,7 @@ export const getStoreItems = async () => {
   const accessToken = localStorage.getItem('USER_ACCESS_TOKEN')
   try {
     if (accessToken) {
-      return client.get('ad/store/')
+      return await client.get('ad/store/')
     } else {
       return null
     }

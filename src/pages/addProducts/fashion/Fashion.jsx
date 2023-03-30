@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { AiOutlinePlus, AiTwotoneDelete } from 'react-icons/ai'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../../sass/components/_subCatOpt.scss'
+import { client } from '../../../Api/Api'
 
 const Fashion = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -24,8 +24,6 @@ const Fashion = () => {
     selectedImages: '',
   })
 
-  const url = 'https://aib-shop.up.railway.app/ad/products/'
-
   //const navigate = useNavigate()
 
   //const token = localStorage.getItem('accessToken')
@@ -35,13 +33,10 @@ const Fashion = () => {
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
-    for (let img of selectedImages) {
-      formData.append('uploaded_images', img)
-    }
     formData.append('store', storeID)
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
@@ -51,18 +46,19 @@ const Fashion = () => {
     formData.append('brand', data.brand)
     formData.append('gender', data.gender)
     formData.append('size', data.size)
-    formData.append('sleeve_lenght', data.sleeveLength)
+    formData.append('sleeve_length', data.sleeveLength)
     formData.append('color', data.color)
     formData.append('condition', data.condition)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then((res) => {
-        console.log(res.status)
+        console.log(res.status, res.data)
+        localStorage.setItem('prd-id', res.data.id)
         if (res.status === 400) {
           setErrors(res.data)
         }
@@ -71,6 +67,17 @@ const Fashion = () => {
       .catch((error) => {
         console.log(error.response)
       })
+
+    setTimeout(() => {
+      const prdID = localStorage.getItem('prd-id')
+      const formDt = new FormData()
+      for (let img of selectedImages) {
+        formDt.append('image', img)
+      }
+      client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
+        console.log(res.data)
+      })
+    }, 3000)
   }
 
   const handle = (e) => {
@@ -139,11 +146,13 @@ const Fashion = () => {
             </div>
             {selectedImages.map((url, index) => {
               return (
-                <div className='img-preview' id='img-preview'>
-                  <img src={url} alt='' />
-                  <span onClick={() => deleteHandler(index)}>
-                    <AiTwotoneDelete />
-                  </span>
+                <div className='preview-div'>
+                  <div className='img-preview' id='img-preview'>
+                    <img src={url} alt='' />
+                    <span onClick={() => deleteHandler(index)}>
+                      <AiTwotoneDelete />
+                    </span>
+                  </div>
                 </div>
               )
             })}
@@ -202,7 +211,7 @@ const Fashion = () => {
                 id='gender'
                 value={data.gender}
                 onChange={handle}
-                required
+                //required
               />
             </div>
           </div>
@@ -214,7 +223,7 @@ const Fashion = () => {
                 id='size'
                 value={data.size}
                 onChange={handle}
-                required
+                //required
               />
             </div>
             <div className='box4'>
@@ -224,7 +233,7 @@ const Fashion = () => {
                 id='sleeveLength'
                 value={data.sleeveLength}
                 onChange={handle}
-                required
+                //required
               />
             </div>
           </div>
@@ -236,7 +245,7 @@ const Fashion = () => {
                 id='color'
                 value={data.color}
                 onChange={handle}
-                required
+                //required
               />
             </div>
             <div className='box6'>

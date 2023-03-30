@@ -1,38 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const Kids = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Babies Accessories',
-    'Baby strollers',
-    'Children and babies Clothing',
-    'Children and babies Shoes',
-    'Children and baby care',
-    "Children's furniture",
-    'Toys',
-  ]
-
-  selected === 'Babies Accessories' ? localStorage.setItem('subcatID', 27) : ''
-  selected === 'Baby strollers' ? localStorage.setItem('subcatID', 28) : ''
-  selected === 'Children and babies Clothing'
-    ? localStorage.setItem('subcatID', 29)
-    : ''
-  selected === 'Children and babies Shoes'
-    ? localStorage.setItem('subcatID', 30)
-    : ''
-  selected === 'Children and baby care'
-    ? localStorage.setItem('subcatID', 31)
-    : ''
-  selected === "Children's furniture"
-    ? localStorage.setItem('subcatID', 32)
-    : ''
-  selected === 'Toys' ? localStorage.setItem('subcatID', 33) : ''
+  useEffect(() => {
+    client.get('/ad/categories/6/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -53,13 +36,13 @@ const Kids = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

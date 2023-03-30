@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './App.scss'
 import Loader from './components/Loader'
 import { ToastContainer } from 'react-toastify'
@@ -35,19 +35,6 @@ import PopUp from './components/store-profile/PopUp'
 
 function App() {
   axios.defaults.withCredentials = true
-
-  function loadCart() {
-    onload = () => {
-      // axios.post('/ad/carts/').then((res) => {
-      //   res.data
-      // })
-      localStorage.setItem('cartID', '351ab1cdcbcd4c0b95d9b83ce1331a9b')
-    }
-  }
-
-  useEffect(() => {
-    loadCart()
-  }, [])
 
   return (
     <Routes>

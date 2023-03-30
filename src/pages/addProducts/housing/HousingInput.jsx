@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { client } from '../../../Api/Api'
 
 const HousingInput = () => {
-  const url = 'https://cd3e-154-120-92-61.ngrok.io/test/phonetest/'
-
   const [selectedImages, setSelectedImages] = useState([])
   const [data, setData] = useState({
     name: '',
@@ -29,8 +27,8 @@ const HousingInput = () => {
     console.log(selectedImages)
 
     const storeID = localStorage.getItem('store-id')
-    const categoryID = localStorage.getItem('categoryID')
-    const subCatID = localStorage.getItem('subcatID')
+    const categoryID = localStorage.getItem('categgory-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -45,8 +43,8 @@ const HousingInput = () => {
     formData.append('brand', data.brand)
     formData.append('condition', data.condition)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -155,8 +153,8 @@ const HousingInput = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>

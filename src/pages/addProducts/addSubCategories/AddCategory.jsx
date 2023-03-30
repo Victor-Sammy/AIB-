@@ -16,107 +16,86 @@ import ServicesOpt from '../ServicesOpt'
 import SportsOpt from '../SportsOpt'
 import AddAnimalSub from './AddAnimalSub'
 import AddElectronicSub from './AddElectronicSub'
+import { useQuery } from '@tanstack/react-query'
+import { client } from '../../../Api/Api'
 
 const AddCategory = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Fashion',
-    'Electronics',
-    'Commercial equipments and tools',
-    'Animals and Pets',
-    'Cars and Autumobiles',
-    'Home, Furnitures and appliances',
-    'Health and Beauty',
-    'Phones and Tablets',
-    'Hotels, Houses and Property',
-    'Kids and Babies world',
-    'Music',
-    'Resturants, food and Agriculture',
-    'Sport Items',
-    'jobs, Handwork, services and cvs',
-  ]
-
-  selected === 'Fashion' ? localStorage.setItem('categoryID', 10) : ''
-  selected === 'Electronics' ? localStorage.setItem('categoryID', 11) : ''
-  selected === 'Commercial equipments and tools'
-    ? localStorage.setItem('categoryID', 12)
-    : ''
-  selected === 'Animals and Pets' ? localStorage.setItem('categoryID', 14) : ''
-  selected === 'Cars and Autumobiles'
-    ? localStorage.setItem('categoryID', 13)
-    : ''
-  selected === 'Home, Furnitures and appliances'
-    ? localStorage.setItem('categoryID', 8)
-    : ''
-  selected === 'Health and Beauty' ? localStorage.setItem('categoryID', 9) : ''
-  selected === 'Phones and Tablets' ? localStorage.setItem('categoryID', 4) : ''
-  selected === 'Hotels, Houses and Property'
-    ? localStorage.setItem('categoryID', 7)
-    : ''
-  selected === 'Kids and Babies world'
-    ? localStorage.setItem('categoryID', 6)
-    : ''
-  selected === 'Music' ? localStorage.setItem('categoryID', 5) : ''
-  selected === 'Resturants, food and Agriculture'
-    ? localStorage.setItem('categoryID', 3)
-    : ''
-  selected === 'Sport Items' ? localStorage.setItem('categoryID', 2) : ''
-  selected === 'jobs, Handwork, services and cvs'
-    ? localStorage.setItem('categoryID', 1)
-    : ''
+  useEffect(() => {
+    client.get('/ad/categories/').then((response) => {
+      console.log(response.data)
+      setIsLoading(false)
+      setOptions(response.data)
+    })
+  }, [])
 
   return (
-    <section className='addCategory'>
-      <div className='ap-category2' id='ap-category2'>
-        <h1>
-          <span className='head-title'>Choose a Category</span> <br /> <br />
-          Category <span style={{ color: '#fe7702' }}>{selected}</span>
-        </h1>
-      </div>
-      <div style={{ zIndex: 2 }} className='dropdown' id='dropdown'>
-        <div className='dropdown-btn' onClick={(e) => setIsActive(!isActive)}>
-          {selected}
-          <span>
-            {' '}
-            <AiOutlineCaretDown />
-          </span>
-        </div>
-        {isActive && (
-          <div className='dropdown-content'>
-            {options.map((option) => (
-              <div
-                onClick={(e) => {
-                  setSelected(option)
-                  setIsActive(false)
-                  localStorage.setItem('category', option)
-                }}
-                className='dropdown-item'
-              >
-                {option}
-              </div>
-            ))}
+    <>
+      {isLoading ? (
+        <h1> ...loading </h1>
+      ) : (
+        <section className='addCategory'>
+          <div className='ap-category2' id='ap-category2'>
+            <h1>
+              <span className='head-title'>Choose a Category</span> <br />{' '}
+              <br />
+              Category -- <span style={{ color: '#fe7702' }}>{selected}</span>
+            </h1>
           </div>
-        )}
-      </div>
-      <div>
-        {selected === 'Fashion' && <FashionOpt />}
-        {selected === 'Electronics' && <AddElectronicSub />}
-        {selected === 'Commercial equipments and tools' && <CommEquipOpt />}
-        {selected === 'Animals and Pets' && <AddAnimalSub />}
-        {selected === 'Cars and Autumobiles' && <CarsOpt />}
-        {selected === 'Home, Furnitures and appliances' && <FurnitureOpt />}
-        {selected === 'Health and Beauty' && <HealthOpt />}
-        {selected === 'Phones and Tablets' && <PhonesTabOpt />}
-        {selected === 'Hotels, Houses and Property' && <HousesOpt />}
-        {selected === 'Kids and Babies world' && <Kids />}
-        {selected === 'Music' && <MusicArtOpt />}
-        {selected === 'Resturants, food and Agriculture' && <Restaurantsopt />}
-        {selected === 'Sport Items' && <SportsOpt />}
-        {selected === 'jobs, Handwork, services and cvs' && <ServicesOpt />}
-      </div>
-    </section>
+          <div style={{ zIndex: 2 }} className='dropdown' id='dropdown'>
+            <div
+              className='dropdown-btn'
+              onClick={(e) => setIsActive(!isActive)}
+            >
+              {selected}
+              <span>
+                {' '}
+                <AiOutlineCaretDown />
+              </span>
+            </div>
+            {isActive && (
+              <div className='dropdown-content'>
+                {options?.map((option) => (
+                  <div
+                    onClick={(e) => {
+                      setSelected(option.name)
+                      setIsActive(false)
+                      localStorage.setItem('category-id', option.id)
+                      localStorage.setItem('category', option.name)
+                    }}
+                    className='dropdown-item'
+                  >
+                    {option.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div>
+            {selected === 'Fashion' && <FashionOpt />}
+            {selected === 'Electronics' && <AddElectronicSub />}
+            {selected === 'Commercial equipments and tools' && <CommEquipOpt />}
+            {selected === 'Animals and Pets' && <AddAnimalSub />}
+            {selected === 'Cars and Autumobiles' && <CarsOpt />}
+            {selected === 'Home, Furnitures and appliances' && <FurnitureOpt />}
+            {selected === 'Health and Beauty' && <HealthOpt />}
+            {selected === 'Phones and Tablets' && <PhonesTabOpt />}
+            {selected === 'Hotels, Houses and Property' && <HousesOpt />}
+            {selected === 'Kids and Babies world' && <Kids />}
+            {selected === 'Music' && <MusicArtOpt />}
+            {selected === 'Resturants, food and Agriculture' && (
+              <Restaurantsopt />
+            )}
+            {selected === 'Sport Items' && <SportsOpt />}
+            {selected === 'jobs, Handwork, services and cvs' && <ServicesOpt />}
+          </div>
+        </section>
+      )}
+    </>
   )
 }
 

@@ -1,40 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const ServicesOpt = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Automobile Services',
-    'Building Services',
-    'Cleaning Services',
-    'Delivery Services',
-    'Electricians',
-    'Errand Boy',
-    'Hair Services',
-    'Health Services',
-    'Nails service',
-    'Party and Catering Services',
-    'Security Services',
-  ]
-
-  selected === 'Automobile Services' ? localStorage.setItem('subcatID', 1) : ''
-  selected === 'Building Services' ? localStorage.setItem('subcatID', 2) : ''
-  selected === 'Cleaning Services' ? localStorage.setItem('subcatID', 3) : ''
-  selected === 'Delivery Services' ? localStorage.setItem('subcatID', 4) : ''
-  selected === 'Electricians' ? localStorage.setItem('subcatID', 5) : ''
-  selected === 'Errand Boy' ? localStorage.setItem('subcatID', 6) : ''
-  selected === 'Hair Services' ? localStorage.setItem('subcatID', 7) : ''
-  selected === 'Health Services' ? localStorage.setItem('subcatID', 8) : ''
-  selected === 'Nails service' ? localStorage.setItem('subcatID', 9) : ''
-  selected === 'Party and Catering Services'
-    ? localStorage.setItem('subcatID', 10)
-    : ''
-  selected === 'Security Services' ? localStorage.setItem('subcatID', 11) : ''
+  useEffect(() => {
+    client.get('/ad/categories/1/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -52,16 +33,16 @@ const ServicesOpt = () => {
         </div>
         {isActive && (
           <div className='dropdown-content'>
-            {options.map((option) => (
+            {options?.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

@@ -1,26 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const HousesOpt = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Event center renting',
-    'Hotel Renting',
-    'House Renting and sales',
-  ]
-
-  selected === 'Event center renting'
-    ? localStorage.setItem('subcatID', 34)
-    : ''
-  selected === 'Hotel Renting' ? localStorage.setItem('subcatID', 35) : ''
-  selected === 'House Renting and sales'
-    ? localStorage.setItem('subcatID', 36)
-    : ''
+  useEffect(() => {
+    client.get('/ad/categories/7/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -41,13 +36,13 @@ const HousesOpt = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

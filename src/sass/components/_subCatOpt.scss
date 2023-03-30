@@ -54,7 +54,7 @@
         #div-cover {
             position: relative;
             width: 60%;
-            height: 300px;
+            height: fit-content;
             border-radius: 16px;
             background: #F6F6F6;
             //box-shadow: 2px 4px 4px #000;
@@ -74,15 +74,16 @@
                 display: flex;
                 align-items: center;
                 margin-top: 35px;
+                flex-wrap: wrap;
                 .file-cc {
                     margin-left: 15%;
                     width: 35%;
-                    //height: 300px;
+                    height: auto;
                     .file-card {
                         margin-top: 50px; 
                         margin-bottom: 20px;
                         width: 130px;
-                        height: 130px;
+                        height: auto;
                         border-radius: 50%;
                         background: #E9FBFF;
                         display: flex;
@@ -123,31 +124,37 @@
                     }
                     
                 }
-                #img-preview {
-                    width: 120px;
-                    height: 160px;
-                    background: #666464;
-                    margin-right: 10px;
-                    display: flex;
-                    //justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                    gap: 10px;
-                    border-radius: 10px;
-                    & img {
-                        margin-top: 10%;
+                .preview-div {
+                    height: fit-content;
+                    margin-bottom: 4%;
+                    padding-left: 3%;
+                    padding-top: 2%;
+                    #img-preview {
+                        width: 120px;
+                        height: 160px;
+                        background: #666464;
+                        margin-right: 10px;
+                        display: flex;
+                        //justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        gap: 10px;
                         border-radius: 10px;
-                        width: 80%;
-                        height: 100px;
-                        object-fit: cover;
-                    }
-                    & span {
-                        font-size: 25px;
-                        color: rgb(243, 121, 105);
-                        cursor: pointer;
-                        &:hover {
-                            transform: scale(1.1);
-                            color: rgb(170, 32, 13);
+                        & img {
+                            margin-top: 10%;
+                            border-radius: 10px;
+                            width: 80%;
+                            height: 100px;
+                            object-fit: cover;
+                        }
+                        & span {
+                            font-size: 25px;
+                            color: rgb(243, 121, 105);
+                            cursor: pointer;
+                            &:hover {
+                                transform: scale(1.1);
+                                color: rgb(170, 32, 13);
+                            }
                         }
                     }
                 }

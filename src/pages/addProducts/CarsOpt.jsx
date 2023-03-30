@@ -1,28 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const CarsOpt = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Cars',
-    'Busses',
-    'Motorcycle',
-    'Trucks and Trailers',
-    'Vehicle parts and Accessories',
-  ]
-
-  selected === 'Cars' ? localStorage.setItem('subcatID', 74) : ''
-  selected === 'Busses' ? localStorage.setItem('subcatID', 75) : ''
-  selected === 'Motorcycle' ? localStorage.setItem('subcatID', 76) : ''
-  selected === 'Trucks and Trailers' ? localStorage.setItem('subcatID', 77) : ''
-  selected === 'Vehicle parts and Accessories'
-    ? localStorage.setItem('subcatID', 78)
-    : ''
+  useEffect(() => {
+    client.get('/ad/categories/13/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -43,13 +36,13 @@ const CarsOpt = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

@@ -1,36 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../sass/pages/addCategory.scss'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../Api/Api'
 
 const CommEquipOpt = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Building Materials',
-    'Doors and Windows',
-    'Measuring Tools',
-    'Medical Equipment',
-    'Safety Equipment',
-    'Sound Equipment',
-    'Stage and Lightening equipment',
-    'Stationery',
-    'saloon equipment',
-  ]
-
-  selected === 'Building Materials' ? localStorage.setItem('subcatID', 65) : ''
-  selected === 'Doors and Windows' ? localStorage.setItem('subcatID', 66) : ''
-  selected === 'Measuring Tools' ? localStorage.setItem('subcatID', 67) : ''
-  selected === 'Medical Equipment' ? localStorage.setItem('subcatID', 68) : ''
-  selected === 'Safety Equipment' ? localStorage.setItem('subcatID', 69) : ''
-  selected === 'Sound Equipment' ? localStorage.setItem('subcatID', 70) : ''
-  selected === 'Stage and Lightening equipment'
-    ? localStorage.setItem('subcatID', 71)
-    : ''
-  selected === 'Stationery' ? localStorage.setItem('subcatID', 72) : ''
-  selected === 'saloon equipment' ? localStorage.setItem('subcatID', 73) : ''
+  useEffect(() => {
+    client.get('/ad/categories/12/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -51,13 +36,13 @@ const CommEquipOpt = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>

@@ -3,50 +3,19 @@ import '../../../sass/pages/addCategory.scss'
 import { NavLink } from 'react-router-dom'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../../Api/Api'
 
 const AddElectronicSub = () => {
   const [isActive, setIsActive] = useState(false)
   const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
-  const options = [
-    'Audio and Music equipment',
-    'Computer Accessories',
-    'Electrical equipment',
-    'Electronics',
-    'Electronics Accessories',
-    'HeadPhones',
-    'Kitchen Appliances',
-    'Photos and video cameras',
-    'Tv and DVD equipment',
-    'Videogames and Accessories',
-    'printers scanners',
-  ]
-
-  selected === 'Audio and Music equipment'
-    ? localStorage.setItem('subcatID', 54)
-    : ''
-  selected === 'Computer Accessories'
-    ? localStorage.setItem('subcatID', 55)
-    : ''
-  selected === 'Electrical equipment'
-    ? localStorage.setItem('subcatID', 56)
-    : ''
-  selected === 'Electronics' ? localStorage.setItem('subcatID', 57) : ''
-  selected === 'Electronics Accessories'
-    ? localStorage.setItem('subcatID', 58)
-    : ''
-  selected === 'HeadPhones' ? localStorage.setItem('subcatID', 59) : ''
-  selected === 'Kitchen Appliances' ? localStorage.setItem('subcatID', 60) : ''
-  selected === 'Photos and video cameras'
-    ? localStorage.setItem('subcatID', 61)
-    : ''
-  selected === 'Tv and DVD equipment'
-    ? localStorage.setItem('subcatID', 62)
-    : ''
-  selected === 'Videogames and Accessories'
-    ? localStorage.setItem('subcatID', 63)
-    : ''
-  selected === 'printers scanners' ? localStorage.setItem('subcatID', 64) : ''
+  useEffect(() => {
+    client.get('/ad/categories/11/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
     <section className='addCategory'>
@@ -67,13 +36,13 @@ const AddElectronicSub = () => {
             {options.map((option) => (
               <div
                 onClick={(e) => {
-                  setSelected(option)
+                  setSelected(option.name)
                   setIsActive(false)
-                  localStorage.setItem('sub-cat', option)
+                  localStorage.setItem('sub-cat', option.id)
                 }}
                 className='dropdown-item'
               >
-                {option}
+                {option.name}
               </div>
             ))}
           </div>
