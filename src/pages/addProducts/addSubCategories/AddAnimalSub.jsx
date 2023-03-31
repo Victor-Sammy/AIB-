@@ -1,57 +1,64 @@
 import React, { useEffect, useState } from 'react'
-import { GrFormNextLink } from 'react-icons/gr'
-import '../.././../sass/components/_subCatOpt.scss'
+import { BsArrowRightShort } from 'react-icons/bs'
+import '../.././../sass/pages/addCategory.scss'
 import { NavLink } from 'react-router-dom'
+import { AiOutlineCaretDown } from 'react-icons/ai'
+import { client } from '../../../Api/Api'
 
 const AddAnimalSub = () => {
-  const [animals, setAnimals] = useState('selectAnimals')
-
-  const [dogs, setDogs] = useState(false)
-  const [cat, setCat] = useState(false)
-  const [monkey, setMonkey] = useState(false)
-  const [petAccessories, setPetAccessories] = useState(false)
-  const [otherAnimals, setOtherAnimals] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+  const [selected, setSelected] = useState(false)
+  const [options, setOptions] = useState([])
 
   useEffect(() => {
-    animals === 'dog' ? setDogs(true) : setDogs(false)
-    animals === 'cat' ? setCat(true) : setCat(false)
-    animals === 'monkey' ? setMonkey(true) : setMonkey(false)
-    animals === 'petAccessories'
-      ? setPetAccessories(true)
-      : setPetAccessories(false)
-    animals === 'otherAnimals' ? setOtherAnimals(true) : setOtherAnimals(false)
-  }, [animals])
-
-  const handleChange = (e) => {
-    console.log('handleChange', e.target.value)
-    localStorage.setItem('subCategory', e.target.value)
-    setAnimals(e.target.value)
-  }
+    client.get('/ad/categories/14/subcategories/').then((response) => {
+      console.log(response.data.results)
+      setOptions(response.data.results)
+    })
+  }, [])
 
   return (
-    <div className='sub-opt2'>
-      <div className='subCat-opt2'>
-        <select
-          className='subcat-select2'
-          value={animals}
-          onChange={handleChange}
+    <section className='addCategory'>
+      <div className='dropdown' id='dropdown'>
+        <div
+          style={{ background: '#f2f4f7' }}
+          className='dropdown-btn'
+          onClick={(e) => setIsActive(!isActive)}
         >
-          <option value='selectAnimals'>Select Animals</option>
-          <option value='dog'>Dog</option>
-          <option value='cat'>Cat</option>
-          <option value='monkey'>Monkey</option>
-          <option value='petAccessories'>Pet Accessories</option>
-          <option value='otherAnimals'>Other Animals</option>
-        </select>
+          {selected}
+          <span>
+            {' '}
+            <AiOutlineCaretDown />
+          </span>
+        </div>
+        {isActive && (
+          <div className='dropdown-content'>
+            {options.map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(option.name)
+                  setIsActive(false)
+                  localStorage.setItem('sub-cat', option.id)
+                }}
+                className='dropdown-item'
+              >
+                {option.name}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div>
-        <NavLink to='/addProduct'>
-          <div className='next-btn'>
-            <GrFormNextLink />
+      {selected && (
+        <NavLink to='/addProduct' className='nxt-btn'>
+          <div className='next-btn' id='next-btn'>
+            <h1>Next</h1>
+            <div>
+              <BsArrowRightShort />
+            </div>
           </div>
         </NavLink>
-      </div>
-    </div>
+      )}
+    </section>
   )
 }
 

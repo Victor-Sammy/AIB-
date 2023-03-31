@@ -2,10 +2,12 @@
     min-height: 100vh;
     padding-left: 100px;
     padding-right: 100px;
-    .ap-back {
-        margin-top: 158px;
+    #ap-back {
+        margin-left: 10%;
+        margin-top: 58px;
         font-size: 25px;
         cursor: pointer;
+        color: #000;
     }
     .ap-title {
         // position: relative;
@@ -15,8 +17,12 @@
         font-weight: 700;
         color: #000;
         opacity: 80%;
-        margin-bottom: 55px;
+        margin-bottom: 5px;
         margin-left: 0;
+    }
+    p {
+        text-align: center;
+        font-size: 12px;
     }
     .ap-category {
         //position: relative;
@@ -41,4 +47,21 @@
         }
     }
     
+}
+
+@media (max-width: 990px) {
+    #addProduct {
+        padding-inline: 5%;
+        #ap-back {
+            margin-left: 5% !important;
+        }
+    }
+}
+
+@media (max-width: 1500px) {
+    #addProduct {
+        #ap-back {
+            margin-left: 10%;
+        }
+    }
 }

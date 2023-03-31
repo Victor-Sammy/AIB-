@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
 import { AiFillCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { client } from '../../../Api/Api'
 
 const LaptopCompInput = () => {
-  const url = 'https://cd3e-154-120-92-61.ngrok.io/test/phonetest/'
-
   const [selectedImages, setSelectedImages] = useState([])
   const [data, setData] = useState({
     name: '',
@@ -20,8 +18,8 @@ const LaptopCompInput = () => {
     storageCapacity: '',
     os: '',
     color: '',
-    subCategory: localStorage.getItem('subCategory')
-      ? localStorage.getItem('subCategory')
+    subCategory: localStorage.getItem('sub-cat')
+      ? localStorage.getItem('sub-cat')
       : 'no-subcategory',
   })
   const [errors, setErrors] = useState({
@@ -33,6 +31,10 @@ const LaptopCompInput = () => {
   const submitData = async (e) => {
     e.preventDefault()
     console.log(selectedImages)
+
+    const storeID = localStorage.getItem('store-id')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
     for (let img of selectedImages) {
@@ -50,9 +52,12 @@ const LaptopCompInput = () => {
     formData.append('operating system', data.os)
     formData.append('storage capacity', data.storageCapacity)
     formData.append('subCategory', data.subCategory)
+    formData.append('subcategory', subCatID)
+    formData.append('category', categoryID)
+    formData.append('store', storeID)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -99,14 +104,11 @@ const LaptopCompInput = () => {
   }
 
   return (
-    <div className='input-div'>
-      <div className='aboutPrdt'>
-        Customers want to know more about your product{' '}
-      </div>
+    <div className='input-div' id='input-div'>
       <form onSubmit={submitData} className='product-attributes'>
-        <div className='div-cover'>
-          <div className='add-image-display'>
-            <div className='file-cc'>
+        <div className='div-cover' id='div-cover'>
+          <div className='add-image-display' id='add-image-display'>
+            <div className='file-cc' id='file-cc'>
               <div className='file-card'>
                 <div className='file-input'>
                   <input
@@ -128,8 +130,8 @@ const LaptopCompInput = () => {
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>
-        <div className='form1'>
-          <div className='input'>
+        <div className='form1' id='form1'>
+          <div className='input' id='input'>
             <p>Name</p>
             <input
               type='text'
@@ -139,7 +141,7 @@ const LaptopCompInput = () => {
               //required
             />
           </div>
-          <div className='input'>
+          <div className='input' id='input'>
             <p>Price</p>
             <input
               type='text'
@@ -149,7 +151,7 @@ const LaptopCompInput = () => {
               //required
             />
           </div>
-          <div className='description'>
+          <div className='description' id='description'>
             <textarea
               id='description'
               type='text'
@@ -160,8 +162,8 @@ const LaptopCompInput = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>more description</h1>
-        <div className='formDescription'>
+        <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>
@@ -249,20 +251,10 @@ const LaptopCompInput = () => {
               />
             </div>
           </div>
-          <button
-            type='submit'
-            style={{
-              width: '200px',
-              height: '50px',
-              borderRadius: '10px',
-              backgroundColor: '#fe7702',
-              color: '#fff',
-              marginLeft: '43%',
-              marginTop: '50px',
-              marginBottom: '50px',
-            }}
-          >
-            NEXT
+        </div>
+        <div className='upload-div' id='upload-div'>
+          <button type='submit' className='uploadBtn' id='uploadBtn'>
+            Upload
           </button>
         </div>
       </form>

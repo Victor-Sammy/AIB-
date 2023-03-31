@@ -51,10 +51,12 @@
         box-shadow: 1px 1px 8px #949494;
   
         #sp-img {
-          border-radius: 50%;
           margin-bottom: 24px;
           & > img {
-            object-fit: contain;
+            width: 100% !important;
+            height: auto;
+            object-fit: cover !important;
+            border-radius: 50%;
           }
         }
         #header-icon {
@@ -71,18 +73,21 @@
           }
         }
         #sp-name {
-          font-weight: 500;
+          font-weight: 600;
           margin-bottom: 4px;
         }
   
-        .sp-location {
+        #sp-location {
+          height: auto !important;
           border-radius: 10px;
           background: #cdc7c7;
-          margin-bottom: 8px;
+          margin-bottom: 15px;
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 30px;
+          gap: 10px;
+          padding-left: 2%;
+          padding-right: 2%;
   
           & > span {
             //font-size: 12px;
@@ -90,13 +95,14 @@
             color: #000000;
           }
         }
-        .sp-description {
+        #sp-description {
           //width: 90%;
           font-size: 12px;
           font-weight: 400;
           color: #000000;
           text-align: center;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
+          padding: 0 5%;
         }
         .sp-option {
           display: flex;
@@ -310,8 +316,10 @@
                   text-align: center;
                   .item-name {
                     width: 180px;
-                    //height: 17px;
+                    padding: 0 auto;
                     margin-bottom: 1px;
+                    //overflow: hidden;
+                    white-space: nowrap;
                     span {
                       font-size: 18px;
                       font-weight: 500;
@@ -355,11 +363,31 @@
                       justify-content: center;
                     }
                   }
+                }               
+              }
+              .actions {
+                display: flex;
+                justify-content: space-between;
+                .link {
+                  margin-left: 5%;
+                  transform: translateY(-7px);
+                  padding: 2.5% 7%;
+                  border: none;
+                  background: #268ef0;
+                  color: #fdfdfd;
+                }
+                .deleteBtn {
+                  margin-right: 5%;
+                  transform: translateY(-7px);
+                  padding: 2.5% 7%;
+                  border: none;
+                  background: #f02637;
+                  color: #fdfdfd;
                 }
               }
               .wishlist-icon {
                 position: absolute;
-                top: 16px;
+                top: -2px;
                 right: 19px;
                 width: 22px;
                 height: 22px;
@@ -508,6 +536,9 @@
         #sp-location {
           width: 300px !important;
           height: 20px;
+          span {
+            font-size: 10px !important;
+          }
         }
         #sp-option {
           margin-bottom: 38px;
@@ -613,6 +644,26 @@
     padding: 0 5%;
     .st-flex {
       #store-info {
+        #sp-img {
+          width: 110px !important;
+          height: 110px !important;
+          img {
+            height: 120px;
+          }
+        }
+        #sp-name {
+          font-size: 16px;
+        }
+        #sp-location {
+          width: 200px;
+          height: 20px;
+          span {
+            font-size: 8px;
+          }
+        }
+        #sp-description {
+          font-size: 10px;
+        }
       }
     }
     #store-split {
@@ -707,6 +758,9 @@
         #sp-location {
           width: 200px;
           height: 20px;
+          span {
+            font-size: 8px;
+          }
         }
         #sp-option {
           #sp-add {
@@ -833,13 +887,6 @@
             font-size: 10px;
           }
         }
-        #sp-location {
-          width: 200px;
-          height: 20px;
-          span {
-            font-size: 10px;
-          }
-        }
         #sp-option {
           #sp-add {
             height: 35px;
@@ -892,6 +939,12 @@
                   height: 80px !important;
                 }
               }
+              #details {
+                width: 180px;
+                #item-name {
+                  //padding-right: 10px;
+                }
+              }
             }
           }
         }
@@ -935,7 +988,7 @@
     }
   }  
 }
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   #store-profile {
     padding: 0 5%;
     #st-flex {
@@ -964,9 +1017,6 @@
         #sp-location {
           width: 200px;
           height: 20px;
-          span {
-            font-size: 10px;
-          }
         }
         #sp-option {
           #sp-add {
@@ -1021,9 +1071,11 @@
                 }
               }
               #details {
+                width: 150px;
                 gap: .5px;
                 height: 65px !important;
                 #item-name {
+                  width: 150px;
                   span {
                     font-size: 12px !important;               
                   }
@@ -1081,8 +1133,13 @@
       gap: 3%;
       #store-info {
         #sp-img {
-          width: 100px;
-          height: 100px;
+          width: 100px !important;
+          height: 100px !important;
+          img {
+            width: 100px !important;
+            height: 100px !important;
+            object-fit: cover;
+          }
         }
         #header-icon {
           width: 100px;
@@ -1100,10 +1157,7 @@
         }
         #sp-location {
           width: 90%;
-          height: 20px;
-          span {
-            font-size: 10px;
-          }
+          height: auto !important;
         }
         #sp-option {
           width: 100%;
@@ -1156,6 +1210,29 @@
           grid-template-columns: 20.6% 20.6% 20.6% 20.6% !important;
           #item {
             min-width: 125px !important;
+            #trend-link {
+              #details {
+                width: 120px;
+                //padding: 0 20px;
+                #item-name {                 
+                  // width: 120px !important;
+                  // padding-left: 10px;
+                  // padding-right: 10px;
+                  //overflow: hidden;
+                  & span {
+                    font-size: 10px !important;         
+                  }
+                }
+                #store-name {
+                  & span {
+                    font-size: 10px;
+                  }
+                }
+              }
+            }
+            #wishlist-icon {
+              font-size: 18px;
+            }
           }
         }
       }
@@ -1224,9 +1301,6 @@
         #sp-location {
           width: 90%;
           height: 20px;
-          span {
-            font-size: 10px;
-          }
         }
         #sp-option {
           width: 100%;

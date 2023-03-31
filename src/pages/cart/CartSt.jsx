@@ -1,9 +1,9 @@
-import axios from 'axios'
+import { client } from '../../Api/Api'
 
 const cartId = localStorage.getItem('cartID')
 
 export const getCart = () => {
-  return axios.get(`/ad/carts/${cartId}/`).then((response) => {
+  return client.get(`/ad/carts/${cartId}/`).then((response) => {
     console.log(response.data)
     const data = response.data
     console.log(data)

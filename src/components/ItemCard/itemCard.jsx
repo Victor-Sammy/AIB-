@@ -1,85 +1,85 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import Heart from "../vectors/Heart";
-import { getUserLikedItems } from "../../Api/user.js";
-import "./style.scss";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { toggleItemLike } from "../../Api/products";
-import { useAuth } from "../../context/AuthContext";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import React from 'react'
+import Heart from '../vectors/Heart'
+import { getUserLikedItems } from '../../Api/user.js'
+import './style.scss'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { toggleItemLike } from '../../Api/products'
+import { useAuth } from '../../context/AuthContext'
 
 export default function ItemCard({ item }) {
-  const { user } = useAuth();
-  let location = useLocation();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const { user } = useAuth()
+  let location = useLocation()
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const { data: likedItems } = useQuery({
-    queryKey: ["userLikedItems"],
+    queryKey: ['userLikedItems'],
     queryFn: getUserLikedItems,
-  });
+  })
 
   // Mutations
   const { mutate: toggleLike } = useMutation({
     mutationFn: ({ id, add }) => toggleItemLike(id),
     onMutate: ({ id, add }) => {
       // Snapshot the previous value
-      const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
+      const previousLikedItems = queryClient.getQueryData(['userLikedItems'])
 
-      let likedItems = [...previousLikedItems];
+      let likedItems = [...previousLikedItems]
 
       if (add) {
-        likedItems.push(item);
+        likedItems.push(item)
       } else {
-        likedItems = likedItems.filter((likedItem) => likedItem.id !== item.id);
+        likedItems = likedItems.filter((likedItem) => likedItem.id !== item.id)
       }
 
       // Optimistically update to the new value
-      queryClient.setQueryData(["userLikedItems"], likedItems);
+      queryClient.setQueryData(['userLikedItems'], likedItems)
 
-      return { previousLikedItems };
+      return { previousLikedItems }
     },
     onSuccess: (data, variables, context) => {
       toast.success(
         `${item.name} successfully ${
-          variables.add ? "added to" : "removed from"
+          variables.add ? 'added to' : 'removed from'
         } favourites`
-      );
+      )
     },
     onError: (err, newTodo, context) => {
-      queryClient.setQueryData(["userLikedItems"], context.previousLikedItems);
+      queryClient.setQueryData(['userLikedItems'], context.previousLikedItems)
       toast.error(
         `Error ${
           variables.add
             ? `adding ${item.name} to`
             : `removing ${item.name} from`
         } favourites`
-      );
+      )
     },
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["userLikedItems"] });
+      queryClient.invalidateQueries({ queryKey: ['userLikedItems'] })
     },
-  });
+  })
 
   const toggleLikeHelper = (e, args) => {
-    e.stopPropagation();
+    e.stopPropagation()
 
     if (user) {
-      toggleLike(args);
+      toggleLike(args)
     } else {
-      toast.error("Login to add items to your wishlist");
-      navigate(`/signin?next=${location.pathname}`);
+      toast.error('Login to add items to your wishlist')
+      navigate(`/signin?next=${location.pathname}`)
     }
-  };
+  }
 
   return (
-    <div className="productItem">
-      <div className="productItem-heart">
+    <div className='productItem'>
+      <div className='productItem-heart'>
         {likedItems?.some((likedItem) => likedItem.id === item.id) ? (
           <Heart
-            fill="#EB5757"
-            stroke="#EB5757"
+            fill='#EB5757'
+            stroke='#EB5757'
             onClick={(e) => toggleLikeHelper(e, { id: item.id, add: false })}
           />
         ) : (
@@ -88,25 +88,25 @@ export default function ItemCard({ item }) {
           />
         )}
       </div>
-      <Link to={`/products/${item.id}`} className="productItem-linkWrap">
-        <div className="productItem-image">
+      <Link to={`/products/${item.id}`} className='productItem-linkWrap'>
+        <div className='productItem-image'>
           <img src={item.images[0]?.image} alt={`${item.name}`} />
         </div>
-        <div className="productItem-content">
-          <div className="productItem-content-category">
-            {item.category ?? "Bliss Fashion"}
+        <div className='productItem-content'>
+          <div className='productItem-content-category'>
+            {item.category ?? 'Bliss Fashion'}
           </div>
-          <div className="productItem-content-name">{item.name}</div>
-          <div className="productItem-content-price">
+          <div className='productItem-content-name'>{item.name}</div>
+          <div className='productItem-content-price'>
             NGN {item.price.toLocaleString()}
           </div>
-          <div className="productItem-content-rating">
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-            <span className="rating">5.0</span>
-            <span className="ratingCount">(34k)</span>
+          <div className='productItem-content-rating'>
+            <span className='stars'>⭐⭐⭐⭐⭐</span>
+            <span className='rating'>5.0</span>
+            <span className='ratingCount'>(34k)</span>
           </div>
         </div>
       </Link>
     </div>
-  );
+  )
 }

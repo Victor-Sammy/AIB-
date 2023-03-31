@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
-import { AiFillCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai'
-import axios from 'axios'
+import { AiOutlinePlus } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import { client } from '../../../Api/Api'
 
 const Car = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -15,15 +15,13 @@ const Car = () => {
     year: '',
     mileage: '',
     transmission: '',
-    subCategory: localStorage.getItem('subCategory')
-      ? localStorage.getItem('subCategory')
+    subCategory: localStorage.getItem('sub-cat')
+      ? localStorage.getItem('sub-cat')
       : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
   })
-
-  const url = 'https://5b3c-154-120-110-145.ngrok.io/ad/products/'
 
   //const navigate = useNavigate()
 
@@ -31,10 +29,17 @@ const Car = () => {
     e.preventDefault()
     console.log(selectedImages)
 
+    const storeID = localStorage.getItem('store-id')
+    const categoryID = localStorage.getItem('category-id')
+    const subCatID = localStorage.getItem('sub-cat')
+
     const formData = new FormData()
     for (let img of selectedImages) {
       formData.append('uploaded_images', img)
     }
+    formData.append('subcategory', subCatID)
+    formData.append('category', categoryID)
+    formData.append('store', storeID)
     formData.append('name', data.name)
     formData.append('price', data.price)
     formData.append('description', data.description)
@@ -43,10 +48,9 @@ const Car = () => {
     formData.append('year', data.year)
     formData.append('mileage', data.mileage)
     formData.append('transmission', data.transmission)
-    formData.append('subCategory', data.subCategory)
 
-    axios
-      .post(url, formData, {
+    client
+      .post('/ad/products/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -93,14 +97,12 @@ const Car = () => {
   }
 
   return (
-    <div className='input-div'>
-      <div className='aboutPrdt'>
-        Customers want to know more about your Vehicle{' '}
-      </div>
+    <div className='input-div' id='input-div'>
       <form onSubmit={submitData} className='product-attributes'>
-        <div className='div-cover'>
-          <div className='add-image-display'>
-            <div className='file-cc'>
+        <div className='div-cover' id='div-cover'>
+          <h2>Add Photo</h2>
+          <div className='add-image-display' id='add-image-display'>
+            <div className='file-cc' id='file-cc'>
               <div className='file-card'>
                 <div className='file-input'>
                   <input
@@ -113,17 +115,20 @@ const Car = () => {
                     accept='image/*'
                   />
                   <button>
-                    <AiOutlinePlusCircle />
+                    <AiOutlinePlus />
                   </button>
                 </div>
               </div>
-              <p>**up to 4 or 5 photos!</p>
+              <h5>
+                *Uploaded images should not be above 5MB, and in “jpg” or “png”
+                format. Add 3 Photos or more.
+              </h5>
             </div>
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>
-        <div className='form1'>
-          <div className='input'>
+        <div className='form1' id='form1'>
+          <div className='input' id='input'>
             <p>Name</p>
             <input
               type='text'
@@ -133,7 +138,7 @@ const Car = () => {
               //required
             />
           </div>
-          <div className='input'>
+          <div className='input' id='input'>
             <p>Price</p>
             <input
               type='text'
@@ -143,7 +148,7 @@ const Car = () => {
               //required
             />
           </div>
-          <div className='description'>
+          <div className='description' id='description'>
             <textarea
               id='description'
               type='text'
@@ -154,8 +159,8 @@ const Car = () => {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>more description</h1>
-        <div className='formDescription'>
+        <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Model</p>
@@ -221,20 +226,10 @@ const Car = () => {
               />
             </div>
           </div>
-          <button
-            type='submit'
-            style={{
-              width: '200px',
-              height: '50px',
-              borderRadius: '10px',
-              backgroundColor: '#fe7702',
-              color: '#fff',
-              marginLeft: '43%',
-              marginTop: '50px',
-              marginBottom: '50px',
-            }}
-          >
-            NEXT
+        </div>
+        <div className='upload-div' id='upload-div'>
+          <button type='submit' className='uploadBtn' id='uploadBtn'>
+            Upload
           </button>
         </div>
       </form>
