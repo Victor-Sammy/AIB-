@@ -78,18 +78,13 @@ const CartItem = () => {
                         onClick={() => {
                           const checker =
                             item.quantity > 1 ? item.quantity - 1 : ''
-                          const decrease = {
-                            body: JSON.stringify({
-                              quantity: checker,
-                            }),
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
+                          const requestOptions = {
+                            quantity: checker,
                           }
                           axios
                             .patch(
                               `/ad/carts/${cartId}/items/${item.id}/`,
-                              decrease
+                              requestOptions
                             )
                             .then((res) => {
                               console.log(res.status, res.data)
@@ -110,15 +105,13 @@ const CartItem = () => {
                         className='increase'
                         onClick={() => {
                           console.log(item?.quantity + 1)
-                          const increase = {
-                            body: JSON.stringify({
-                              quantity: item?.quantity + 1,
-                            }),
+                          const requestOptions = {
+                            quantity: item?.quantity + 1,
                           }
                           axios
                             .patch(
                               `/ad/carts/${cartId}/items/${item.id}/`,
-                              increase
+                              requestOptions
                             )
                             .then((res) => {
                               console.log(res.status, res.data)

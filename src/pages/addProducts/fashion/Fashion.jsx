@@ -3,6 +3,7 @@ import { AiOutlinePlus, AiTwotoneDelete } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import '../../../sass/components/_subCatOpt.scss'
 import { client } from '../../../Api/Api'
+import { toast } from 'react-toastify'
 
 const Fashion = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -24,9 +25,7 @@ const Fashion = () => {
     selectedImages: '',
   })
 
-  //const navigate = useNavigate()
-
-  //const token = localStorage.getItem('accessToken')
+  const navigate = useNavigate()
 
   const submitData = async (e) => {
     e.preventDefault()
@@ -76,6 +75,8 @@ const Fashion = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        toast.success(`${data.name} has been successfuly added to store`)
+        navigate('/profile')
       })
     }, 3000)
   }
