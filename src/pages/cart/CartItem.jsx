@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import '../../sass/pages/_cart.scss'
 
 const CartItem = () => {
-  const API_URL = 'https://aib-shop.up.railway.app'
   const cartId = localStorage.getItem('cartID')
 
   const [cartItem, setCartItem] = useState([])
