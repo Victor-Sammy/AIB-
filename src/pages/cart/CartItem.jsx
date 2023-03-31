@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom'
 import '../../sass/pages/_cart.scss'
 
 const CartItem = () => {
-  //const dispatch = useDispatch()
   const cartId = localStorage.getItem('cartID')
 
   const [cartItem, setCartItem] = useState([])
@@ -16,6 +16,8 @@ const CartItem = () => {
     cartResponse()
     response()
   }, [])
+
+  const navigate = useNavigate()
 
   const response = () => {
     axios.get(`/ad/carts/${cartId}/`).then((response) => {
