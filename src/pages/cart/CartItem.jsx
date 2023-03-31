@@ -78,8 +78,7 @@ const CartItem = () => {
                         onClick={() => {
                           const checker =
                             item.quantity > 1 ? item.quantity - 1 : ''
-                          const requestOptions = {
-                            method: 'PATCH',
+                          const decrease = {
                             body: JSON.stringify({
                               quantity: checker,
                             }),
@@ -87,19 +86,21 @@ const CartItem = () => {
                               'Content-Type': 'application/json',
                             },
                           }
-                          fetch(
-                            `${API_URL}/ad/carts/${cartId}/items/${item.id}/`,
-                            requestOptions
-                          ).then((res) => {
-                            console.log(res.status, res.data)
-                            setTimeout(() => {
-                              cartResponse()
-                              response()
-                            }, 200)
-                            if (res.status === 415) {
-                              console.log(res.data, res.message)
-                            }
-                          })
+                          axios
+                            .patch(
+                              `/ad/carts/${cartId}/items/${item.id}/`,
+                              decrease
+                            )
+                            .then((res) => {
+                              console.log(res.status, res.data)
+                              setTimeout(() => {
+                                cartResponse()
+                                response()
+                              }, 200)
+                              if (res.status === 415) {
+                                console.log(res.data, res.message)
+                              }
+                            })
                         }}
                       >
                         <AiOutlineMinus />
@@ -109,28 +110,26 @@ const CartItem = () => {
                         className='increase'
                         onClick={() => {
                           console.log(item?.quantity + 1)
-                          const requestOptions = {
-                            method: 'PATCH',
+                          const increase = {
                             body: JSON.stringify({
                               quantity: item?.quantity + 1,
                             }),
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
                           }
-                          fetch(
-                            `${API_URL}/ad/carts/${cartId}/items/${item.id}/`,
-                            requestOptions
-                          ).then((res) => {
-                            console.log(res.status, res.data)
-                            setTimeout(() => {
-                              cartResponse()
-                              response()
-                            }, 200)
-                            if (res.status === 415) {
-                              console.log(res.data, res.message)
-                            }
-                          })
+                          axios
+                            .patch(
+                              `/ad/carts/${cartId}/items/${item.id}/`,
+                              increase
+                            )
+                            .then((res) => {
+                              console.log(res.status, res.data)
+                              setTimeout(() => {
+                                cartResponse()
+                                response()
+                              }, 200)
+                              if (res.status === 415) {
+                                console.log(res.data, res.message)
+                              }
+                            })
                         }}
                       >
                         <AiOutlinePlus />
@@ -141,7 +140,7 @@ const CartItem = () => {
                       onClick={() => {
                         axios
                           .delete(
-                            `${API_URL}/ad/carts/${cartId}/items/${item.id}/`,
+                            `/ad/carts/${cartId}/items/${item.id}/`,
                             item.id
                           )
                           .then((res) => {
