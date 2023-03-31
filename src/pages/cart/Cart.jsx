@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react'
 import CartItem from './CartItem'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { getTotals } from '../../store/cartSlice'
 import '../../sass/pages/_cart.scss'
 import Recent from '../../components/Recent'
 import { useEffect } from 'react'

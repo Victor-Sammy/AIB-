@@ -32,8 +32,8 @@ const CartItem = () => {
     axios.get(`/ad/carts/${cartId}/items/`).then((response) => {
       console.log(response)
       const data = response.data
+      console.log(data)
       setCartItem(data)
-      console.log(data.results[0]?.quantity)
     })
   }
 
@@ -49,14 +49,14 @@ const CartItem = () => {
   }
 
   return (
-    <div>
+    <div className='cart-house'>
       <h1 className='count' id='count'>
-        my cart ({cartItem?.count})
+        my cart ({cartItem?.length})
       </h1>
       <div className='cart-container' id='cart-container'>
         <div className='cart-info' id='cart-info'>
           <div className='cart-items'>
-            {cartItem?.results?.map((item) => {
+            {cartItem?.map((item) => {
               return (
                 <div className='cart-item' id='cart-item' key={item?.id}>
                   <div className='cart-img' id='cart-img'>
@@ -161,7 +161,7 @@ const CartItem = () => {
           <div className='complete-order' id='complete-order'>
             <h1>Cart Summary</h1>
             <hr className='cart-line' />
-            <div className='total'>
+            <div className='total' id='total'>
               <div className='subtotal'>
                 <h2>Subtotal</h2>
               </div>
