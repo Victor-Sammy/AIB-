@@ -61,7 +61,6 @@ const Fashion = () => {
         if (res.status === 400) {
           setErrors(res.data)
         }
-        //navigate('/addProducts')
       })
       .catch((error) => {
         console.log(error.response)
