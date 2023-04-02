@@ -11,8 +11,8 @@ const HousingInput = () => {
     name: '',
     price: '',
     description: '',
-    brand: '',
-    condition: '',
+    rooms: '',
+    furnished: '',
     subCategory: localStorage.getItem('sub-cat')
       ? localStorage.getItem('sub-cat')
       : 'no-subCategory',
@@ -38,8 +38,8 @@ const HousingInput = () => {
     formData.append('name', data.name)
     formData.append('price', data.price)
     formData.append('description', data.description)
-    formData.append('brand', data.brand)
-    formData.append('condition', data.condition)
+    formData.append('rooms', data.brand)
+    formData.append('furnished', data.furnished)
 
     client
       .post('/ad/products/', formData, {
@@ -187,21 +187,21 @@ const HousingInput = () => {
           <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
-              <p>Brand</p>
+              <p>Rooms</p>
               <input
                 type='text'
                 id='brand'
-                value={data.brand}
+                value={data.rooms}
                 onChange={handle}
                 required
               />
             </div>
             <div className='box2'>
-              <p>Condition</p>
+              <p>Furnished</p>
               <input
                 type='text'
                 id='condition'
-                value={data.condition}
+                value={data.furnished}
                 onChange={handle}
                 required
               />

@@ -12,7 +12,6 @@ const Car = () => {
     price: '',
     description: '',
     model: '',
-    condition: '',
     year: '',
     mileage: '',
     transmission: '',
@@ -42,9 +41,8 @@ const Car = () => {
     formData.append('price', data.price)
     formData.append('description', data.description)
     formData.append('model', data.model)
-    formData.append('condition', data.condition)
     formData.append('year', data.year)
-    formData.append('mileage', data.mileage)
+    formData.append('milleage', data.mileage)
     formData.append('transmission', data.transmission)
 
     client
@@ -197,16 +195,6 @@ const Car = () => {
                 type='text'
                 id='model'
                 value={data.model}
-                onChange={handle}
-                required
-              />
-            </div>
-            <div className='box2'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='model'
-                value={data.condition}
                 onChange={handle}
                 required
               />

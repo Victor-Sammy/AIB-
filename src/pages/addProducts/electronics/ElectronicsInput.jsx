@@ -12,7 +12,7 @@ const ElectronicsInput = () => {
     price: '',
     description: '',
     brand: '',
-    condition: '',
+    model: '',
     subCategory: localStorage.getItem('sub-cat')
       ? localStorage.getItem('sub-cat')
       : 'no-subCategory',
@@ -37,7 +37,7 @@ const ElectronicsInput = () => {
     formData.append('price', data.price)
     formData.append('description', data.description)
     formData.append('brand', data.brand)
-    formData.append('condition', data.condition)
+    formData.append('model', data.condition)
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
 
@@ -196,11 +196,11 @@ const ElectronicsInput = () => {
               />
             </div>
             <div className='box2'>
-              <p>Condition</p>
+              <p>Model</p>
               <input
                 type='text'
                 id='condition'
-                value={data.condition}
+                value={data.model}
                 onChange={handle}
               />
             </div>
