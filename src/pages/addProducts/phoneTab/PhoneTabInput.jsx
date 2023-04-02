@@ -19,8 +19,8 @@ function PhoneTabInput() {
     color: '',
     opSystem: '',
     sim: '',
-    battery: '',
-    camera: '',
+    storage_capacity: '',
+    processor: '',
     subCategory: localStorage.getItem('sub-cat')
       ? localStorage.getItem('sub-cat')
       : 'no-subCategory',
@@ -48,14 +48,10 @@ function PhoneTabInput() {
     formData.append('description', data.description)
     formData.append('brand', data.brand)
     formData.append('model', data.model)
-    formData.append('condition', data.condition)
     formData.append('ram', data.ram)
-    formData.append('color', data.color)
-    formData.append('sim', data.sim)
-    formData.append('battery', data.battery)
-    formData.append('camera', data.camera)
-    formData.append('operating system', data.opSystem)
-    formData.append('screen size', data.screenSize)
+    formData.append('storage_capacity', data.storage_capacity)
+    formData.append('processor', data.processor)
+    formData.append('operating_system', data.opSystem)
 
     client
       .post('/ad/products/', formData, {
@@ -199,8 +195,8 @@ function PhoneTabInput() {
             <p>**not more than 150 characters</p>
           </div>
         </div>
-        <h1>Additional description</h1>
         <div className='formDescription' id='formDescription'>
+          <h1>Additional description</h1>
           <div className='div-flex'>
             <div className='box1'>
               <p>Brand</p>
@@ -219,7 +215,7 @@ function PhoneTabInput() {
                 id='model'
                 value={data.model}
                 onChange={(e) => handle(e)}
-                required
+                //required
               />
             </div>
           </div>
@@ -227,57 +223,16 @@ function PhoneTabInput() {
             <div className='box3'>
               <p>RAM</p>
               <input
-                type='text'
+                type='number'
                 id='ram'
                 value={data.ram}
                 onChange={(e) => handle(e)}
                 required
               />
             </div>
+          </div>
+          <div className='div-flex'>
             <div className='box4'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='condition'
-                value={data.condition}
-                onChange={(e) => handle(e)}
-                required
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box5'>
-              <p>Sub-Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
-                //required
-              />
-            </div>
-            <div className='box6'>
-              <p>Screen Size</p>
-              <input
-                type='text'
-                id='screenSize'
-                value={data.screenSize}
-                onChange={(e) => handle(e)}
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box7'>
-              <p>Color</p>
-              <input
-                type='text'
-                id='color'
-                value={data.color}
-                onChange={(e) => handle(e)}
-                //required
-              />
-            </div>
-            <div className='box8'>
               <p>Operating System</p>
               <input
                 type='text'
@@ -288,34 +243,36 @@ function PhoneTabInput() {
             </div>
           </div>
           <div className='div-flex'>
-            <div className='box9'>
-              <p>SIM</p>
-              <input
-                type='text'
-                id='sim'
-                value={data.sim}
-                onChange={(e) => handle(e)}
-                //required
-              />
-            </div>
-            <div className='box10'>
-              <p>Battery</p>
+            <div className='box5'>
+              <p>Storage Capacity</p>
               <input
                 type='text'
                 id='battery'
-                value={data.battery}
+                value={data.storage_capacity}
                 onChange={(e) => handle(e)}
               />
             </div>
           </div>
           <div className='div-flex'>
-            <div>
-              <p>Camera</p>
+            <div className='box6'>
+              <p>Processor</p>
               <input
                 type='text'
                 id='camera'
-                value={data.camera}
+                value={data.processor}
                 onChange={(e) => handle(e)}
+                //required
+              />
+            </div>
+          </div>
+          <div className='div-flex'>
+            <div className='box7'>
+              <p>Sub-Category</p>
+              <input
+                type='text'
+                id='subCategory'
+                value={data.subCategory}
+                style={{ backgroundColor: '#e2d8d8' }}
                 //required
               />
             </div>

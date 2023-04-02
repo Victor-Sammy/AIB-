@@ -15,8 +15,6 @@ const Fashion = () => {
     gender: '',
     size: '',
     sleeveLength: '',
-    color: '',
-    condition: '',
     subCategory: localStorage.getItem('sub-cat')
       ? localStorage.getItem('sub-cat')
       : 'no-subCategory',
@@ -46,8 +44,6 @@ const Fashion = () => {
     formData.append('gender', data.gender)
     formData.append('size', data.size)
     formData.append('sleeve_length', data.sleeveLength)
-    formData.append('color', data.color)
-    formData.append('condition', data.condition)
 
     client
       .post('/ad/products/', formData, {
@@ -234,28 +230,6 @@ const Fashion = () => {
                 value={data.sleeveLength}
                 onChange={handle}
                 //required
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box5'>
-              <p>Color [optional]</p>
-              <input
-                type='text'
-                id='color'
-                value={data.color}
-                onChange={handle}
-                //required
-              />
-            </div>
-            <div className='box6'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='condition'
-                value={data.condition}
-                onChange={handle}
-                required
               />
             </div>
           </div>
