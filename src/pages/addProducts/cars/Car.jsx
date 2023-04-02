@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import '../../../sass/components/_subCatOpt.scss'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlinePlus, AiTwotoneDelete } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { client } from '../../../Api/Api'
+import { toast } from 'react-toastify'
 
 const Car = () => {
   const [selectedImages, setSelectedImages] = useState([])
@@ -23,7 +24,7 @@ const Car = () => {
     selectedImages: '',
   })
 
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const submitData = async (e) => {
     e.preventDefault()
@@ -34,9 +35,6 @@ const Car = () => {
     const subCatID = localStorage.getItem('sub-cat')
 
     const formData = new FormData()
-    for (let img of selectedImages) {
-      formData.append('uploaded_images', img)
-    }
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
     formData.append('store', storeID)
@@ -57,14 +55,26 @@ const Car = () => {
       })
       .then((res) => {
         console.log(res.status, res.data)
+        localStorage.setItem('prd-id', res.data.id)
         if (res.status === 400) {
           setErrors(res.data)
         }
-        //navigate('/addProducts')
       })
       .catch((error) => {
         console.log(error.response)
       })
+    setTimeout(() => {
+      const prdID = localStorage.getItem('prd-id')
+      const formDt = new FormData()
+      for (let img of selectedImages) {
+        formDt.append('image', img)
+      }
+      client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
+        console.log(res.data)
+        toast.success(`${data.name} has been successfuly added to store`)
+        navigate('/profile')
+      })
+    }, 3000)
   }
 
   const handle = (e) => {
@@ -75,7 +85,13 @@ const Car = () => {
   }
 
   const onSelectFile = async (e) => {
-    setSelectedImages(e.target.files)
+    const selectedFiles = []
+    const targetFiles = e.target.files
+    const targetFilesObject = [...targetFiles]
+    targetFilesObject.map((file) => {
+      return selectedFiles.push(URL.createObjectURL(file))
+    })
+    setSelectedImages(selectedFiles)
     //const selectedFiles = e.target.files[0]
     //const file = newData[0]
     //const base64 = await getbase64(file)
@@ -91,9 +107,10 @@ const Car = () => {
     // e.target.value = ''
   }
 
-  function deleteHandler(image) {
-    setSelectedImages(selectedImages.filter((e) => e !== image))
-    URL.revokeObjectURL(image)
+  function deleteHandler(e) {
+    const del = selectedImages.filter((url, index) => index !== e)
+    setSelectedImages(del)
+    console.log(del)
   }
 
   return (
@@ -124,6 +141,18 @@ const Car = () => {
                 format. Add 3 Photos or more.
               </h5>
             </div>
+            {selectedImages.map((url, index) => {
+              return (
+                <div className='preview-div'>
+                  <div className='img-preview' id='img-preview'>
+                    <img src={url} alt='' />
+                    <span onClick={() => deleteHandler(index)}>
+                      <AiTwotoneDelete />
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
           </div>
           {errors.selectedImages && <div>ps:{errors.selectedImages}</div>}
         </div>

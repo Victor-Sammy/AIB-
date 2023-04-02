@@ -23,7 +23,7 @@ const StoreProfile = () => {
   const [value, setValue] = useState(1)
   const [addToWishlist, setAddToWishlist] = useState(false)
 
-  const { data, isLoading, isError, isFetching, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['store'],
     queryFn: () => getStoreItems(),
     refetchOnWindowFocus: true,
@@ -34,6 +34,7 @@ const StoreProfile = () => {
   const storeInfo = data?.data[0]
   const storeItems = data?.data[0]?.store_product
   console.log(storeInfo)
+  console.log(storeItems)
   console.log(data)
   localStorage.setItem('store-id', data?.data[0].id)
   //console.log(data.data)
@@ -211,16 +212,16 @@ const StoreProfile = () => {
                               </div>
                             </NavLink>
                             <div className='actions'>
-                              <NavLink
+                              <div
                                 className='link'
-                                to={`/itemEdit/${item.id}`}
+                                onClick={() => navigate(`/itemEdit/${item.id}`)}
                               >
                                 <BsPencilFill />
-                              </NavLink>
+                              </div>
                               <div
                                 className='deleteBtn'
                                 onClick={() =>
-                                  client.delete(`/ad/products/${item.id}`)
+                                  client.delete(`/ad/products/${item.id}/`)
                                 }
                               >
                                 <FaTimes />

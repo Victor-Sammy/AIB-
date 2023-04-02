@@ -11,7 +11,6 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import 'react-phone-number-input/style.css'
 //import PhoneInput from 'react-phone-number-input'
-import axios from 'axios'
 //import { AiOutlineUser } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import { useAuth } from '../../context/AuthContext'
@@ -26,6 +25,7 @@ const EditProfile = () => {
   })
   console.log(storeQuery.data.data)
   const storeInfo = storeQuery.data.data[0]
+  console.log(storeInfo.profile_image)
 
   const [coverPic, setCoverPic] = useState('')
   const [selectedImage, setSelectedImage] = useState(
