@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { getProductReviews } from "../../Api/products";

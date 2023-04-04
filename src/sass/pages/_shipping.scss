@@ -20,6 +20,10 @@
       background: #c7c7c7;
     }
 
+    &.done::after {
+      background: $color-orange;
+    }
+
     &-tab {
       position: relative;
       z-index: 2;
@@ -30,6 +34,10 @@
         height: 26px;
         border-radius: 50%;
         background: #c7c7c7;
+
+        svg {
+          width: 16px;
+        }
       }
 
       .title {
@@ -66,6 +74,51 @@
       grid-template-columns: 1fr;
       grid-template-areas: "cart" "form" "button";
       row-gap: 3rem;
+    }
+  }
+  &_success {
+    padding: 5rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+
+    .check {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      background: #3caf47;
+      display: grid;
+      place-content: center;
+      margin: 25px auto;
+
+      svg {
+        width: 80px;
+      }
+    }
+
+    h1 {
+      font-weight: 500;
+      font-size: 24px;
+      color: #012348;
+    }
+    p {
+      font-weight: 300;
+      font-size: 12px;
+      color: #696969;
+
+      &.order {
+        margin: 16px auto 20px;
+
+        span {
+          color: #012348;
+          padding-left: 4px;
+          font-weight: bold;
+        }
+      }
+    }
+    .continue {
+      max-width: 500px;
+      margin: 0 auto;
     }
   }
 
