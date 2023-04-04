@@ -5,8 +5,13 @@ import { getCart } from "../../Api/cart";
 import Check from "../../components/vectors/Check.jsx";
 import Input from "../../components/Input/Input.jsx";
 import CustomButton from "../../components/form-input/button.component.jsx";
+import { useAuth } from "../../context/AuthContext";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { useNavigate } from "react-router-dom";
 
 const ShippingAddress = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [shippingDetails, setShippingDetails] = useState({
     deliveryOption: "home delivery",
     email: "example@email.com",
@@ -17,15 +22,53 @@ const ShippingAddress = () => {
     zip: "100104",
   });
 
+  const config = {
+    public_key: "FLWPUBK_TEST-aebfc91f2b5783e19dd54cff43b3fc8e-X",
+    tx_ref: Date.now(),
+    // amount: 100,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    // customer: {
+    //   email: "user@gmail.com",
+    //   phone_number: "070********",
+    //   name: "john doe",
+    // },
+    customizations: {
+      title: "AIB Checkout",
+      description: "Payment for items in cart",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+  };
+
   const { data: cart, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
   });
 
+  const handleFlutterPayment = useFlutterwave({
+    ...config,
+    amount: cart?.data.reduce((t, { price }) => t + price, 0) ?? 0,
+    customer: {
+      email: shippingDetails.email,
+      phone_number: shippingDetails.phone,
+      name: user.username,
+    },
+  });
+
   const submitHandler = (e) => {
     e.preventDefault();
 
-    console.log("form submitted");
+    handleFlutterPayment({
+      callback: (response) => {
+        // Set order payment status to successfull
+        console.log(response);
+        if (response.status === "successful") {
+          navigate("/order_success");
+        }
+        closePaymentModal(); // this will close the modal programmatically
+      },
+      onClose: () => {},
+    });
   };
 
   // useEffect(() => {
