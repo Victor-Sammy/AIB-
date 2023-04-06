@@ -32,6 +32,8 @@ const EditProfile = () => {
     `${storeInfo ? storeInfo?.profile_image : ''}`
   )
 
+  const storeId = storeQuery.data.data[0].id
+
   const [data, setData] = useState({
     storeName: `${storeInfo ? storeInfo.name : ''}`,
     location: `${storeInfo ? storeInfo?.address : ''}`,
@@ -41,7 +43,6 @@ const EditProfile = () => {
   const userEmail = localStorage.getItem('USER_EMAIL')
   const { user } = useAuth()
   console.log(user)
-  const storeId = localStorage.getItem('store-id')
 
   const navigate = useNavigate()
 

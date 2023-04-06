@@ -12,10 +12,6 @@ const SportsInput = () => {
     price: '',
     description: '',
     brand: '',
-    condition: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -36,7 +32,6 @@ const SportsInput = () => {
     formData.append('price', data.price)
     formData.append('description', data.description)
     formData.append('brand', data.brand)
-    formData.append('condition', data.condition)
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
     formData.append('store', storeID)
@@ -65,6 +60,8 @@ const SportsInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -194,27 +191,6 @@ const SportsInput = () => {
                 value={data.brand}
                 onChange={handle}
                 required
-              />
-            </div>
-            <div className='box2'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='condition'
-                value={data.condition}
-                onChange={handle}
-                required
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box3'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>

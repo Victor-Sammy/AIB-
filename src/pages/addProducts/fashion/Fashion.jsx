@@ -15,9 +15,6 @@ const Fashion = () => {
     gender: '',
     size: '',
     sleeveLength: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -70,6 +67,8 @@ const Fashion = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         navigate('/profile')
       })
@@ -230,18 +229,6 @@ const Fashion = () => {
                 value={data.sleeveLength}
                 onChange={handle}
                 //required
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box7'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                disabled
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>

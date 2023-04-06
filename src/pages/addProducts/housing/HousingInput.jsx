@@ -13,9 +13,6 @@ const HousingInput = () => {
     description: '',
     rooms: '',
     furnished: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -65,6 +62,8 @@ const HousingInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -206,15 +205,6 @@ const HousingInput = () => {
                 required
               />
             </div>
-          </div>
-          <div className='div-flex'>
-            <p>Sub Category</p>
-            <input
-              type='text'
-              id='subCategory'
-              value={data.subCategory}
-              style={{ backgroundColor: '#e2d8d8' }}
-            />
           </div>
         </div>
         <div className='upload-div' id='upload-div'>

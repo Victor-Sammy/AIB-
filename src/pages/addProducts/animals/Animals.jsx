@@ -15,9 +15,6 @@ const Animals = () => {
     age: '',
     gender: '',
     condition: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -69,6 +66,8 @@ const Animals = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         navigate('/profile')
       })
@@ -231,15 +230,6 @@ const Animals = () => {
                 required
               />
             </div>
-          </div>
-          <div className='div-flex'>
-            <p>Sub Category</p>
-            <input
-              type='text'
-              id='subCategory'
-              value={data.subCategory}
-              style={{ backgroundColor: '#e2d8d8' }}
-            />
           </div>
         </div>
         <div className='upload-div' id='upload-div'>

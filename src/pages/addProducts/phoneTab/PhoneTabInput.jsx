@@ -21,9 +21,6 @@ function PhoneTabInput() {
     sim: '',
     storage_capacity: '',
     processor: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -77,6 +74,8 @@ function PhoneTabInput() {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -261,18 +260,6 @@ function PhoneTabInput() {
                 id='camera'
                 value={data.processor}
                 onChange={(e) => handle(e)}
-                //required
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box7'>
-              <p>Sub-Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
                 //required
               />
             </div>

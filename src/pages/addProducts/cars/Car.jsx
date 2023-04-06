@@ -15,9 +15,6 @@ const Car = () => {
     year: '',
     mileage: '',
     transmission: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -69,6 +66,8 @@ const Car = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         navigate('/profile')
       })
@@ -231,15 +230,6 @@ const Car = () => {
                 value={data.transmission}
                 onChange={handle}
                 //required
-              />
-            </div>
-            <div className='box6'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>

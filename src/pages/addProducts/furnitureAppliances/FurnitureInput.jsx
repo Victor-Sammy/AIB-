@@ -14,9 +14,6 @@ const FurnitureInput = () => {
     brand: '',
     color: '',
     condition: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState('')
 
@@ -65,6 +62,8 @@ const FurnitureInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -216,15 +215,6 @@ const FurnitureInput = () => {
                 value={data.condition}
                 onChange={handle}
                 required
-              />
-            </div>
-            <div className='box4'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>
