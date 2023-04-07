@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../sass/pages/_shipping.scss";
 import { useQuery } from "@tanstack/react-query";
-import { getCart } from "../../Api/cart";
+import {
+  getCart,
+  getShippingAddress,
+  postShippingAddress,
+} from "../../Api/cart";
 import Check from "../../components/vectors/Check.jsx";
 import Input from "../../components/Input/Input.jsx";
 import CustomButton from "../../components/form-input/button.component.jsx";
@@ -13,7 +17,7 @@ const ShippingAddress = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [shippingDetails, setShippingDetails] = useState({
-    deliveryOption: "home delivery",
+    delivery_option: "home delivery",
     email: "example@email.com",
     phone: "08023888552",
     address: "123 somewhere street, in some city",
@@ -72,8 +76,8 @@ const ShippingAddress = () => {
   };
 
   // useEffect(() => {
-
-  // },[])
+  //   postShippingAddress(shippingDetails);
+  // }, []);
 
   if (isLoading) return;
 
@@ -108,11 +112,11 @@ const ShippingAddress = () => {
               <input
                 type="radio"
                 name="delivery option"
-                checked={shippingDetails.deliveryOption === "home delivery"}
+                checked={shippingDetails.delivery_option === "home delivery"}
                 onChange={(e) =>
                   setShippingDetails((s) => ({
                     ...s,
-                    deliveryOption: "home delivery",
+                    delivery_option: "home delivery",
                   }))
                 }
               />
@@ -125,11 +129,11 @@ const ShippingAddress = () => {
               <input
                 type="radio"
                 name="delivery option"
-                checked={shippingDetails.deliveryOption === "pick from point"}
+                checked={shippingDetails.delivery_option === "pick from point"}
                 onChange={(e) =>
                   setShippingDetails((s) => ({
                     ...s,
-                    deliveryOption: "pick from point",
+                    delivery_option: "pick from point",
                   }))
                 }
               />
@@ -189,7 +193,7 @@ const ShippingAddress = () => {
         <CustomButton
           disabled={
             !(
-              shippingDetails.deliveryOption &&
+              shippingDetails.delivery_option &&
               shippingDetails.email &&
               shippingDetails.address &&
               shippingDetails.phone &&

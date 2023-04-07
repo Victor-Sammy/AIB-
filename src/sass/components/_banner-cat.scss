@@ -158,8 +158,10 @@
     }
     .cat-banner_carousel-item {
       img {
-        height: fit-content;
-        object-fit: contain;
+        height: 150px;
+        width: 100%;
+        aspect-ratio: 1 / 2;
+        object-fit: cover;
       }
     }
   }

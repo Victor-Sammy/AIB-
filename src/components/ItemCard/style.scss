@@ -76,7 +76,11 @@
   @media (max-width: 900px) {
     width: 16rem;
     flex: 1 0 16rem;
-    height: 22rem;
+    height: 26rem;
+    &-linkWrap {
+      height: 26rem;
+      width: 16rem;
+    }
     &-heart {
       top: 0.5rem;
       right: 0.5rem;
