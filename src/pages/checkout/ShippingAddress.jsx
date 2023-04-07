@@ -75,9 +75,9 @@ const ShippingAddress = () => {
     });
   };
 
-  useEffect(() => {
-    postShippingAddress(shippingDetails);
-  }, []);
+  // useEffect(() => {
+  //   postShippingAddress(shippingDetails);
+  // }, []);
 
   if (isLoading) return;
 
