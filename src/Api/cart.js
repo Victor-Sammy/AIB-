@@ -13,6 +13,21 @@ export const getCart = () => {
     return null;
   }
 };
+export const getOrder = () => {
+  const cartID = localStorage.getItem("cartID");
+
+  if (!cartID) {
+    return null;
+  }
+
+  try {
+    return client.post(`ad/orders/`, {
+      cart_id: cartID,
+    });
+  } catch {
+    return null;
+  }
+};
 
 export const addToCart = async (itemID, quantity = 1) => {
   const cartID = localStorage.getItem("cartID");

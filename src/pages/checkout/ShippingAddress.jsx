@@ -3,6 +3,7 @@ import "../../sass/pages/_shipping.scss";
 import { useQuery } from "@tanstack/react-query";
 import {
   getCart,
+  getOrder,
   getShippingAddress,
   postShippingAddress,
 } from "../../Api/cart";
@@ -12,6 +13,8 @@ import CustomButton from "../../components/form-input/button.component.jsx";
 import { useAuth } from "../../context/AuthContext";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { client } from "../../Api/Api";
 
 const ShippingAddress = () => {
   const { user } = useAuth();
@@ -26,6 +29,13 @@ const ShippingAddress = () => {
   //   state: "Lagos State",
   //   zip: "100104",
   // }
+
+  const { data: order, isLoading: isLoadingOrder } = useQuery({
+    queryKey: ["order"],
+    queryFn: getOrder,
+  });
+
+  console.log("order", order?.data[0].id);
 
   const config = {
     public_key: "FLWPUBK_TEST-aebfc91f2b5783e19dd54cff43b3fc8e-X",
@@ -42,6 +52,9 @@ const ShippingAddress = () => {
       title: "AIB Checkout",
       description: "Payment for items in cart",
       logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+    meta: {
+      order_id: order?.data[0].id,
     },
   };
 
@@ -66,10 +79,11 @@ const ShippingAddress = () => {
     await postShippingAddress(shippingDetails);
 
     handleFlutterPayment({
-      callback: (response) => {
+      callback: async (response) => {
         // Set order payment status to successfull
         console.log(response);
         if (response.status === "successful") {
+          client("");
           navigate("/order_success");
         }
         closePaymentModal(); // this will close the modal programmatically

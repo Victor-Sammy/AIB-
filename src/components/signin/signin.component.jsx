@@ -78,7 +78,6 @@ const SignIn = () => {
           nextUrl
             ? navigate(nextUrl, { replace: true })
             : navigate("/home", { replace: true });
-          window.location.reload();
         })
         .catch((err) => {
           setLoading(false);
