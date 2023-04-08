@@ -29,10 +29,10 @@ const ShippingAddress = () => {
   //   zip: "100104",
   // }
 
-  const { data: order, isLoading: isLoadingOrder } = useQuery({
-    queryKey: ["order"],
-    queryFn: getOrder,
-  });
+  // const { data: order, isLoading: isLoadingOrder } = useQuery({
+  //   queryKey: ["order"],
+  //   queryFn: getOrder,
+  // });
 
   // console.log("order", order?.data[0].id);
 
