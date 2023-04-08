@@ -92,7 +92,7 @@ const ShippingAddress = () => {
   };
 
   useEffect(() => {
-    getShippingAddress().then((data) => setShippingDetails(data.data[0]));
+    getShippingAddress().then((data) => setShippingDetails(data.data[0] ?? {}));
   }, []);
 
   if (isLoading) return;
