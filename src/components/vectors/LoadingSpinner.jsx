@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function LoadingSpinner({ fill, style, ...props }) {
+export default function LoadingSpinner({ fill, style, size, ...props }) {
   return (
     <svg
-      width="24"
+      width={size ?? "24"}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fill={fill ?? "#FE7702"}

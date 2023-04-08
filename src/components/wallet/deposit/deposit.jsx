@@ -1,59 +1,55 @@
-import React from 'react'
-import { WalletInput } from '../wallet-input/wallet-input'
-import { WalletButton } from '../wallet-button/wallet-button'
-import { BsXCircle } from 'react-icons/bs'
-import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper'
-import 'swiper/css/pagination'
-import 'swiper/css/effect-cards'
-import 'swiper/css/manipulation'
-import { FcSimCardChip } from 'react-icons/fc'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-//import { login } from "../../../store/userSlice";
-import 'swiper/css'
-import './deposit.scss'
+import React from "react";
+import { WalletInput } from "../wallet-input/wallet-input";
+import { WalletButton } from "../wallet-button/wallet-button";
+import { BsXCircle } from "react-icons/bs";
+import { Swiper, SwiperSlide, useSwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
+import "swiper/css/pagination";
+import "swiper/css/effect-cards";
+import "swiper/css/manipulation";
+import { FcSimCardChip } from "react-icons/fc";
+import { useState } from "react";
+import "swiper/css";
+import "./deposit.scss";
 
 const Deposit = () => {
-  const [cardNum, setCardNum] = useState('')
-  const [cardName, setCardName] = useState('')
-  const [amount, setAmount] = useState('')
-  const [cardNumError, setCardNumError] = useState(false)
-  const [cardNameError, setCardNameError] = useState(false)
-  const [amountError, setAmountError] = useState(false)
-
-  const dispatch = useDispatch()
+  const [cardNum, setCardNum] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [cardNumError, setCardNumError] = useState(false);
+  const [cardNameError, setCardNameError] = useState(false);
+  const [amountError, setAmountError] = useState(false);
 
   function handleChange(e) {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     switch (name) {
-      case 'cardNum':
-        setCardNum(value)
-        break
-      case 'cardName':
-        setCardName(value)
-        break
-      case 'amount':
-        setAmount(value)
-        break
+      case "cardNum":
+        setCardNum(value);
+        break;
+      case "cardName":
+        setCardName(value);
+        break;
+      case "amount":
+        setAmount(value);
+        break;
       default:
-        break
+        break;
     }
   }
   const handleClearNum = () => {
-    setCardNum('')
-  }
+    setCardNum("");
+  };
   const handleClearName = () => {
-    setCardName('')
-  }
+    setCardName("");
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    let formFields = ['cardNum', 'cardName', 'amount']
+    let formFields = ["cardNum", "cardName", "amount"];
 
-    let isValid = true
+    let isValid = true;
 
     // dispatch(
     //   login({
@@ -64,122 +60,122 @@ const Deposit = () => {
     // );
 
     formFields.forEach((field) => {
-      isValid = validateField(field) && isValid
-    })
+      isValid = validateField(field) && isValid;
+    });
 
     if (isValid) {
-      console.log(cardNum)
-      console.log(cardName)
-      console.log(amount)
+      console.log(cardNum);
+      console.log(cardName);
+      console.log(amount);
 
-      setCardNum('')
-      setCardName('')
-      setAmount('')
+      setCardNum("");
+      setCardName("");
+      setAmount("");
     }
-  }
+  };
 
   function validateField(name) {
-    let isValid = false
+    let isValid = false;
 
-    if (name === 'cardNum') isValid = validateCardNum()
-    else if (name === 'cardName') isValid = validateCardName()
-    else if (name === 'amount') isValid = validateAmount()
+    if (name === "cardNum") isValid = validateCardNum();
+    else if (name === "cardName") isValid = validateCardName();
+    else if (name === "amount") isValid = validateAmount();
 
-    return isValid
+    return isValid;
   }
 
   function validateAmount() {
-    let amountError = false
-    const value = amount
-    if (value.trim() === '') amountError = true
+    let amountError = false;
+    const value = amount;
+    if (value.trim() === "") amountError = true;
 
-    setAmountError(amountError)
-    return amountError === false
+    setAmountError(amountError);
+    return amountError === false;
   }
 
   function validateCardName() {
-    let cardNameError = false
-    const value = cardName
-    if (value.trim() === '') cardNameError = true
+    let cardNameError = false;
+    const value = cardName;
+    if (value.trim() === "") cardNameError = true;
 
-    setCardNameError(cardNameError)
-    return cardNameError === false
+    setCardNameError(cardNameError);
+    return cardNameError === false;
   }
 
   function validateCardNum() {
-    let cardNumError = false
-    const value = cardNum
-    if (value.trim() === '') cardNumError = true
+    let cardNumError = false;
+    const value = cardNum;
+    if (value.trim() === "") cardNumError = true;
 
-    setCardNumError(cardNumError)
-    return cardNumError === false
+    setCardNumError(cardNumError);
+    return cardNumError === false;
   }
 
-  const act1 = amount.length > 1 && cardNum.length > 1
+  const act1 = amount.length > 1 && cardNum.length > 1;
 
-  const isActive = act1 && cardName.length > 1
+  const isActive = act1 && cardName.length > 1;
 
   const cardImage = [
     {
       id: 1,
-      Bank: 'Union',
-      cardNumber: '5555 4444 3333  1124',
-      cardName: 'John Rupture',
+      Bank: "Union",
+      cardNumber: "5555 4444 3333  1124",
+      cardName: "John Rupture",
     },
     {
       id: 2,
-      Bank: 'Zenith',
-      cardNumber: '5555 4444 3333 2234',
-      cardName: 'John Toast ',
+      Bank: "Zenith",
+      cardNumber: "5555 4444 3333 2234",
+      cardName: "John Toast ",
     },
     {
       id: 3,
-      Bank: 'Ecobank',
-      cardNumber: '5555 4444 3333   3344',
-      cardName: 'John Baptist',
+      Bank: "Ecobank",
+      cardNumber: "5555 4444 3333   3344",
+      cardName: "John Baptist",
     },
-  ]
+  ];
 
-  const swiperSlide = useSwiperSlide()
+  const swiperSlide = useSwiperSlide();
 
   function handleFill(item) {
-    setCardNum(item.cardNumber)
+    setCardNum(item.cardNumber);
 
-    setCardName(item.cardName)
+    setCardName(item.cardName);
   }
 
   return (
-    <section className='deposit-page'>
-      <div className='deposit-component'>
-        <div className='deposit-pt'>Deposit</div>
+    <section className="deposit-page">
+      <div className="deposit-component">
+        <div className="deposit-pt">Deposit</div>
 
-        <div className='imgslider'>
+        <div className="imgslider">
           <Swiper
             spaceBetween={30}
             slidesPerView={1.3}
             // grabCursor={true}
             modules={[Pagination]}
             pagination={{ clickable: true }}
-            className='card-swiper'
+            className="card-swiper"
             // onSlideChange={() => console.log("slide change")}
             // onSwiper={(swiper) => console.log(swiper)}
           >
             {cardImage.map((item) => (
               <SwiperSlide
                 key={item.id}
-                className='slide'
+                className="slide"
                 onClick={() =>
-                  swiperSlide ? console.log('active') : handleFill(item)
+                  swiperSlide ? console.log("active") : handleFill(item)
                 }
               >
-                <div className='cardNumber'>
+                <div className="cardNumber">
                   <span>
-                    {' '}
-                    <FcSimCardChip />{' '}
+                    {" "}
+                    <FcSimCardChip />{" "}
                   </span>
                   <span>**** **** **** {item.cardNumber.slice(-4)}</span>
                 </div>
-                <div className='cardHolder'>
+                <div className="cardHolder">
                   <span>Card Holder</span>
                   <span>{item.cardName}</span>
                 </div>
@@ -187,46 +183,46 @@ const Deposit = () => {
             ))}
           </Swiper>
         </div>
-        <div className='deposit-ph'>Card Details</div>
+        <div className="deposit-ph">Card Details</div>
 
         <form onSubmit={handleSubmit}>
-          <div className='fields'>
+          <div className="fields">
             <WalletInput
-              label='Card Number'
+              label="Card Number"
               icon={<BsXCircle />}
-              name='cardNum'
+              name="cardNum"
               value={cardNum}
               clear={handleClearNum}
               handleChange={handleChange}
               error={cardNumError}
             />
             <WalletInput
-              label='Account Name'
+              label="Account Name"
               icon={<BsXCircle />}
-              name='cardName'
+              name="cardName"
               value={cardName}
               clear={handleClearName}
               handleChange={handleChange}
               error={cardNameError}
             />
             <WalletInput
-              label='Amount'
-              icon='NGN'
-              name='amount'
+              label="Amount"
+              icon="NGN"
+              name="amount"
               value={amount}
               handleChange={handleChange}
               error={amountError}
             />
           </div>
-          <div className='w-btn'>
-            <WalletButton type='submit' disabled={!isActive}>
+          <div className="w-btn">
+            <WalletButton type="submit" disabled={!isActive}>
               Top Up Now
             </WalletButton>
           </div>
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Deposit
+export default Deposit;

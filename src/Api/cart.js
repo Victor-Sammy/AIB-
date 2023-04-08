@@ -40,4 +40,4 @@ export const addToCart = async (itemID, quantity = 1) => {
 
 export const getShippingAddress = () => client.get("ad/shipping-address/");
 export const postShippingAddress = (data) =>
-  client.post("ad/shipping-address/", data);
+  client.put("ad/shipping-address/edit/", data);

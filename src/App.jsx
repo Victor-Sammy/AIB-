@@ -11,7 +11,6 @@ import CategoryPage from "./pages/category/category";
 import Cart from "./pages/cart/Cart";
 import "react-toastify/dist/ReactToastify.css";
 import ShippingAddress from "./pages/checkout/ShippingAddress";
-import Payment from "./pages/checkout/Payment";
 import SeeAllProfile from "./pages/seeAllPages/SeeAllProfile";
 import SeeAllTrends from "./pages/seeAllPages/SeeAllTrends";
 import Wallet from "./components/wallet/wallet";
@@ -76,15 +75,6 @@ const Wrapper = () => {
           element={
             <RequireAuth>
               <OrderSuccessful />
-            </RequireAuth>
-          }
-        />
-        <Route
-          exact
-          path="/payment"
-          element={
-            <RequireAuth>
-              <Payment />
             </RequireAuth>
           }
         />

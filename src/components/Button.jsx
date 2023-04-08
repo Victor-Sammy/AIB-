@@ -1,4 +1,3 @@
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import React from "react";
 import LoadingSpinner from "./vectors/LoadingSpinner";
 
