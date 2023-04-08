@@ -1,107 +1,102 @@
-import React, { useRef, useState } from 'react'
-import './edit-profile.scss'
-import { BsFillImageFill } from 'react-icons/bs'
-//import { BsPlus } from 'react-icons/bs'
-import { IoIosArrowRoundBack } from 'react-icons/io'
-import { useNavigate } from 'react-router-dom'
-import 'primereact/resources/themes/lara-light-indigo/theme.css' //theme
-import 'primereact/resources/primereact.min.css' //core css
-import 'primeicons/primeicons.css'
-import { InputText } from 'primereact/inputtext'
-import { Dropdown } from 'primereact/dropdown'
-import 'react-phone-number-input/style.css'
-//import PhoneInput from 'react-phone-number-input'
-//import { AiOutlineUser } from 'react-icons/ai'
-import { toast } from 'react-toastify'
-import { useAuth } from '../../context/AuthContext'
-import { client } from '../../Api/Api'
-import { getStoreItems } from '../../Api/store'
-import { useQuery } from '@tanstack/react-query'
+import React, { useRef, useState } from "react";
+import "./edit-profile.scss";
+import { BsFillImageFill } from "react-icons/bs";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
+import "primereact/resources/primereact.min.css";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
+import { client } from "../../Api/Api";
+import { getStoreItems } from "../../Api/store";
+import { useQuery } from "@tanstack/react-query";
 
 const EditProfile = () => {
   const storeQuery = useQuery({
-    queryKey: ['store'],
+    queryKey: ["store"],
     queryFn: getStoreItems,
-  })
-  console.log(storeQuery.data.data)
-  const storeInfo = storeQuery.data.data[0]
-  console.log(storeInfo.profile_image)
+  });
+  console.log(storeQuery.data.data);
+  const storeInfo = storeQuery.data.data[0];
+  console.log(storeInfo.profile_image);
 
-  const [coverPic, setCoverPic] = useState('')
+  const [coverPic, setCoverPic] = useState("");
   const [selectedImage, setSelectedImage] = useState(
-    `${storeInfo ? storeInfo?.profile_image : ''}`
-  )
+    `${storeInfo ? storeInfo?.profile_image : ""}`
+  );
 
   const [data, setData] = useState({
-    storeName: `${storeInfo ? storeInfo.name : ''}`,
-    location: `${storeInfo ? storeInfo?.address : ''}`,
-    delivery: `${storeInfo ? storeInfo?.delivery : ''}`,
-    description: `${storeInfo ? storeInfo?.description : ''}`,
-  })
-  const userEmail = localStorage.getItem('USER_EMAIL')
-  const { user } = useAuth()
-  console.log(user)
-  const storeId = localStorage.getItem('store-id')
+    storeName: `${storeInfo ? storeInfo.name : ""}`,
+    location: `${storeInfo ? storeInfo?.address : ""}`,
+    delivery: `${storeInfo ? storeInfo?.delivery : ""}`,
+    description: `${storeInfo ? storeInfo?.description : ""}`,
+  });
+  const userEmail = localStorage.getItem("USER_EMAIL");
+  const { user } = useAuth();
+  console.log(user);
+  const storeId = localStorage.getItem("store-id");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handle = (e) => {
-    const newData = { ...data }
-    newData[e.target.id] = e.target.value
-    setData(newData)
-    console.log(newData)
-  }
+    const newData = { ...data };
+    newData[e.target.id] = e.target.value;
+    setData(newData);
+    console.log(newData);
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData()
+    const formData = new FormData();
 
     // if (pic)
-    formData.append('profile_image', selectedImage)
-    formData.append('owner', userEmail)
-    formData.append('name', data.storeName)
-    formData.append('description', data.description)
-    formData.append('address', data.location)
-    formData.append('delivery', data.delivery)
+    formData.append("profile_image", selectedImage);
+    formData.append("owner", userEmail);
+    formData.append("name", data.storeName);
+    formData.append("description", data.description);
+    formData.append("address", data.location);
+    formData.append("delivery", data.delivery);
 
     client
       .put(`/ad/store/${storeId}/`, formData, {
         headers: {
-          'content-Type': 'multipart/form-data',
+          "content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        response.data
-        toast.success('store successfully updated')
-        navigate('/profile')
+        response.data;
+        toast.success("store successfully updated");
+        navigate("/profile");
         if (response.status !== 200) {
-          console.log(response.data)
-          toast.error('An error occurred:', response)
+          console.log(response.data);
+          toast.error("An error occurred:", response);
         }
       })
       .catch((error) => {
-        toast.error('An error occurred:', error.response)
-        console.log('An error occurred:', error.response)
-      })
-  }
+        toast.error("An error occurred:", error.response);
+        console.log("An error occurred:", error.response);
+      });
+  };
 
   const option = [
-    { label: 'True', value: 'True' },
-    { label: 'False', value: 'False' },
-  ]
+    { label: "True", value: "True" },
+    { label: "False", value: "False" },
+  ];
 
-  const filePicekerRef = useRef()
-  const filePicekerRef2 = useRef()
+  const filePicekerRef = useRef();
+  const filePicekerRef2 = useRef();
 
   const handleImageChange = (e) => {
-    const selectedFile = []
-    const targetFile = e.target.files[0]
-    const targetFilesObject = targetFile
+    const selectedFile = [];
+    const targetFile = e.target.files[0];
+    const targetFilesObject = targetFile;
     targetFilesObject &&
-      selectedFile.push(URL.createObjectURL(targetFilesObject))
-    setSelectedImage(selectedFile)
-    console.log(selectedFile)
+      selectedFile.push(URL.createObjectURL(targetFilesObject));
+    setSelectedImage(selectedFile);
+    console.log(selectedFile);
 
     // const reader = new FileReader()
     // // Gettting Selected File (user can select multiple but we are choosing only one)
@@ -114,15 +109,15 @@ const EditProfile = () => {
     //     setSelectedImage(readerEvent.target.result)
     //   }
     // }
-  }
+  };
   const handleImage = (e) => {
-    const selectedFile = []
-    const targetFile = e.target.files[0]
-    const targetFilesObject = targetFile
+    const selectedFile = [];
+    const targetFile = e.target.files[0];
+    const targetFilesObject = targetFile;
     targetFilesObject &&
-      selectedFile.push(URL.createObjectURL(targetFilesObject))
-    setCoverPic(selectedFile)
-    console.log(selectedFile)
+      selectedFile.push(URL.createObjectURL(targetFilesObject));
+    setCoverPic(selectedFile);
+    console.log(selectedFile);
 
     // const reader = new FileReader()
     // // Gettting Selected File (user can select multiple but we are choosing only one)
@@ -135,28 +130,28 @@ const EditProfile = () => {
     //     setSelectedImage(readerEvent.target.result)
     //   }
     // }
-  }
+  };
 
   return (
-    <div className='edit-page' id='edit-page'>
-      <div className='back-arr' onClick={() => navigate('/profile')}>
+    <div className="edit-page" id="edit-page">
+      <div className="back-arr" onClick={() => navigate("/profile")}>
         <IoIosArrowRoundBack />
       </div>
-      <form className='edit-box' onSubmit={handleSubmit}>
-        <div className='e-header'>
+      <form className="edit-box" onSubmit={handleSubmit}>
+        <div className="e-header">
           <span>Edit Store Profile</span>
         </div>
-        <div className='e-img' id='e-img'>
-          <div className='coverImg' id='coverImg'>
-            {coverPic && <img src={coverPic} alt='' />}
+        <div className="e-img" id="e-img">
+          <div className="coverImg" id="coverImg">
+            {coverPic && <img src={coverPic} alt="" />}
           </div>
-          <div className='img'>
-            <div className='header-icon' id='header-icon'>
-              <img src={selectedImage} alt='Store img' />
+          <div className="img">
+            <div className="header-icon" id="header-icon">
+              <img src={selectedImage} alt="Store img" />
             </div>
           </div>
           <button
-            className='edit_cover'
+            className="edit_cover"
             onClick={() => filePicekerRef2.current.click()}
           >
             Cover Photo
@@ -164,15 +159,15 @@ const EditProfile = () => {
           <input
             ref={filePicekerRef2}
             onChange={(e) => {
-              handleImage(e)
+              handleImage(e);
             }}
-            type='file'
-            accept='imag/jpeg,imag/png,imag/gif'
+            type="file"
+            accept="imag/jpeg,imag/png,imag/gif"
             hidden
           />
 
           <div
-            className='icon-load'
+            className="icon-load"
             onClick={() => filePicekerRef.current.click()}
           >
             <BsFillImageFill />
@@ -181,61 +176,61 @@ const EditProfile = () => {
           <input
             ref={filePicekerRef}
             onChange={(e) => {
-              handleImageChange(e)
+              handleImageChange(e);
             }}
-            type='file'
-            accept='imag/jpeg,imag/png,imag/gif'
+            type="file"
+            accept="imag/jpeg,imag/png,imag/gif"
             hidden
           />
         </div>
 
-        <div className='e-details'>
-          <div className='e-d-left'>
-            <div className='input'>
+        <div className="e-details">
+          <div className="e-d-left">
+            <div className="input">
               <span>Store Name</span>
               <InputText
-                id='storeName'
-                name='storeName'
+                id="storeName"
+                name="storeName"
                 value={data.storeName}
                 onChange={handle}
                 required
               />
             </div>
-            <div className='input'>
+            <div className="input">
               <span>Location</span>
               <InputText
-                type='text'
-                name='location'
-                id='location'
+                type="text"
+                name="location"
+                id="location"
                 value={data.location}
                 onChange={handle}
                 required
               />
             </div>
           </div>
-          <div className='e-d-right'>
-            <div className='input'>
+          <div className="e-d-right">
+            <div className="input">
               <span>Description</span>
               <InputText
-                type='text'
-                name='description'
-                id='description'
+                type="text"
+                name="description"
+                id="description"
                 value={data.description}
                 onChange={handle}
                 required
               />
             </div>
-            <div className='input'>
+            <div className="input">
               <span></span>
               <Dropdown
                 // optionLabel="name"
-                className='d-input'
-                name='delivery'
-                id='delivery'
+                className="d-input"
+                name="delivery"
+                id="delivery"
                 value={data.delivery}
                 options={option}
                 onChange={handle}
-                placeholder='Delivery'
+                placeholder="Delivery"
               />
               {/* <select
                 name="delivery"
@@ -251,14 +246,14 @@ const EditProfile = () => {
             </div>
           </div>
         </div>
-        <div className='e-btn'>
-          <button type='submit' onClick={handleSubmit}>
+        <div className="e-btn">
+          <button type="submit" onClick={handleSubmit}>
             UPDATE
           </button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditProfile
+export default EditProfile;

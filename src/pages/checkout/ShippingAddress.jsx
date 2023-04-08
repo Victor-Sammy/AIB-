@@ -16,15 +16,16 @@ import { useNavigate } from "react-router-dom";
 const ShippingAddress = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [shippingDetails, setShippingDetails] = useState({
-    delivery_option: "home delivery",
-    email: "example@email.com",
-    phone: "08023888552",
-    address: "123 somewhere street, in some city",
-    city: "Yaba",
-    state: "Lagos State",
-    zip: "100104",
-  });
+  const [shippingDetails, setShippingDetails] = useState({});
+  // {
+  //   delivery_option: "home delivery",
+  //   email: "example@email.com",
+  //   phone: "08023888552",
+  //   address: "123 somewhere street, in some city",
+  //   city: "Yaba",
+  //   state: "Lagos State",
+  //   zip: "100104",
+  // }
 
   const config = {
     public_key: "FLWPUBK_TEST-aebfc91f2b5783e19dd54cff43b3fc8e-X",
@@ -59,8 +60,10 @@ const ShippingAddress = () => {
     },
   });
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+
+    await postShippingAddress(shippingDetails);
 
     handleFlutterPayment({
       callback: (response) => {
@@ -75,9 +78,9 @@ const ShippingAddress = () => {
     });
   };
 
-  // useEffect(() => {
-  //   postShippingAddress(shippingDetails);
-  // }, []);
+  useEffect(() => {
+    getShippingAddress().then((data) => setShippingDetails(data.data[0]));
+  }, []);
 
   if (isLoading) return;
 
