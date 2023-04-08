@@ -13,7 +13,6 @@ import CustomButton from "../../components/form-input/button.component.jsx";
 import { useAuth } from "../../context/AuthContext";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { client } from "../../Api/Api";
 
 const ShippingAddress = () => {
@@ -35,7 +34,7 @@ const ShippingAddress = () => {
     queryFn: getOrder,
   });
 
-  console.log("order", order?.data[0].id);
+  // console.log("order", order?.data[0].id);
 
   const config = {
     public_key: "FLWPUBK_TEST-aebfc91f2b5783e19dd54cff43b3fc8e-X",
@@ -53,9 +52,9 @@ const ShippingAddress = () => {
       description: "Payment for items in cart",
       logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
     },
-    meta: {
-      order_id: order?.data[0].id,
-    },
+    // meta: {
+    //   order_id: order?.data[0].id,
+    // },
   };
 
   const { data: cart, isLoading } = useQuery({

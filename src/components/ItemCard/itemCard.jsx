@@ -7,11 +7,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { toggleItemLike } from "../../Api/products";
 import { useAuth } from "../../context/AuthContext";
-import useClient from "../../hooks/useClient";
 
 export default function ItemCard({ item }) {
   const { user } = useAuth();
-  const client = useClient();
   let location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -23,7 +21,7 @@ export default function ItemCard({ item }) {
 
   // Mutations
   const { mutate: toggleLike } = useMutation({
-    mutationFn: ({ id, add }) => client.post(`/ad/products/${id}/likes/`),
+    mutationFn: ({ id, add }) => toggleItemLike(id),
     onMutate: ({ id, add }) => {
       // Snapshot the previous value
       const previousLikedItems = queryClient.getQueryData(["userLikedItems"]);
