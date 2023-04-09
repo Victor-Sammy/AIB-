@@ -24,6 +24,7 @@ import monitorGrey from "../assets/monitorGrey.png";
 import mobilePurple from "../assets/mobilePurple.png";
 import stackPurple from "../assets/stackPurple.png";
 import { getCart } from "../Api/cart";
+import { getStoreItems } from "../Api/store";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -41,6 +42,11 @@ const Header = () => {
   const notificationQuery = useQuery({
     queryKey: ["notification"],
     queryFn: getNotifications,
+  });
+
+  const { data: store } = useQuery({
+    queryKey: ["store"],
+    queryFn: () => getStoreItems(),
   });
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -106,8 +112,13 @@ const Header = () => {
                   >
                     My Wallet
                   </div>
-                  <div className="opt" onClick={() => navigate("/profile")}>
-                    Profile
+                  {store?.data[0] && (
+                    <div className="opt" onClick={() => navigate("/profile")}>
+                      Store
+                    </div>
+                  )}
+                  <div className="opt" onClick={() => navigate("/settings")}>
+                    Settings
                   </div>
                   <div className="opt" onClick={(e) => handleLogout(e)}>
                     Logout
