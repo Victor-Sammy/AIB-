@@ -14,14 +14,9 @@ const LaptopCompInput = () => {
     brand: '',
     model: '',
     processor: '',
-    condition: '',
     ram: '',
     storageCapacity: '',
     os: '',
-    color: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subcategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -44,12 +39,9 @@ const LaptopCompInput = () => {
     formData.append('brand', data.brand)
     formData.append('model', data.model)
     formData.append('processor', data.processor)
-    formData.append('condition', data.condition)
     formData.append('ram', data.ram)
-    formData.append('color', data.color)
     formData.append('operating system', data.os)
     formData.append('storage capacity', data.storageCapacity)
-    formData.append('subCategory', data.subCategory)
     formData.append('subcategory', subCatID)
     formData.append('category', categoryID)
     formData.append('store', storeID)
@@ -78,6 +70,8 @@ const LaptopCompInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -230,30 +224,16 @@ const LaptopCompInput = () => {
                 required
               />
             </div>
-            <div className='box4'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='condition'
-                value={data.condition}
-                onChange={handle}
-                required
-              />
-            </div>
           </div>
           <div className='div-flex'>
-            <div className='box5'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
-              />
-            </div>
             <div className='box6'>
               <p>RAM</p>
-              <input type='text' id='ram' value={data.ram} onChange={handle} />
+              <input
+                type='number'
+                id='ram'
+                value={data.ram}
+                onChange={handle}
+              />
             </div>
           </div>
           <div className='div-flex'>
@@ -270,18 +250,6 @@ const LaptopCompInput = () => {
             <div className='box8'>
               <p>Operating System</p>
               <input type='text' id='os' value={data.os} onChange={handle} />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box9'>
-              <p>Color</p>
-              <input
-                type='text'
-                id='Color'
-                value={data.color}
-                onChange={handle}
-                //required
-              />
             </div>
           </div>
         </div>

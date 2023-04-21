@@ -13,9 +13,6 @@ const ElectronicsInput = () => {
     description: '',
     brand: '',
     model: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -65,6 +62,8 @@ const ElectronicsInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         navigate('/profile')
       })
@@ -202,17 +201,6 @@ const ElectronicsInput = () => {
                 id='condition'
                 value={data.model}
                 onChange={handle}
-              />
-            </div>
-          </div>
-          <div className='div-flex'>
-            <div className='box3'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>

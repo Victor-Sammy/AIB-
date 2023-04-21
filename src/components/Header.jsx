@@ -1,147 +1,151 @@
-import React, { useState } from "react";
-import "../sass/components/_header.scss";
-import { Link, useNavigate } from "react-router-dom";
-import AIBLogo from "./vectors/AIBLogo";
-import AIBTextLogo from "./vectors/AIBTextLogo";
-import UserIcon from "./vectors/UserIcon";
-import ArrowDown from "./vectors/ArrowDown";
-import WarnIcon from "./vectors/WarnIcon";
-import Cart from "./vectors/Cart";
-import Bell from "./vectors/Bell";
-import Search from "./vectors/Search";
-import { useAuth } from "../context/AuthContext";
-import { getNotifications } from "../Api/Api";
-import { useQuery } from "@tanstack/react-query";
-import Hamburger from "./vectors/Hamburger";
-import Close from "./vectors/Close";
-import manGreen from "../assets/manGreen.png";
-import ladyBlue from "../assets/ladyBlue.png";
-import plugOrange from "../assets/plugOrange.png";
-import manPurple from "../assets/manPurple.png";
-import gameOrange from "../assets/gameOrange.png";
-import sofaYellow from "../assets/sofaYellow.png";
-import monitorGrey from "../assets/monitorGrey.png";
-import mobilePurple from "../assets/mobilePurple.png";
-import stackPurple from "../assets/stackPurple.png";
-import { getCart } from "../Api/cart";
-import { getStoreItems } from "../Api/store";
+import React, { useState } from 'react'
+import '../sass/components/_header.scss'
+import { Link, useNavigate } from 'react-router-dom'
+import AIBLogo from './vectors/AIBLogo'
+import AIBTextLogo from './vectors/AIBTextLogo'
+import UserIcon from './vectors/UserIcon'
+import ArrowDown from './vectors/ArrowDown'
+import WarnIcon from './vectors/WarnIcon'
+import Cart from './vectors/Cart'
+import Bell from './vectors/Bell'
+import Search from './vectors/Search'
+import { useAuth } from '../context/AuthContext'
+import { getNotifications } from '../Api/Api'
+import { useQuery } from '@tanstack/react-query'
+import Hamburger from './vectors/Hamburger'
+import Close from './vectors/Close'
+import manGreen from '../assets/manGreen.png'
+import ladyBlue from '../assets/ladyBlue.png'
+import plugOrange from '../assets/plugOrange.png'
+import manPurple from '../assets/manPurple.png'
+import gameOrange from '../assets/gameOrange.png'
+import sofaYellow from '../assets/sofaYellow.png'
+import monitorGrey from '../assets/monitorGrey.png'
+import mobilePurple from '../assets/mobilePurple.png'
+import stackPurple from '../assets/stackPurple.png'
+import { getCart } from '../Api/cart'
+import { getStoreItems } from '../Api/store'
 
 const Header = () => {
-  const navigate = useNavigate();
-  const { logout, user } = useAuth();
-  const [navOpen, setNavOpen] = useState(false);
+  const navigate = useNavigate()
+  const { logout, user } = useAuth()
+  const [navOpen, setNavOpen] = useState(false)
 
   const handleLogout = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    logout();
-  };
+    logout()
+  }
 
   // Queries
-  const { data: cart } = useQuery({ queryKey: ["cart"], queryFn: getCart });
+  const { data: cart } = useQuery({ queryKey: ['cart'], queryFn: getCart })
   const notificationQuery = useQuery({
-    queryKey: ["notification"],
+    queryKey: ['notification'],
     queryFn: getNotifications,
-  });
+  })
 
   const { data: store } = useQuery({
-    queryKey: ["store"],
+    queryKey: ['store'],
     queryFn: () => getStoreItems(),
-  });
+  })
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('')
 
   const setSearchQueryHandler = (e) => {
     // update searchquery
-    setSearchQuery(e.target.value);
+    setSearchQuery(e.target.value)
 
     // query new products
-  };
+  }
 
   const searchSubmit = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <>
-      <div className="wrapper header">
-        <div className="header__menu">
+      <div className='wrapper header'>
+        <div className='header__menu'>
           <div
-            className="header__menu-button mobile"
+            className='header__menu-button mobile'
             onClick={() => {
-              setNavOpen(true);
+              setNavOpen(true)
             }}
           >
             <Hamburger />
           </div>
-          <Link to="/home" className="header__menu-logo">
+          <Link to='/home' className='header__menu-logo'>
             <AIBLogo />
-            <AIBTextLogo fill="#062341" />
+            <AIBTextLogo fill='#062341' />
           </Link>
         </div>
 
-        <div className="header__content">
+        <div className='header__content'>
           <form
-            className="header__content-search desktop"
+            className='header__content-search desktop'
             onSubmit={searchSubmit}
           >
             <input
-              name="search"
+              type='search'
+              name='search'
               value={searchQuery}
               onChange={setSearchQueryHandler}
-              placeholder="Search products"
+              placeholder='Search products'
             />
-            <button type="submit">
+            <button type='submit'>
               <Search />
             </button>
           </form>
 
-          <nav className="header__content-nav">
+          <nav className='header__content-nav'>
             {user ? (
-              <div className="navItem dropdown">
+              <div className='navItem dropdown'>
                 <UserIcon />
-                <span className="desktop">{user.username}</span>
+                <span className='desktop'>{user.username}</span>
                 {/* <AiOutlineCaretDown /> */}
-                <ArrowDown className="desktop" />
-                <div className="dropdown-content">
-                  <div className="topPad"></div>
-                  <div className="opt">Sell</div>
+                <ArrowDown className='desktop' />
+                <div className='dropdown-content'>
+                  <div className='topPad'></div>
+                  <div className='opt'>Sell</div>
                   <div
-                    className="opt"
-                    onClick={() => navigate("/wallet/dashboard")}
+                    className='opt'
+                    onClick={() => navigate('/wallet/dashboard')}
                   >
                     My Wallet
                   </div>
                   {store?.data[0] && (
-                    <div className="opt" onClick={() => navigate("/profile")}>
+                    <div className='opt' onClick={() => navigate('/profile')}>
                       Store
                     </div>
                   )}
-                  <div className="opt" onClick={() => navigate("/settings")}>
+                  <div
+                    className='opt'
+                    onClick={() => navigate('/settings/userSettings')}
+                  >
                     Settings
                   </div>
-                  <div className="opt" onClick={(e) => handleLogout(e)}>
+                  <div className='opt' onClick={(e) => handleLogout(e)}>
                     Logout
                   </div>
                 </div>
               </div>
             ) : (
-              <Link to="/signin" className="navItem">
+              <Link to='/signin' className='navItem'>
                 <UserIcon />
-                <span className="desktop">Login</span>
+                <span className='desktop'>Login</span>
               </Link>
             )}
 
-            <div className="navItem desktop">
+            <div className='navItem desktop'>
               <WarnIcon />
               <span>Help</span>
               <ArrowDown />
             </div>
 
-            <Link to="/cart" className="navItem">
-              <div className="indicator">
+            <Link to='/cart' className='navItem'>
+              <div className='indicator'>
                 {cart?.data.length ? (
-                  <span className="indicator-value">
+                  <span className='indicator-value'>
                     {cart.data.length
                       ? cart.data.reduce(
                           (count, item) => item.quantity + count,
@@ -152,215 +156,215 @@ const Header = () => {
                 ) : null}
                 <Cart />
               </div>
-              <span className="desktop">Cart</span>
+              <span className='desktop'>Cart</span>
             </Link>
 
-            <Link to="/notifications" className="navItem">
-              <div className="indicator">
+            <Link to='/notifications' className='navItem'>
+              <div className='indicator'>
                 {notificationQuery.data && (
-                  <span className="indicator-value">
+                  <span className='indicator-value'>
                     {notificationQuery.data.data.count}
                   </span>
                 )}
-                <Bell className="bell" />
+                <Bell className='bell' />
               </div>
             </Link>
           </nav>
         </div>
       </div>
-      <div className="wrapper headerSearch mobile">
-        <form className="header__content-search" onSubmit={searchSubmit}>
+      <div className='wrapper headerSearch mobile'>
+        <form className='header__content-search' onSubmit={searchSubmit}>
           <input
-            name="search"
+            name='search'
             value={searchQuery}
             onChange={setSearchQueryHandler}
-            placeholder="Search products"
+            placeholder='Search products'
           />
-          <button type="submit">
+          <button type='submit'>
             <Search />
           </button>
         </form>
       </div>
       {navOpen && (
         <div
-          className="navWrap"
+          className='navWrap'
           onClick={() => {
-            setNavOpen(false);
+            setNavOpen(false)
           }}
         ></div>
       )}
-      <div className={`navContent mobile ${navOpen ? "open" : ""}`}>
-        <div className="header__menu">
+      <div className={`navContent mobile ${navOpen ? 'open' : ''}`}>
+        <div className='header__menu'>
           <div
-            className="header__menu-button"
+            className='header__menu-button'
             onClick={() => {
-              setNavOpen(false);
+              setNavOpen(false)
             }}
           >
             <Close />
           </div>
           <Link
-            to="/home"
+            to='/home'
             onClick={() => {
-              setNavOpen(false);
+              setNavOpen(false)
             }}
-            className="header__menu-logo"
+            className='header__menu-logo'
           >
             <AIBLogo />
-            <AIBTextLogo fill="#062341" />
+            <AIBTextLogo fill='#062341' />
           </Link>
         </div>
 
-        <h4 className="title">Categories</h4>
+        <h4 className='title'>Categories</h4>
 
-        <ul className="categories">
+        <ul className='categories'>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={manGreen} alt="" />
+              <img src={manGreen} alt='' />
               Fashion
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={ladyBlue} alt="" />
+              <img src={ladyBlue} alt='' />
               Cars & Automobile
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={plugOrange} alt="" />
+              <img src={plugOrange} alt='' />
               Phones & Tablets
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={manPurple} alt="" />
+              <img src={manPurple} alt='' />
               Property, Housing & Hotels
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={gameOrange} alt="" />
+              <img src={gameOrange} alt='' />
               Electronics
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={sofaYellow} alt="" />
+              <img src={sofaYellow} alt='' />
               Sporting Items
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={monitorGrey} alt="" />
+              <img src={monitorGrey} alt='' />
               Musical
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={mobilePurple} alt="" />
+              <img src={mobilePurple} alt='' />
               Health & Beauty
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={stackPurple} alt="" />
+              <img src={stackPurple} alt='' />
               Furniture & Appliances
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={stackPurple} alt="" />
+              <img src={stackPurple} alt='' />
               Food, Restaurants & Agric
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={stackPurple} alt="" />
+              <img src={stackPurple} alt='' />
               Commercial Equipments
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={stackPurple} alt="" />
+              <img src={stackPurple} alt='' />
               Animals & Pets
             </Link>
           </li>
           <li>
             <Link
-              to="/product/fashion"
+              to='/product/fashion'
               onClick={() => {
-                setNavOpen(false);
+                setNavOpen(false)
               }}
             >
-              <img src={stackPurple} alt="" />
+              <img src={stackPurple} alt='' />
               Babies & Kids
             </Link>
           </li>
         </ul>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

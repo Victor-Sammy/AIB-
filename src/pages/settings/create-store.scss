@@ -1,0 +1,154 @@
+.ceateStore-pg {
+    position: absolute;
+    width: 60%;
+    height: fit-content;
+    left: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+    padding-bottom: 20px;
+    h1 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 2%;
+    }
+    .blank {
+        display: none;
+    }
+    .form-data {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .img {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            //background: #000;
+            .coverPhoto {
+                width: 80%;
+                height: 150px;
+                background: #071e50;
+                img {
+                    width: 100%;
+                    height: 150px;
+                    object-fit: cover;
+                }
+            }
+            .storePhoto {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background: #fff;
+                border: 1px solid #000;
+                z-index: 2;
+                transform: translateY(-20px);
+                img {
+                    width: 100%;
+                    height: 100px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+        }
+        .add_cover {
+            width: 20%;
+            height: 35px;
+            margin-bottom: 2%;
+            background: #616060;
+            color: #fff;
+        }
+        .add_store {
+            width: 20%;
+            height: 35px;
+            background: #c5c1c1;
+        }
+        .details {
+            width: 50%;
+            .inputDiv {
+                .input {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 5%;
+                    input {
+                        width: 100%;
+                        border-radius: 63px;
+                        //background: #c5c1c1;
+                    }
+                }
+            }
+        }
+        .btn {
+            width: 20%; 
+            margin-bottom: 5% !important;          
+            button {
+                width: 100%;
+                height: 40px;
+                border: none;
+                border-radius: 30px;
+                background: #e46b26;
+                transition: all .1s ease-in-out;
+                &:hover {
+                    background: #d15208;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    .ceateStore-pg {
+        left: 35%;
+        .form-data {
+            .img {
+                width: 90%;
+                .coverPhoto {
+                    width: 90%;
+                }
+            }
+            .details {
+                width: 80%;
+            }
+            .btn {
+                width: 30%;           
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .ceateStore-pg {
+        width: 80%;
+        left: 15%;
+        .form-data {
+            .img {
+                width: 100%;
+                .coverPhoto {
+                    width: 90%;
+                }
+            }
+            .add_cover {
+                width: 30%;
+                height: 30px;
+            }
+            .add_store {
+                width: 30%;
+                height: 30px;
+            }
+            .details {
+                width: 80%;
+            }
+            .btn {
+                width: 30%;  
+                button {
+                    height: 30px;
+                }         
+            }
+        }
+    }
+}
+

@@ -359,6 +359,38 @@
   }
 }
 
+.search-results {
+  position: absolute;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+  border: 1px solid #012348;
+  background: #fcf9f9;
+  padding-left: 2%;
+  color: #686666;
+  z-index: 3;
+}
+
+@media (max-width: 899px) {
+  .search-results {
+    position: absolute;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    border: 1px solid #012348;
+    background: #fcf9f9;
+    margin-inline:  5%;
+    margin-top: -5px;
+    font-size: 1.5rem;
+    padding-left: 2%;
+    color: #686666;
+    z-index: 3;
+  }
+}
+
 // @media (min-width: 900px ) {
 //   .header {
 //     width: 100%;

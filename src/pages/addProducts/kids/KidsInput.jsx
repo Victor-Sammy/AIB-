@@ -12,7 +12,6 @@ const KidsInput = () => {
     price: '',
     description: '',
     brand: '',
-    condition: '',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -36,7 +35,6 @@ const KidsInput = () => {
     formData.append('price', data.price)
     formData.append('description', data.description)
     formData.append('brand', data.brand)
-    formData.append('condition', data.condition)
 
     client
       .post('/ad/products/', formData, {
@@ -62,6 +60,8 @@ const KidsInput = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         localStorage.removeItem('prd-id')
         navigate('/profile')
@@ -189,15 +189,6 @@ const KidsInput = () => {
                 type='text'
                 id='brand'
                 value={data.brand}
-                onChange={handle}
-              />
-            </div>
-            <div className='box2'>
-              <p>Condition</p>
-              <input
-                type='text'
-                id='condition'
-                value={data.condition}
                 onChange={handle}
               />
             </div>

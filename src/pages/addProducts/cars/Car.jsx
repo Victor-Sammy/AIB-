@@ -13,11 +13,8 @@ const Car = () => {
     description: '',
     model: '',
     year: '',
-    mileage: '',
+    milleage: '',
     transmission: '',
-    subCategory: localStorage.getItem('sub-cat')
-      ? localStorage.getItem('sub-cat')
-      : 'no-subCategory',
   })
   const [errors, setErrors] = useState({
     selectedImages: '',
@@ -69,6 +66,8 @@ const Car = () => {
       }
       client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
         console.log(res.data)
+        localStorage.removeItem('category-id')
+        localStorage.removeItem('sub-cat')
         toast.success(`${data.name} has been successfuly added to store`)
         navigate('/profile')
       })
@@ -204,21 +203,21 @@ const Car = () => {
             <div className='box3'>
               <p>Year</p>
               <input
-                type='text'
-                id='ram'
+                type='number'
+                id='year'
                 value={data.year}
                 onChange={handle}
                 required
               />
             </div>
             <div className='box4'>
-              <p>Mileage</p>
+              <p>Milleage</p>
               <input
-                type='text'
-                id='Mileage'
-                value={data.mileage}
+                type='number'
+                id='milleage'
+                value={data.milleage}
                 onChange={handle}
-                required
+                //required
               />
             </div>
           </div>
@@ -227,19 +226,10 @@ const Car = () => {
               <p>Transmission</p>
               <input
                 type='text'
-                id='subCategory'
+                id='transmission'
                 value={data.transmission}
                 onChange={handle}
                 //required
-              />
-            </div>
-            <div className='box6'>
-              <p>Sub Category</p>
-              <input
-                type='text'
-                id='subCategory'
-                value={data.subCategory}
-                style={{ backgroundColor: '#e2d8d8' }}
               />
             </div>
           </div>
