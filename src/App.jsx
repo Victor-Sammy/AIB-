@@ -11,7 +11,6 @@ import CategoryPage from './pages/category/category'
 import Cart from './pages/cart/Cart'
 import 'react-toastify/dist/ReactToastify.css'
 import ShippingAddress from './pages/checkout/ShippingAddress'
-import Payment from './pages/checkout/Payment'
 import SeeAllProfile from './pages/seeAllPages/SeeAllProfile'
 import SeeAllTrends from './pages/seeAllPages/SeeAllTrends'
 import Wallet from './components/wallet/wallet'
@@ -35,6 +34,7 @@ import PopUp from './components/store-profile/PopUp'
 import Settings from './pages/settings/Settings'
 import UserSettings from './pages/settings/UserSettings'
 import CreateStore from './pages/settings/CreateStore'
+import OrderSuccessful from './pages/checkout/OrderSuccessful'
 
 function App() {
   axios.defaults.withCredentials = true
@@ -74,10 +74,10 @@ const Wrapper = () => {
         />
         <Route
           exact
-          path='/payment'
+          path='/order_success'
           element={
             <RequireAuth>
-              <Payment />
+              <OrderSuccessful />
             </RequireAuth>
           }
         />
@@ -88,6 +88,14 @@ const Wrapper = () => {
           element={
             <RequireAuth>
               <Wallet />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='profile'
+          element={
+            <RequireAuth>
+              <StoreProfile />
             </RequireAuth>
           }
         />

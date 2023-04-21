@@ -1,19 +1,25 @@
-import axios from 'axios'
+import axios from "axios";
 
 const BASE_URL =
-  import.meta.env.VITE_API_URL || 'https://aib-shop.up.railway.app'
-axios.defaults.baseURL = BASE_URL
+  import.meta.env.VITE_API_URL || "https://aib-shop.up.railway.app";
+axios.defaults.baseURL = BASE_URL;
 
-const token = localStorage.getItem('USER_ACCESS_TOKEN')
+const token = localStorage.getItem("USER_ACCESS_TOKEN");
 
 export const authenticatedClient = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-})
+  // headers: {
+  //   Authorization: `Bearer ${token}`,
+  // },
+});
 
-export const client = token ? authenticatedClient : axios
+authenticatedClient.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("USER_ACCESS_TOKEN");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
+});
+
+export const client = authenticatedClient;
 
 // axios.interceptors.request.use(
 //   (config) => {
@@ -30,8 +36,8 @@ export const getNotifications = () => {
   try {
     // return client.get(`/ad/notifications`);
 
-    return null
+    return null;
   } catch {
-    return null
+    return null;
   }
-}
+};

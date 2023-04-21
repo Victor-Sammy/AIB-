@@ -10,7 +10,7 @@ import Cart from './vectors/Cart'
 import Bell from './vectors/Bell'
 import Search from './vectors/Search'
 import { useAuth } from '../context/AuthContext'
-import { client, getNotifications } from '../Api/Api'
+import { getNotifications } from '../Api/Api'
 import { useQuery } from '@tanstack/react-query'
 import Hamburger from './vectors/Hamburger'
 import Close from './vectors/Close'
@@ -24,8 +24,7 @@ import monitorGrey from '../assets/monitorGrey.png'
 import mobilePurple from '../assets/mobilePurple.png'
 import stackPurple from '../assets/stackPurple.png'
 import { getCart } from '../Api/cart'
-import useDebounce from './hooks/useDebounce'
-import axios from 'axios'
+import { getStoreItems } from '../Api/store'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -45,34 +44,12 @@ const Header = () => {
     queryFn: getNotifications,
   })
 
-  const [search, setSearch] = useState('')
-
-  const debouncedSearchTerm = useDebounce(search, 300)
-
-  const {
-    data: searchResponse,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryKey: ['searchQuery', debouncedSearchTerm],
-    queryFn: () => {
-      if (debouncedSearchTerm) {
-        return client.get(`/ad/products/?search=${debouncedSearchTerm}`)
-        // .then((res) => {
-        //   console.log(res.data)
-        // })
-      }
-      return { results: [] }
-    },
+  const { data: store } = useQuery({
+    queryKey: ['store'],
+    queryFn: () => getStoreItems(),
   })
-  console.log(searchResponse?.data?.results)
 
-  {
-    isLoading && <div>...loading</div>
-  }
-  {
-    isError && <div>Error loading product</div>
-  }
+  const [searchQuery, setSearchQuery] = useState('')
 
   const setSearchQueryHandler = (e) => {
     // update searchquery
@@ -136,8 +113,13 @@ const Header = () => {
                   >
                     My Wallet
                   </div>
-                  <div className='opt' onClick={() => navigate('/profile')}>
-                    Profile
+                  {store?.data[0] && (
+                    <div className='opt' onClick={() => navigate('/profile')}>
+                      Store
+                    </div>
+                  )}
+                  <div className='opt' onClick={() => navigate('/settings')}>
+                    Settings
                   </div>
                   <div className='opt' onClick={(e) => handleLogout(e)}>
                     Logout

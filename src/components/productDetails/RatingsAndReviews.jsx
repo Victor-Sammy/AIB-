@@ -9,6 +9,7 @@ import Ratings from "../Ratings";
 import "../../sass/pages/_productDetails.scss";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import imagePlaceholder from "../../assets/userIcon.jpg";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -21,7 +22,9 @@ export default function RatingsAndReviews({ id, ratings }) {
     queryKey: ["productReviews", id],
     queryFn: () => getProductReviews(id),
   });
-  
+
+  console.log("reviews", reviews);
+
   return (
     <div className="productDetails_feedback">
       <div className="productDetails_feedback-header">
@@ -99,36 +102,10 @@ export default function RatingsAndReviews({ id, ratings }) {
             </tbody>
           </table>
         </div>
-        {reviews && (
+        {reviews?.results && (
           <div className="productDetails_feedback-reviews">
-            {reviews.map((review) => (
-              <div className="review" key={review.id}>
-                <div className="review_header">
-                  <div className="review_header-details">
-                    <img src={review.user.profileImage} alt="" />
-                    <div>
-                      <p className="name">
-                        {review.user.firstname} {review.user.lastname}
-                      </p>
-                      <p>
-                        <Ratings rating={review.rating} />
-                      </p>
-                    </div>
-                  </div>
-                  <div className="review_header-date">
-                    <p>
-                      {new Date(review.created_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </p>
-                    <p>{timeAgo.format(review.created_at)}</p>
-                  </div>
-                </div>
-                <h4>{review.title}</h4>
-                <p>{review.description}</p>
-              </div>
+            {reviews.results.map((review) => (
+              <ReviewItem review={review} key={review.id} />
             ))}
           </div>
         )}
@@ -136,3 +113,36 @@ export default function RatingsAndReviews({ id, ratings }) {
     </div>
   );
 }
+
+const ReviewItem = ({ review }) => {
+  return (
+    <div className="review" key={review.id}>
+      <div className="review_header">
+        <div className="review_header-details">
+          <img src={review.user.profileImage ?? imagePlaceholder} alt="" />
+          <div>
+            <p className="name">{review.user.username}</p>
+            <p>
+              <Ratings rating={review.rating} />
+            </p>
+          </div>
+        </div>
+        <div className="review_header-date">
+          <p>
+            {new Date(review.created_at ?? 1680526717394).toLocaleDateString(
+              "en-US",
+              {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              }
+            )}
+          </p>
+          <p>{timeAgo.format(review.created_at ?? 1680526717394)}</p>
+        </div>
+      </div>
+      {/* <h4>{review.title}</h4> */}
+      <p>{review.description}</p>
+    </div>
+  );
+};

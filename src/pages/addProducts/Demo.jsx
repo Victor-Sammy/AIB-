@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import '../../sass/pages/demo.scss'
-import { ScaleLoader } from 'react-spinners'
+import React, { useEffect, useState } from "react";
+import "../../sass/pages/demo.scss";
+import LoadingSpinner from "../../components/vectors/LoadingSpinner";
 
 function Demo() {
-  const [Data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [Data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const override = `
     display: flex;
     align-items: center;
     justify-content: center;    
     border-color: red;
-  `
+  `;
 
   const getDataFromStorage = () => {
     try {
-      const arrayOfData = localStorage.getItem('user')
-      const d = arrayOfData !== null ? JSON.parse(arrayOfData) : []
-      setLoading(false)
-      setData(d)
-      console.log(d.id)
+      const arrayOfData = localStorage.getItem("user");
+      const d = arrayOfData !== null ? JSON.parse(arrayOfData) : [];
+      setLoading(false);
+      setData(d);
+      console.log(d.id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getDataFromStorage()
-  })
+    getDataFromStorage();
+  });
 
   return (
     <>
-      <div className='demo'>
+      <div className="demo">
         {loading ? (
-          <ScaleLoader
-            css={override}
-            size={150}
-            color={'#eb4034'}
-            loading={loading}
-          />
+          <LoadingSpinner size={150} fill={"#eb4034"} />
         ) : (
           <h1>hello</h1>
         )}
@@ -49,7 +44,7 @@ function Demo() {
         ))}
       </div>
     </>
-  )
+  );
 }
 
-export default Demo
+export default Demo;

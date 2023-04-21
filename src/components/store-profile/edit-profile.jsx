@@ -1,17 +1,12 @@
 import React, { useRef, useState } from 'react'
 import './edit-profile.scss'
 import { BsFillImageFill } from 'react-icons/bs'
-//import { BsPlus } from 'react-icons/bs'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import 'primereact/resources/themes/lara-light-indigo/theme.css' //theme
-import 'primereact/resources/primereact.min.css' //core css
-import 'primeicons/primeicons.css'
+import 'primereact/resources/primereact.min.css'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
-import 'react-phone-number-input/style.css'
-//import PhoneInput from 'react-phone-number-input'
-//import { AiOutlineUser } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import { useAuth } from '../../context/AuthContext'
 import { client } from '../../Api/Api'

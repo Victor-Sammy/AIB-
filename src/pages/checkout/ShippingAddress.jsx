@@ -1,36 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../sass/pages/_shipping.scss";
 import { useQuery } from "@tanstack/react-query";
-import { getCart } from "../../Api/cart";
+import {
+  getCart,
+  getOrder,
+  getShippingAddress,
+  postShippingAddress,
+} from "../../Api/cart";
 import Check from "../../components/vectors/Check.jsx";
 import Input from "../../components/Input/Input.jsx";
 import CustomButton from "../../components/form-input/button.component.jsx";
+import { useAuth } from "../../context/AuthContext";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { useNavigate } from "react-router-dom";
+import { client } from "../../Api/Api";
 
 const ShippingAddress = () => {
-  const [shippingDetails, setShippingDetails] = useState({
-    deliveryOption: "home delivery",
-    email: "example@email.com",
-    phone: "08023888552",
-    address: "123 somewhere street, in some city",
-    city: "Yaba",
-    state: "Lagos State",
-    zip: "100104",
-  });
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [shippingDetails, setShippingDetails] = useState({});
+  // {
+  //   delivery_option: "home delivery",
+  //   email: "example@email.com",
+  //   phone: "08023888552",
+  //   address: "123 somewhere street, in some city",
+  //   city: "Yaba",
+  //   state: "Lagos State",
+  //   zip: "100104",
+  // }
+
+  // const { data: order, isLoading: isLoadingOrder } = useQuery({
+  //   queryKey: ["order"],
+  //   queryFn: getOrder,
+  // });
+
+  // console.log("order", order?.data[0].id);
+
+  const config = {
+    public_key: "FLWPUBK_TEST-aebfc91f2b5783e19dd54cff43b3fc8e-X",
+    tx_ref: Date.now(),
+    // amount: 100,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    // customer: {
+    //   email: "user@gmail.com",
+    //   phone_number: "070********",
+    //   name: "john doe",
+    // },
+    customizations: {
+      title: "AIB Checkout",
+      description: "Payment for items in cart",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+    // meta: {
+    //   order_id: order?.data[0].id,
+    // },
+  };
 
   const { data: cart, isLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
   });
 
-  const submitHandler = (e) => {
+  const handleFlutterPayment = useFlutterwave({
+    ...config,
+    amount: cart?.data.reduce((t, { price }) => t + price, 0) ?? 0,
+    customer: {
+      email: shippingDetails.email,
+      phone_number: shippingDetails.phone,
+      name: user.username,
+    },
+  });
+
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log("form submitted");
+    await postShippingAddress(shippingDetails);
+
+    handleFlutterPayment({
+      callback: async (response) => {
+        // Set order payment status to successfull
+        console.log(response);
+        if (response.status === "successful") {
+          client("");
+          navigate("/order_success");
+        }
+        closePaymentModal(); // this will close the modal programmatically
+      },
+      onClose: () => {},
+    });
   };
 
-  // useEffect(() => {
-
-  // },[])
+  useEffect(() => {
+    getShippingAddress().then((data) => setShippingDetails(data.data[0] ?? {}));
+  }, []);
 
   if (isLoading) return;
 
@@ -65,11 +128,11 @@ const ShippingAddress = () => {
               <input
                 type="radio"
                 name="delivery option"
-                checked={shippingDetails.deliveryOption === "home delivery"}
+                checked={shippingDetails.delivery_option === "home delivery"}
                 onChange={(e) =>
                   setShippingDetails((s) => ({
                     ...s,
-                    deliveryOption: "home delivery",
+                    delivery_option: "home delivery",
                   }))
                 }
               />
@@ -82,11 +145,11 @@ const ShippingAddress = () => {
               <input
                 type="radio"
                 name="delivery option"
-                checked={shippingDetails.deliveryOption === "pick from point"}
+                checked={shippingDetails.delivery_option === "pick from point"}
                 onChange={(e) =>
                   setShippingDetails((s) => ({
                     ...s,
-                    deliveryOption: "pick from point",
+                    delivery_option: "pick from point",
                   }))
                 }
               />
@@ -146,7 +209,7 @@ const ShippingAddress = () => {
         <CustomButton
           disabled={
             !(
-              shippingDetails.deliveryOption &&
+              shippingDetails.delivery_option &&
               shippingDetails.email &&
               shippingDetails.address &&
               shippingDetails.phone &&

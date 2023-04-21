@@ -148,7 +148,7 @@
       }
     }
   }
-  @media (max-width: $mobile-break-point) {
+  @media (max-width: 900px) {
     .categories {
       display: none;
     }
@@ -158,8 +158,18 @@
     }
     .cat-banner_carousel-item {
       img {
-        height: fit-content;
-        object-fit: contain;
+        height: 300px;
+        width: 100%;
+        aspect-ratio: 1 / 2;
+        object-fit: cover;
+      }
+    }
+  }
+  @media (max-width: 700px) {
+    .cat-banner_carousel-item {
+      img {
+        height: 200px;
+        width: 100%;
       }
     }
   }
