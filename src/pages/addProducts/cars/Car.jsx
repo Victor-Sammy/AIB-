@@ -13,7 +13,7 @@ const Car = () => {
     description: '',
     model: '',
     year: '',
-    mileage: '',
+    milleage: '',
     transmission: '',
   })
   const [errors, setErrors] = useState({
@@ -203,21 +203,21 @@ const Car = () => {
             <div className='box3'>
               <p>Year</p>
               <input
-                type='text'
-                id='ram'
+                type='number'
+                id='year'
                 value={data.year}
                 onChange={handle}
                 required
               />
             </div>
             <div className='box4'>
-              <p>Mileage</p>
+              <p>Milleage</p>
               <input
-                type='text'
-                id='Mileage'
-                value={data.mileage}
+                type='number'
+                id='milleage'
+                value={data.milleage}
                 onChange={handle}
-                required
+                //required
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ const Car = () => {
               <p>Transmission</p>
               <input
                 type='text'
-                id='subCategory'
+                id='transmission'
                 value={data.transmission}
                 onChange={handle}
                 //required

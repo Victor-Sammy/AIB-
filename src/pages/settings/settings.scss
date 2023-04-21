@@ -1,0 +1,157 @@
+.settings-pg {
+    width: auto;
+    margin-left: 10%;
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3%;
+    .settings-board {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 25%;
+        height: 680px;
+        background: #F9F8F8;
+        a {
+            text-decoration: inherit;
+            color: #000;
+        }
+        .settings-header {
+            width: 80%;
+            display: flex;
+            justify-content: start;
+            gap: 30px;
+            margin-top: 33px;
+            margin-bottom: 79px;
+            div {
+                font-size: 16px;
+            }
+        }
+        .s-items {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            .dashboard-item1, .dashboard-item2, .dashboard-item3, .dashboard-item4, .dashboard-item5, .dashboard-item6 {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                width: 243px;
+                height: 37px;
+                border-radius: 20px;
+                margin-bottom: 27px;
+                gap: 10px;
+                //padding-left: 5%;
+                cursor: pointer;
+                &:hover {
+                    background: #D9D9D9;
+                }
+                span {
+                    width: 28px;
+                    height: 28px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    img {
+                        width: 17.5px;
+                        height: 17.5px;
+                    }
+                }
+                div {
+                    font-size: 12px;
+                }
+            }
+            .dashboard-item1 {
+                span {
+                    border-radius: 50%;
+                    background: #C9E6ED;
+                }
+            }
+            .dashboard-item2 {
+                span {
+                    border-radius: 50%;
+                    background: #FEE7C1;
+                }
+            }
+            .dashboard-item3 {
+                span {
+                    border-radius: 50%;
+                    background: #FFDDF2;
+                }
+            }
+            .dashboard-item4 {
+                span {
+                    border-radius: 50%;
+                    background: #FFD0D0;
+                }
+            }
+            .dashboard-item5 {
+                span {
+                    border-radius: 50%;
+                    background: #FFFCB9;
+                }
+            }
+            .dashboard-item6 {
+                span {
+                    border-radius: 50%;
+                    background: #FFFCB9;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard-item1, .dashboard-item2, .dashboard-item3, .dashboard-item4, .dashboard-item5, .dashboard-item6 {
+        padding-left: 10%;
+    }
+}
+@media (max-width: 1100px) {
+    .settings-pg {
+        margin-left: 5%;
+        .settings-board {
+            width: 30%;
+        }
+    }
+}
+@media (max-width: 780px) {
+    .settings-pg {
+        margin-left: 5%;
+        .settings-board {
+            width: 34%;
+        }
+    }
+}
+@media (max-width: 500px) {
+    .settings-pg {
+        margin-left: 1%;
+        .settings-board {
+            width: 10%;
+            background: none;
+            .settings-header {
+                justify-content: center;
+                div {
+                    display: none;
+                }
+            }
+        }
+        .dashboard-item1, .dashboard-item2, .dashboard-item3, .dashboard-item4, .dashboard-item5, .dashboard-item6 {
+            width: 40px !important;
+            flex-direction: column;
+            margin-bottom: 30px !important;
+            &:hover {
+                background: none !important;
+                div {
+                    display: block;
+                    margin-left: 10px;
+                }
+            }
+            div {
+                display: none;
+                font-size: 10px !important;
+                justify-content: end;
+            }
+        }
+    }
+}

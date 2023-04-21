@@ -22,6 +22,60 @@ const Fashion = () => {
 
   const navigate = useNavigate()
 
+  const handle = (e) => {
+    const newdata = { ...data }
+    newdata[e.target.id] = e.target.value
+    setData(newdata)
+    console.log(newdata)
+  }
+
+  const onSelectFile = async (e) => {
+    // const selectedFiles = []
+    // const targetFiles = e.target.files
+    // console.log(targetFiles)
+    // const targetFilesObject = [...targetFiles]
+    // targetFilesObject.map((file) => {
+    //   return selectedFiles.push(URL.createObjectURL(file))
+    // })
+    // setSelectedImages(selectedFiles)
+    if (e.target.files) {
+      const imageArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file)
+      )
+      setSelectedImages((prevImages) => prevImages.concat(imageArray))
+      console.log(imageArray)
+
+      const blob = new Blob(imageArray)
+      console.log(selectedImages)
+
+      let fileReader = new FileReader()
+      fileReader.readAsDataURL(blob)
+      fileReader.onload = function (fileLoad) {
+        console.log(fileReader.result)
+      }
+    }
+
+    // const base64s = []
+    // for (var i = 0; i < selectedFiles.length; i++) {
+    //   var base = await convertBase64(selectedFiles[i])
+    //   base64s.push(base)
+    // }
+    //console.log(base64s)
+    //uploadMultipleImages(base64s);
+    //const file = newData[0]
+    //const base64 = await getbase64(file)
+    //console.log(base64)
+
+    // const selectedFilesArray = Array.from(selectedFiles)
+
+    // const imagesArray = selectedFilesArray.map((file) => {
+    //   return URL.createObjectURL(file)
+    // })
+    // setSelectedImages((previousImages) => previousImages.concat(imagesArray))
+    // // for bug in chrome
+    // e.target.value = ''
+  }
+
   const submitData = async (e) => {
     e.preventDefault()
     console.log(selectedImages)
@@ -43,11 +97,7 @@ const Fashion = () => {
     formData.append('sleeve_length', data.sleeveLength)
 
     client
-      .post('/ad/products/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .post('/ad/products/', formData)
       .then((res) => {
         console.log(res.status, res.data)
         localStorage.setItem('prd-id', res.data.id)
@@ -61,47 +111,32 @@ const Fashion = () => {
 
     setTimeout(() => {
       const prdID = localStorage.getItem('prd-id')
+      const token = localStorage.getItem('USER_ACCESS_TOKEN')
       const formDt = new FormData()
-      for (let img of selectedImages) {
-        formDt.append('image', img)
+      // for (let img of selectedImages) {
+      //   formDt.append('image', img)
+      // }
+      //formDt.append('upload_preset', 'lfrco1u3')
+      if (selectedImages.length > 0) {
+        for (let i = 0; i < selectedImages.length; i++) {
+          formDt.append('image', selectedImages[i])
+        }
       }
-      client.post(`/ad/products/${prdID}/images/`, formDt).then((res) => {
-        console.log(res.data)
-        localStorage.removeItem('category-id')
-        localStorage.removeItem('sub-cat')
-        toast.success(`${data.name} has been successfuly added to store`)
-        navigate('/profile')
-      })
+      client
+        .post(`/ad/products/${prdID}/images/`, formDt, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data)
+          localStorage.removeItem('category-id')
+          localStorage.removeItem('sub-cat')
+          toast.success(`${data.name} has been successfuly added to store`)
+          navigate('/profile')
+        })
     }, 3000)
-  }
-
-  const handle = (e) => {
-    const newdata = { ...data }
-    newdata[e.target.id] = e.target.value
-    setData(newdata)
-    console.log(newdata)
-  }
-
-  const onSelectFile = async (e) => {
-    const selectedFiles = []
-    const targetFiles = e.target.files
-    const targetFilesObject = [...targetFiles]
-    targetFilesObject.map((file) => {
-      return selectedFiles.push(URL.createObjectURL(file))
-    })
-    setSelectedImages(selectedFiles)
-    //const file = newData[0]
-    //const base64 = await getbase64(file)
-    //console.log(base64)
-
-    // const selectedFilesArray = Array.from(selectedFiles)
-
-    // const imagesArray = selectedFilesArray.map((file) => {
-    //   return URL.createObjectURL(file)
-    // })
-    // setSelectedImages((previousImages) => previousImages.concat(imagesArray))
-    // // for bug in chrome
-    // e.target.value = ''
   }
 
   function deleteHandler(e) {
@@ -122,7 +157,7 @@ const Fashion = () => {
                 <div className='file-input'>
                   <input
                     type='file'
-                    name='uploaded_images'
+                    name='image'
                     multiple
                     onInvalid={errors.selectedImages}
                     id='uploaded_images'

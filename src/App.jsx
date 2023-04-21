@@ -32,6 +32,9 @@ import LandingPage from './pages/landingPage'
 import SuccessfullSignUp from './components/signup/successfullSignUp'
 import ProductDetails from './components/productDetails/ProductDetails'
 import PopUp from './components/store-profile/PopUp'
+import Settings from './pages/settings/Settings'
+import UserSettings from './pages/settings/UserSettings'
+import CreateStore from './pages/settings/CreateStore'
 
 function App() {
   axios.defaults.withCredentials = true
@@ -88,14 +91,6 @@ const Wrapper = () => {
             </RequireAuth>
           }
         />
-        <Route
-          path='profile'
-          element={
-            <RequireAuth>
-              <StoreProfile />
-            </RequireAuth>
-          }
-        />
 
         <Route path='profile' element={<StoreProfile />} />
 
@@ -116,6 +111,25 @@ const Wrapper = () => {
         <Route path='/otp' element={<Otp />} />
         <Route path='/changePassword' element={<ChangePassword />} />
         <Route path='/resetSuccess' element={<ResetSuccess />} />
+
+        <Route path='/settings' element={<Settings />}>
+          <Route
+            path='createStore'
+            element={
+              <RequireAuth>
+                <CreateStore />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path='userSettings'
+            element={
+              <RequireAuth>
+                <UserSettings />
+              </RequireAuth>
+            }
+          />
+        </Route>
       </Routes>
       <Footer />
       <ToastContainer position='bottom-right' />
