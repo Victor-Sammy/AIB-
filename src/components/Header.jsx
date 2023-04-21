@@ -53,7 +53,7 @@ const Header = () => {
 
   const setSearchQueryHandler = (e) => {
     // update searchquery
-    setSearch(e.target.value)
+    setSearchQuery(e.target.value)
 
     // query new products
   }
@@ -88,7 +88,7 @@ const Header = () => {
             <input
               type='search'
               name='search'
-              value={search}
+              value={searchQuery}
               onChange={setSearchQueryHandler}
               placeholder='Search products'
             />
@@ -118,7 +118,10 @@ const Header = () => {
                       Store
                     </div>
                   )}
-                  <div className='opt' onClick={() => navigate('/settings')}>
+                  <div
+                    className='opt'
+                    onClick={() => navigate('/settings/userSettings')}
+                  >
                     Settings
                   </div>
                   <div className='opt' onClick={(e) => handleLogout(e)}>
@@ -173,7 +176,7 @@ const Header = () => {
         <form className='header__content-search' onSubmit={searchSubmit}>
           <input
             name='search'
-            value={search}
+            value={searchQuery}
             onChange={setSearchQueryHandler}
             placeholder='Search products'
           />
@@ -360,9 +363,6 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      {searchResponse?.data?.results.map((item) => {
-        return <div className='search-results'>{item.name}</div>
-      })}
     </>
   )
 }

@@ -21,6 +21,7 @@
     "javascript-time-ago": "^2.5.9",
     "primereact": "^9.0.0-beta.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-chartjs-2": "^5.2.0",
     "react-credit-cards": "^0.8.3",
     "react-date-range": "^1.4.0",
