@@ -106,7 +106,7 @@ const CreateStore = () => {
 
   return (
     <div className='ceateStore-pg'>
-      {storeQuery && (
+      {storeQuery.data.length === 1 && (
         <>
           <h1>You already have a store</h1>
           <p>
@@ -123,7 +123,7 @@ const CreateStore = () => {
       )}
       <h1 className={storeQuery ? 'blank' : ''}>Create a new store</h1>
       <form
-        className={storeQuery ? 'blank' : 'form-data'}
+        className={storeQuery.data.length === 1 ? 'blank' : 'form-data'}
         onSubmit={handleSubmit}
       >
         <div className='img'>
