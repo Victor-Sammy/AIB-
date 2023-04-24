@@ -111,6 +111,7 @@ const Fashion = () => {
 
     setTimeout(() => {
       const prdID = localStorage.getItem('prd-id')
+      console.log(prdID)
       const token = localStorage.getItem('USER_ACCESS_TOKEN')
       const formDt = new FormData()
       // for (let img of selectedImages) {
@@ -133,6 +134,7 @@ const Fashion = () => {
           console.log(res.data)
           localStorage.removeItem('category-id')
           localStorage.removeItem('sub-cat')
+          localStorage.removeItem('prd-id')
           toast.success(`${data.name} has been successfuly added to store`)
           navigate('/profile')
         })
