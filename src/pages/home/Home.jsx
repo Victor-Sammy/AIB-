@@ -15,7 +15,7 @@ const Home = () => {
       <BannerCat />
       <CategoryPreview
         slug="trending"
-        title="Trending Now"
+        title="Trending Now now"
         requestPath="/ad/trending/"
         fullListPath="/"
         className="trendingPreview"
