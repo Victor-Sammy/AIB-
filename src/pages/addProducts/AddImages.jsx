@@ -19,7 +19,7 @@ const AddImages = () => {
     selectedImages: '',
   })
 
-  const url = 'ttp://6fcf-155-94-250-124.ngrok.io/ad/products/'
+  const url = 'http://127.0.0.1:8000/ad/products/'
 
   //const navigate = useNavigate()
 
